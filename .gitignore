@@ -1,0 +1,35 @@
+# File types #
+##############
+*.pyc
+*.swo
+*.swp
+*.swn
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+
+# Directories #
+###############
+logs/
+project-docs/
+.idea/
+db/
+media/*
+static/*
+
+# Specific files #
+##################
+*/settings/local.py
+secret_key.py
+
+# OS generated files #
+######################
+.DS_Store?
+ehthumbs.db
+Icon?
+Thumbs.db
+*~
