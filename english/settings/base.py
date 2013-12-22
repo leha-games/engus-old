@@ -35,6 +35,7 @@ INSTALLED_APPS = (
 
     # Application base, containing global templates.
     'english.apps.base',
+    'english.apps.dict',
 
     # Local apps, referenced via english.appname
 
