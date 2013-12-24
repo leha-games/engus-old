@@ -5,5 +5,4 @@ from .models import Word
 class WordSerializer(serializers.ModelSerializer):
     class Meta:
         model = Word
-        fields = ('word', )
-        read_only_fields = ('word', )
+        fields = ('word', 'transcription', 'mueller_definition', )

@@ -1,2 +1,9 @@
-<div class="dictionary__word" ng-bind-html="word.worddef">
+<div class="dictionary__word">
+    <h1 class="dictionary__headword">
+        {{ word.word.word }}
+    </h1>
+    <div class="dictionary__headword-transcription">
+        {{ word.word.transcription }}
+    </div>
+    <div class="dictionary__definition">{{ word.word.mueller_definition }}</div>
 </div>

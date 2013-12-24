@@ -1,5 +1,7 @@
 from django.views.generic import DetailView
+from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
+from rest_framework.generics import RetrieveAPIView
 from rest_framework.response import Response
 from .models import Word
 from .serializers import WordSerializer
@@ -11,15 +13,7 @@ class WordListView(APIView):
         return Response(data)
 
 
-class WordDetailView(DetailView):
-    model = Word
-
-    def get_object(self):
-        word = Word.objects.get(word=self.kwargs['word'])
-        return word
-
-    def get_template_names(self):
-        if self.request.is_ajax():
-            return 'dictionary/word.html'
-        else:
-            return 'dictionary/word_detail.html'
+class WordDetailView(RetrieveAPIView):
+    queryset = Word.objects.all()
+    serializer_class = WordSerializer
+    lookup_field = "word"
