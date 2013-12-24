@@ -24,7 +24,9 @@
 </head>
 <body class="page">
     {% block body %}
-    
+        <section ng-app="engusApp">
+            <div ui-view></div>
+        </section>
     {% endblock %}
 
     {% if not debug %}
