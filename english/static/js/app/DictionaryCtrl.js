@@ -12,11 +12,26 @@ angular.module('engusApp').controller('DictionaryCtrl',
     }
 ]);
 angular.module('engusApp').controller('DictionaryWordCtrl',
-    ['$sce', 'DictionaryWord',
-    function($sce, DictionaryWord) {
+    ['DictionaryWord',
+    function(DictionaryWord) {
         this.word = DictionaryWord.data;
-        console.log(this.word);
     }
 ]);
-
+angular.module('engusApp').directive('blurOnSubmit', function() {
+    return function(scope, element, attrs) {
+        var formOfElement = angular.element(element[0].form);
+        formOfElement.bind('submit', function() {
+            element[0].blur();
+        });
+    };
+});
+angular.module('engusApp').directive('blurWithTimeout', 
+    ['$timeout', function($timeout) {
+        return function(scope, element, attrs) {
+            element.on('blur', function(event) {
+                $timeout(function() { scope.$eval(attrs.blurWithTimeout) }, 50);
+            });
+        };
+    }]
+);
 
