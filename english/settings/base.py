@@ -35,7 +35,6 @@ INSTALLED_APPS = (
     'south',
 
     # Application base, containing global templates.
-    'english.apps.base',
     'english.apps.dictionary',
     'english.apps.account',
 
