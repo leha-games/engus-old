@@ -118,13 +118,32 @@ button {
   *zoom: 1;
 }
 .dictionary {
-  margin: 3rem 0;
+  margin: 1.5rem 0;
 }
 .dictionary__word {
   margin: 1rem 0;
 }
 .dictionary__headword {
   font-size: 2.3rem;
+  display: inline-block;
+  margin-right: 1.1rem;
+}
+.dictionary__word-star {
+  display: inline-block;
+  font-size: 1.5rem;
+  color: rgba(0,0,255,0.35);
+  cursor: pointer;
+  -webkit-transition: color 0.2s;
+  -moz-transition: color 0.2s;
+  -o-transition: color 0.2s;
+  -ms-transition: color 0.2s;
+  transition: color 0.2s;
+}
+.dictionary__word-star:hover {
+  color: #00f;
+}
+.dictionary__word-star.active {
+  color: #ffa500;
 }
 .dictionary__headword-transcription {
   font-size: 1.3rem;
@@ -181,42 +200,11 @@ button {
 .dictionary__search-dropdown-item-link:focus {
   background-color: #ff0;
 }
-.dictionary__add-to-userwords-btn {
-  display: inline-block;
-  color: #00f;
-  cursor: pointer;
-  margin-left: 1rem;
-}
-.dictionary__add-to-userwords-btn:hover {
-  border-bottom: 1px solid #00f;
-}
 .dictionary__definition {
   margin: 0.5rem 0 1rem 0;
 }
-.dictionary__definition ol {
-  counter-reset: item;
-  margin-left: 0.7rem;
-}
-.dictionary__definition ol > li {
-  margin: 0.2rem 0;
-  counter-increment: item;
-}
-.dictionary__definition ol > li:before {
-  display: inline-block;
-  padding-right: 0.5rem;
-  content: counter(item) ".";
-  font-weight: bold;
-}
-.dictionary__definition ol.upperroman > li:before {
-  content: counter(item, upper-roman) ".";
-  font-size: 1.2rem;
-  color: #00f;
-}
-.dictionary__definition ol p,
-.dictionary__definition ol dl,
-.dictionary__definition ol dd,
-.dictionary__definition ol dt {
-  display: inline;
+.dictionary__definition_type_mueller {
+  white-space: pre-line;
 }
 .html {
   font-size: 20px;

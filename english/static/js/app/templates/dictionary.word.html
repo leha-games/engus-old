@@ -1,9 +1,12 @@
 <div class="dictionary__word">
+    <header class="dictionary__word-header">
     <h1 class="dictionary__headword">
-        {{ word.word.word }}
+        {{ WordCtrl.word.word }}
     </h1>
+    <i class="fa fa-star-o dictionary__word-star"></i>
+    </header>
     <div class="dictionary__headword-transcription">
-        {{ word.word.transcription }}
+        {{ WordCtrl.word.transcription }}
     </div>
-    <div class="dictionary__definition">{{ word.word.mueller_definition }}</div>
+    <div class="dictionary__definition dictionary__definition_type_mueller">{{ WordCtrl.word.mueller_definition.trim() }}</div>
 </div>

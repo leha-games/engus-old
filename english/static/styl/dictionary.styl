@@ -1,5 +1,5 @@
 .dictionary {
-    margin: 3rem 0;
+    margin: 1.5rem 0;
 
     &__word {
         margin: 1rem 0;
@@ -7,6 +7,24 @@
 
     &__headword {
         font-size: 2.3rem;
+        display: inline-block;
+        margin-right: 1.1rem;
+    }
+
+    &__word-star {
+        display: inline-block;
+        font-size: 1.5rem;
+        color: rgba(0,0,255,0.35);
+        cursor: pointer;
+        transition: color 0.2s;
+
+        &:hover {
+            color: rgba(0,0,255,1);
+        }
+
+        &.active {
+            color: orange;
+        }
     }
 
     &__headword-transcription {
@@ -69,52 +87,15 @@
         }
     }
 
-
-    &__add-to-userwords-btn {
-        display: inline-block;
-        color: blue;
-        cursor: pointer;
-        margin-left: 1rem;
-
-        &:hover {
-            border-bottom: 1px solid blue;
-        }
-    }
-
     &__definition {
         margin: 0.5rem 0 1rem 0;
 
-        ol {
-            counter-reset: item;
-            margin-left: 0.7rem;
+        &_type {
 
-            > li {
-                margin: 0.2rem 0;
-                counter-increment: item;
-
-                &:before {
-                    display: inline-block;
-                    padding-right: 0.5rem;
-                    content: counter(item) ".";
-                    font-weight: bold;
-                }
-            }
-
-            &.upperroman {
-                > li {
-                    &:before {
-                        content: counter(item, upper-roman) ".";
-                        font-size: 1.2rem;
-                        color: blue;
-                    }
-                }
-            }
-
-            p, dl, dd, dt {
-                display: inline;
+            &_mueller {
+                white-space: pre-line;
             }
         }
     }
-
 }
 
