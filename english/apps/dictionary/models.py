@@ -15,6 +15,8 @@ class Word(models.Model):
     weight = models.PositiveIntegerField(null=True, blank=True)
     short_translation = models.CharField(max_length=64, blank=True)
     mueller_definition = models.TextField(blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ['word', ]
@@ -54,6 +56,8 @@ class WordForm(models.Model):
     word = models.ForeignKey(Word)
     form = models.SmallIntegerField(choices=WORD_FORM_CHOICES)
     headword = models.ForeignKey(Word, null=True, blank=True, related_name='headword_for')
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
 
 
 class Definition(models.Model):
@@ -85,12 +89,16 @@ class Definition(models.Model):
     russian_definition = models.TextField(blank=True)
     weight = models.SmallIntegerField(default=0)
     illustration = models.ImageField(upload_to=make_upload_path, null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
     
 
 class DefinitionExample(models.Model):
     definition = models.ForeignKey(Definition)
     example = models.TextField()
     russian_translation = models.TextField(blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
 
 
 class Sentence(models.Model):
@@ -98,3 +106,5 @@ class Sentence(models.Model):
     sentence = models.TextField()
     translation = models.TextField(blank=True)
     level = models.PositiveIntegerField(null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
