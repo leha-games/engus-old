@@ -125,11 +125,9 @@ button {
 }
 .dictionary__headword {
   font-size: 2.3rem;
-  display: inline-block;
 }
 .dictionary__headword-transcription {
   font-size: 1.3rem;
-  margin-left: 1rem;
   display: inline-block;
   color: #555;
 }
@@ -179,7 +177,8 @@ button {
   color: #000;
   text-decoration: none;
 }
-.dictionary__search-dropdown-item-link:hover {
+.dictionary__search-dropdown-item-link:hover,
+.dictionary__search-dropdown-item-link:focus {
   background-color: #ff0;
 }
 .dictionary__add-to-userwords-btn {
@@ -228,7 +227,7 @@ button {
   font-family: Georgia, serif;
   font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
   line-height: 1.4;
-  max-width: 900px;
+  max-width: 650px;
   margin: 0 auto;
   padding: 0 1.2rem;
 }
