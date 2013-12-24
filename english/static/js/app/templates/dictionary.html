@@ -1,0 +1,14 @@
+<section class="dictionary">
+    <form class="dictionary__search-form" ng-submit="dict.search(word)">
+        <input class="dictionary__search-input" type="text" placeholder="Поиск слова" blur-on-submit ng-model="dict.word" autocomplete="off" ng-focus="isFocusOnSearch=true" blur-with-timeout="isFocusOnSearch=false">
+        <ul class="dictionary__search-dropdown" ng-if="dict.word && isFocusOnSearch">
+            <li class="dictionary__search-dropdown-item" ng-repeat="word in dict.dictionary | filter:dict.word:dict.startsWith | limitTo: 30">
+                <a class="dictionary__search-dropdown-item-link" ui-sref="dictionary.word({ word: word })" ng-click="dict.word=''; event.stopPropagation()">{{ word }}</a>
+            </li>
+            <li class="dictionary__search-dropdown-item dictionary__search-dropdown-item_state_notfound" ng-if="(dict.dictionary | filter:dict.word:dict.startsWith).length===0">
+                Слово не найдено
+            </li>
+        </ul>
+    </form>
+    <div ui-view></div>
+</section>

@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" class="html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0; maximum-scale=1.0;">      
-    <title>{% block pagetitle %}{% if page_title %}{{ page_title }}. {% endif %}{% endblock %}Название сайта</title>
+    <title>{% block pagetitle %}{% if page_title %}{{ page_title }}. {% endif %}{% endblock %}Engus. Изучение английского языка</title>
     {% load staticfiles %}
     <link rel="shortcut icon" href="{% static "dist/img/favicon.ico" %}" type="image/x-icon">
     <meta name="description" content="" />
@@ -12,13 +12,19 @@
     <link rel="stylesheet" href="{% static "dist/css/global.css" %}"/>
     {% block extrastyles %}{% endblock %}
 
-    <script type="text/javascript" src="{% static "dist/js/global.min.js" %}"></script>
+    <script src="{% static "js/lib/underscore.min.js" %}"></script>
+    <script src="{% static "js/lib/angular.min.js" %}"></script>
+    <script src="{% static "js/lib/angular-ui-router.min.js" %}"></script>
+    <script src="{% static "js/lib/restangular.min.js" %}"></script>
+    <script src="{% static "js/app/app.js" %}"></script>
+    <script src="{% static "js/app/DictionaryCtrl.js" %}"></script>
     {% block extrascripts %}{% endblock %}
 
     {% block extrahead %}{% endblock %}
 </head>
 <body class="page">
     {% block body %}
+    
     {% endblock %}
 
     {% if not debug %}

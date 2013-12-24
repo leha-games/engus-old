@@ -29,13 +29,15 @@ INSTALLED_APPS = (
     # Third-party apps, patches, fixes
     'pytils',
     'easy_thumbnails',
+    'rest_framework',
 
     # Database migrations
     'south',
 
     # Application base, containing global templates.
     'english.apps.base',
-    'english.apps.dict',
+    'english.apps.dictionary',
+    'english.apps.account',
 
     # Local apps, referenced via english.appname
 
@@ -79,6 +81,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+APPEND_SLASH = False
+
 
 
 
@@ -86,3 +90,5 @@ STATIC_URL = '/static/'
 
 # easy-thumbnails
 THUMBNAIL_SUBDIR = 'thumbs'
+
+

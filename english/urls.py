@@ -7,6 +7,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     (r'', include('english.apps.base.urls')),
+    (r'^dictionary/', include('english.apps.dictionary.urls')),
     (r'^englishadmin/', include(admin.site.urls)),
 )
 

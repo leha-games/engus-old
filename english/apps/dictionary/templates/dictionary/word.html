@@ -1,0 +1,11 @@
+<h1 class="dictionary__headword">
+    {{ object.word }}
+</h1>
+<div class="dictionary__headword-transcription">
+{{ object.transcription }}
+</div>
+{% if user.is_authenticated %}
+    <div class="dictionary__add-to-userwords-btn">Изучить</div>
+{% endif %}
+{% load resttext %}
+<div class="dictionary__definition">{{ object.mueller_definition|restructuredtext }}</div>

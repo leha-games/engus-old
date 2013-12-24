@@ -1,0 +1,122 @@
+.dictionary {
+    margin: 3rem 0;
+
+    &__word {
+        margin: 1rem 0;
+    }
+
+    &__headword {
+        font-size: 2.3rem;
+        display: inline-block;
+    }
+
+    &__headword-transcription {
+        font-size: 1.3rem;
+        margin-left: 1rem;
+        display: inline-block;
+        color: #555;
+    }
+
+    &__search-form {
+        position: relative;
+    }
+
+    &__search-input {
+        display: block;
+        box-sizing: border-box;
+        height: 2.4rem;
+        width: 100%;
+        line-height: 2rem;
+        padding: 0.2rem 0.5rem;
+        margin: 0;
+        outline: none;
+        box-shadow: none;
+        border: 1px solid #aaa;
+        border-radius: 0;
+    }
+
+    &__search-dropdown {
+        position: absolute;
+        width: 100%;
+        max-height: 20rem;
+        overflow: scroll;
+        box-sizing: border-box;
+        top: 2.4rem;
+        background-color: #fff;
+        border: 1px solid #aaa;
+        border-top: none;
+        box-shadow: 0 1px 6px rgba(0,0,0,0.2);
+    }
+
+    &__search-dropdown-item {
+
+        &_state {
+            
+            &_notfound {
+                padding: 0.3rem 0.5rem;
+                color: #999;
+                font-style: italic;
+            }
+        }
+    }
+
+    &__search-dropdown-item-link {
+        display: block;
+        padding: 0.3rem 0.5rem;
+        color: #000;
+        text-decoration: none;
+
+        &:hover {
+            background-color: yellow;
+        }
+    }
+
+
+    &__add-to-userwords-btn {
+        display: inline-block;
+        color: blue;
+        cursor: pointer;
+        margin-left: 1rem;
+
+        &:hover {
+            border-bottom: 1px solid blue;
+        }
+    }
+
+    &__definition {
+        margin: 0.5rem 0 1rem 0;
+
+        ol {
+            counter-reset: item;
+            margin-left: 0.7rem;
+
+            > li {
+                margin: 0.2rem 0;
+                counter-increment: item;
+
+                &:before {
+                    display: inline-block;
+                    padding-right: 0.5rem;
+                    content: counter(item) ".";
+                    font-weight: bold;
+                }
+            }
+
+            &.upperroman {
+                > li {
+                    &:before {
+                        content: counter(item, upper-roman) ".";
+                        font-size: 1.2rem;
+                        color: blue;
+                    }
+                }
+            }
+
+            p, dl, dd, dt {
+                display: inline;
+            }
+        }
+    }
+
+}
+

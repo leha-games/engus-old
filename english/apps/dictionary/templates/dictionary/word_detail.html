@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+
+{% block extrascripts %}
+    {% load staticfiles %}
+    <script src="{% static "js/lib/underscore.min.js" %}"></script>
+    <script src="{% static "js/lib/angular.min.js" %}"></script>
+    <script src="{% static "js/lib/angular-ui-router.min.js" %}"></script>
+    <script src="{% static "js/lib/restangular.min.js" %}"></script>
+    <script src="{% static "js/dictionary/app.js" %}"></script>
+    <script src="{% static "js/dictionary/DictionaryCtrl.js" %}"></script>
+{% endblock %}
+
+{% block body %}
+<section ng-app="dictionaryApp">
+    {% comment %}
+    <form ng-submit="dict.search(word);">
+        <input type="text" placeholder="Поиск слова"  ng-model="word">
+    </form>
+    {% endcomment %}
+    <div ui-view></div>
+    <div ui-sref="state1"></div>
+    {% comment %}
+    <article class="worddef" ng-bind-html="worddef">
+        {% include "dictionary/word.html" %}
+    </article>
+    {% endcomment %}
+</section>
+{% endblock %}
