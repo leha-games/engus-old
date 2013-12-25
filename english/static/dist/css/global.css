@@ -124,9 +124,9 @@ button {
   margin: 1rem 0;
 }
 .dictionary__headword {
-  font-size: 2.3rem;
+  font-size: 2.5rem;
   display: inline-block;
-  margin-right: 1.1rem;
+  margin-right: 0.8rem;
 }
 .dictionary__word-star {
   display: inline-block;
@@ -203,8 +203,27 @@ button {
 .dictionary__definition {
   margin: 0.5rem 0 1rem 0;
 }
-.dictionary__definition_type_mueller {
-  white-space: pre-line;
+.dictionary__muellerdef-numbers1 {
+  font-weight: bold;
+  color: #008000;
+}
+.dictionary__muellerdef-numbers2 {
+  font-weight: bold;
+}
+.dictionary__muellerdef-numbers3 {
+  color: #888;
+}
+.dictionary__muellerdef-numbers4 {
+  color: #555;
+}
+.dictionary__muellerdef-level2 {
+  display: block;
+  margin: 0.5rem 0 0.2rem;
+}
+.dictionary__muellerdef-level3 {
+  display: block;
+  margin: 0.2rem 0;
+  margin-left: 0.5rem;
 }
 .html {
   font-size: 20px;
