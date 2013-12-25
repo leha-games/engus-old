@@ -8,5 +8,5 @@
     <div class="dictionary__headword-transcription">
         {{ WordCtrl.word.transcription }}
     </div>
-    <div class="dictionary__definition dictionary__definition_type_mueller">{{ WordCtrl.word.mueller_definition.trim() }}</div>
+    <div class="dictionary__definition dictionary__definition_type_mueller" ng-bind-html="WordCtrl.word.mueller_definition.trim() | mueller"></div>
 </div>

@@ -34,4 +34,18 @@ angular.module('engusApp').directive('blurWithTimeout',
         };
     }]
 );
+angular.module('engusApp').filter('mueller', function($sce) {
+    return function(input) {
+        var out;
+        out = input.replace(/(\S{1})>/g, 
+            '<span class="dictionary__muellerdef-numbers4">$1)</span>'); // fourth level. a> б> в>
+        out = out.replace(/(\d{1,3})\)(.*)/g, 
+            '<div class="dictionary__muellerdef-level3"><span class="dictionary__muellerdef-numbers3">$1)</span>$2</div>'); // third level. 1) 2) 3)
+        out = out.replace(/(\d{1,3}\.)(.*)\n/g, 
+            '<div class="dictionary__muellerdef-level2"><span class="dictionary__muellerdef-numbers2">$1</span>$2</div>'); // second level. 1. 2. 3.
+        out = out.replace(/(?=[IVX])(X{0,3}I{0,3}|X{0,2}VI{0,3}|X{0,2}I?[VX])\)/g, 
+            '<span class="dictionary__muellerdef-numbers1">$1.</span>'); // first level. I) II) III)
+        return $sce.trustAsHtml(out); 
+    }
+});
 
