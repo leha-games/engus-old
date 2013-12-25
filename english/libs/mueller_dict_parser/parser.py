@@ -110,7 +110,7 @@ def parse_dictionary(filepath):
             translation = first_level_delimeter(translation)
             translation = second_level_delimeter(translation)
             translation = third_level_delimeter(translation)
-            translation = fourth_level_delimeter(translation)
-            translation = translation.strip('\n')
+            #translation = fourth_level_delimeter(translation)
+            #translation = translation.strip('\n')
             # Fill Django models
             fill_models(word, transcription, translation)
