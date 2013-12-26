@@ -26,6 +26,17 @@
 <body class="page">
     {% block body %}
         <section ng-app="engusApp">
+            <ul class="topmenu">
+                <li class="topmenu__item" ng-class="{ active: $state.includes('home') }">
+                    <a class="topmenu__item-link" ui-sref="home"><i class="fa fa-home topmenu__item-icon"></i> Моя страница</a>
+                </li>
+                <li class="topmenu__item" ng-class="{ active: $state.includes('dictionary') }">
+                    <a class="topmenu__item-link" ui-sref="dictionary"><i class="fa fa-book topmenu__item-icon"></i> Словарь</a>
+                </li>
+                <li class="topmenu__item" ng-class="{ active: $state.includes('cards') }">
+                    <a class="topmenu__item-link" ui-sref="cards"><i class="fa fa-star-o topmenu__item-icon"></i> Карточки</a>
+                </li>
+            </ul>
             <div ui-view></div>
         </section>
     {% endblock %}

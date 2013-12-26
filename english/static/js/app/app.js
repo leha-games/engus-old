@@ -25,5 +25,20 @@ angular.module('engusApp', ['restangular', 'ui.router'])
                         return $http.get('/dictionary/' + $stateParams.word);
                     }
                 }
+            })
+            .state('home', {
+                url: '/home/',
+                template: ''
+            })
+            .state('cards', {
+                url: '/cards/',
+                template: ''
             });
-}]);
+    }
+])
+.run(['$rootScope', '$state', '$stateParams',
+    function($rootScope, $state, $stateParams) {
+        $rootScope.$state = $state;
+        $rootScope.$stateParams = $stateParams;
+    }
+]);
