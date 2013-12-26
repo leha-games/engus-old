@@ -3,6 +3,8 @@ from .models import Word, Definition
 
 
 class DefinitionSerializer(serializers.ModelSerializer):
+    part_of_speach = serializers.Field(source='get_part_of_speach_display')
+    
     class Meta:
         model = Definition
         fields = ('weight', 'part_of_speach', 'definition', 'russian_definition', 'illustration', 'example', 'example_russian_translation', 'example_illustration', )

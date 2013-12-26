@@ -72,14 +72,14 @@ class Definition(models.Model):
     CONJUCTION = 7
     INTERJECTION = 8
     PART_OF_SPEACH_CHOICES = (
-            (NOUN, 'Noun'),
-            (PRONOUN, 'Pronoun'),
-            (ADJECTIVE, 'Adjective'),
-            (VERB, 'Verb'),
-            (ADVERB, 'Adverb'),
-            (PREPOSITION, 'Predosition'),
-            (CONJUCTION, 'Conjuction'),
-            (INTERJECTION, 'Interjection'),
+            (NOUN, 'noun'),
+            (PRONOUN, 'pronoun'),
+            (ADJECTIVE, 'adjective'),
+            (VERB, 'verb'),
+            (ADVERB, 'adverb'),
+            (PREPOSITION, 'predosition'),
+            (CONJUCTION, 'conjuction'),
+            (INTERJECTION, 'interjection'),
     )
 
     def make_upload_path(instance, filename):
@@ -99,3 +99,6 @@ class Definition(models.Model):
     """ Meta data fields: """
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return self.definition

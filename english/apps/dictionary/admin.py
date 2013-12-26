@@ -7,6 +7,7 @@ from .models import Word, Definition
 class DefinitionInline(admin.StackedInline):
     model = Definition
     extra = 0
+    ordering = ['part_of_speach', 'weight', ]
     formfield_overrides = {
         models.CharField: {'widget': TextInput(attrs={'size':'150'})},
     }
@@ -14,7 +15,8 @@ class DefinitionInline(admin.StackedInline):
 
 class WordAdmin(admin.ModelAdmin):
     search_fields = ['word']
-    list_display = ('word', 'transcription', 'public', )
+    ordering = ['modified', ]
+    list_display = ('word', 'transcription', 'public', 'created', 'modified', )
     inlines = [
         DefinitionInline,
     ]
