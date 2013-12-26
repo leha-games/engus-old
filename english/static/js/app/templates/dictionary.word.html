@@ -10,11 +10,24 @@
         <ol class="dictionay__definition-list">
             <li class="dictionary__definition-item" ng-repeat="definition in WordCtrl.word.definition_set | orderBy:'weight'">
                 {{ definition.definition }}
-                <div class="dictionary__definition-example">
-                    {{ definition.example }} — {{ definition.example_russian_translation }}
+                <div class="dictionary__definition-example" 
+                    ng-click="showIllustration = true"  
+                    ng-hide="showIllustration"
+                    ng-class="{ 'with-illustration': definition.example_illustration }" 
+                    ng-mouseover="exampleHover = true" 
+                    ng-mouseleave="exampleHover = false">
+                    {{ definition.example }} 
+                    <i ng-if="definition.example_illustration" class="fa fa-picture-o dictionary__definition-example-illustration-icon" ng-class="{ 'hover': exampleHover }"></i>
+                    — {{ definition.example_russian_translation }}
+                </div>
+                <div ng-if="definition.example_illustration" ng-show="showIllustration" class="dictionary__definition-example-with-illustration">
+                    <img class="dictionary__definition-illustration" ng-src="{{ definition.example_illustration }}">
+                    <div class="dictionary__definition-illustration-text">
+                        {{ definition.example }}
+                    </div>
                 </div>
             </li>
         </ol>
     </section>
-    <div class="dictionary__mueller-definition" ng-if="!WordCtrl.word.definition_set ng-bind-html="WordCtrl.word.mueller_definition.trim() | mueller"></div>
+    <div class="dictionary__mueller-definition" ng-if="WordCtrl.word.definition_set.length === 0" ng-bind-html="WordCtrl.word.mueller_definition.trim() | mueller"></div>
 </div>

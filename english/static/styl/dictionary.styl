@@ -31,6 +31,7 @@
         font-size: 1.3rem;
         display: inline-block;
         color: #555;
+        margin: 0.2rem 0;
 
         &.with-audio {
             cursor: pointer;
@@ -124,6 +125,44 @@
         font-style: italic;
         color: #777;
         margin-top: 0.1rem;
+
+        &.with-illustration {
+            cursor: pointer;
+        }
+    }
+
+    &__definition-example-illustration-icon {
+        font-size: 0.9rem;
+        margin-left: 0.3rem;
+        color: #aaa;
+
+        &.hover {
+            color: green;
+        }
+    }
+
+    &__definition-example-with-illustration {
+        position: relative;
+        margin: 0.7rem 0 2rem;
+    }
+
+    &__definition-illustration {
+        max-width: 100%;
+        display: block;
+    }
+
+    &__definition-illustration-text {
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 0.5rem 1rem;
+        background-color: rgba(0,0,0,0.5);
+        color: #fff;
+        text-align: center;
+        font-style: italic;
+        font-size: 1.1rem;
     }
 
     &__mueller-definition {
