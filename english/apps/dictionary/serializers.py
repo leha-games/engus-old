@@ -2,8 +2,18 @@ from rest_framework import serializers
 from .models import Word, Definition
 
 
+class UrlFileField(serializers.FileField): 
+    def to_native(self, value): 
+        if value:
+            return value.url
+        else:
+            return None
+
+
 class DefinitionSerializer(serializers.ModelSerializer):
     part_of_speach = serializers.Field(source='get_part_of_speach_display')
+    illustration = UrlFileField('illustration')
+    example_illustration = UrlFileField('example_illustration')
     
     class Meta:
         model = Definition
