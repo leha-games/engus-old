@@ -235,6 +235,10 @@ button {
 .dictionary__definition-example.with-illustration {
   cursor: pointer;
 }
+.dictionary__definition-example > span > .bold {
+  color: #666;
+  font-weight: bold;
+}
 .dictionary__definition-example-illustration-icon {
   font-size: 0.9rem;
   margin-left: 0.3rem;
@@ -245,7 +249,8 @@ button {
 }
 .dictionary__definition-example-with-illustration {
   position: relative;
-  margin: 0.7rem 0 2rem;
+  margin: 0.3rem 0 2rem;
+  cursor: pointer;
 }
 .dictionary__definition-illustration {
   max-width: 100%;
@@ -259,10 +264,14 @@ button {
   right: 0;
   padding: 0.5rem 1rem;
   background-color: rgba(0,0,0,0.5);
-  color: #fff;
+  color: rgba(255,255,255,0.8);
   text-align: center;
   font-style: italic;
   font-size: 1.1rem;
+}
+.dictionary__definition-illustration-text > .bold {
+  font-weight: bold;
+  color: #fff;
 }
 .dictionary__mueller-definition {
   margin: 1rem 0;

@@ -11,20 +11,19 @@
             <li class="dictionary__definition-item" ng-repeat="definition in WordCtrl.word.definition_set | orderBy:'weight'">
                 {{ definition.definition }}
                 <div class="dictionary__definition-example" 
-                    ng-click="showIllustration = true"  
-                    ng-hide="showIllustration"
+                    ng-click="example.showIllustration = true"  
+                    ng-hide="example.showIllustration"
                     ng-class="{ 'with-illustration': definition.example_illustration }" 
                     ng-mouseover="exampleHover = true" 
                     ng-mouseleave="exampleHover = false">
-                    {{ definition.example }} 
+
+                    <span ng-bind-html="definition.example | markWord:WordCtrl.word.word"></span>
                     <i ng-if="definition.example_illustration" class="fa fa-picture-o dictionary__definition-example-illustration-icon" ng-class="{ 'hover': exampleHover }"></i>
                     — {{ definition.example_russian_translation }}
                 </div>
-                <div ng-if="definition.example_illustration" ng-show="showIllustration" class="dictionary__definition-example-with-illustration">
+                <div ng-if="definition.example_illustration" ng-show="example.showIllustration" ng-click="example.showIllustration = false" class="dictionary__definition-example-with-illustration">
                     <img class="dictionary__definition-illustration" ng-src="{{ definition.example_illustration }}">
-                    <div class="dictionary__definition-illustration-text">
-                        {{ definition.example }}
-                    </div>
+                    <div class="dictionary__definition-illustration-text" ng-bind-html="definition.example | markWord:WordCtrl.word.word"></div>
                 </div>
             </li>
         </ol>

@@ -34,7 +34,7 @@ angular.module('engusApp').directive('blurWithTimeout',
         };
     }]
 );
-angular.module('engusApp').filter('mueller', function($sce) {
+angular.module('engusApp').filter('mueller', ['$sce', function($sce) {
     return function(input) {
         var out;
         out = input.replace(/(\S{1})>/g, 
@@ -47,7 +47,15 @@ angular.module('engusApp').filter('mueller', function($sce) {
             '<span class="dictionary__muellerdef-numbers1">$1.</span>'); // first level. I) II) III)
         return $sce.trustAsHtml(out); 
     }
-});
+}]);
+angular.module('engusApp').filter('markWord', ['$sce', function($sce) {
+    return function(input, word) {
+        var out;
+        var re = new RegExp('((?:' + word + ')\\w*)', 'g');
+        out = input.replace(re, '<b class="bold">$1</b>');
+        return $sce.trustAsHtml(out);
+    }
+}]);
 angular.module('engusApp').directive('transcription', function() {
     return {
         restrict: 'A',
