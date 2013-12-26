@@ -149,11 +149,13 @@ button {
   font-size: 1.3rem;
   display: inline-block;
   color: #555;
+}
+.dictionary__headword-transcription.with-audio {
   cursor: pointer;
 }
 .dictionary__headword-transcription-audio {
   font-size: 1rem;
-  margin-left: 0.2rem;
+  margin-left: 0.5rem;
 }
 .dictionary__headword-transcription-audio.hover {
   color: #ffa500;
@@ -208,21 +210,29 @@ button {
 .dictionary__search-dropdown-item-link:focus {
   background-color: #ff0;
 }
-.dictionary__definition {
-  margin: 0.8rem 0 1rem 0;
+.dictionary__definitions {
+  margin: 1rem 0 5rem;
 }
-.dictionary__muellerdef-numbers1 {
+.dictionary__definition-list {
+  counter-reset: item;
+}
+.dictionary__definition-item {
+  margin-bottom: 0.7rem;
+  counter-increment: item;
+}
+.dictionary__definition-item:before {
+  content: counter(item) ".";
+  display: inline-block;
+  margin-right: 0.3rem;
   font-weight: bold;
-  color: #008000;
 }
-.dictionary__muellerdef-numbers2 {
-  font-weight: bold;
+.dictionary__definition-example {
+  font-style: italic;
+  color: #777;
+  margin-top: 0.1rem;
 }
-.dictionary__muellerdef-numbers3 {
-  color: #888;
-}
-.dictionary__muellerdef-numbers4 {
-  color: #555;
+.dictionary__mueller-definition {
+  margin: 1rem 0;
 }
 .dictionary__muellerdef-level2 {
   display: block;

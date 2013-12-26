@@ -5,14 +5,16 @@
     </h1>
     <i class="fa fa-star-o dictionary__word-star"></i>
     </header>
-    <div class="dictionary__headword-transcription" ng-mouseenter="transcriptionHover = true" ng-mouseleave="transcriptionHover = false" onclick="document.getElementById('transcription-audio').play()">
-        [{{ WordCtrl.word.transcription }}]
-        <span ng-if="WordCtrl.word.audio">
-            <i class="fa fa-volume-up dictionary__headword-transcription-audio" ng-class="{ hover: transcriptionHover }"></i>
-            <audio id="transcription-audio" src="{{ WordCtrl.word.audio }}" preload="auto">
-                <source src="{{ WordCtrl.word.audio }}" type="audio/mpeg"> 
-            </audio>
-        </span>
-    </div>
-    <div class="dictionary__definition dictionary__definition_type_mueller" ng-bind-html="WordCtrl.word.mueller_definition.trim() | mueller"></div>
+    <transcription transcription="{{ WordCtrl.word.transcription }}" audio-src="{{ WordCtrl.word.audio }}"></transcription>
+    <section class="dictionary__definitions" ng-if="WordCtrl.word.definition_set">
+        <ol class="dictionay__definition-list">
+            <li class="dictionary__definition-item" ng-repeat="definition in WordCtrl.word.definition_set | orderBy:'weight'">
+                {{ definition.definition }}
+                <div class="dictionary__definition-example">
+                    {{ definition.example }} — {{ definition.example_russian_translation }}
+                </div>
+            </li>
+        </ol>
+    </section>
+    <div class="dictionary__mueller-definition" ng-bind-html="WordCtrl.word.mueller_definition.trim() | mueller"></div>
 </div>

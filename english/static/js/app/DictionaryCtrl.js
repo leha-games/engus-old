@@ -48,4 +48,39 @@ angular.module('engusApp').filter('mueller', function($sce) {
         return $sce.trustAsHtml(out); 
     }
 });
-
+angular.module('engusApp').directive('transcription', function() {
+    return {
+        restrict: 'A',
+        replace: true,
+        template: 
+            '<div class="dictionary__headword-transcription" ng-mouseenter="transcriptionHover = true" ng-mouseleave="transcriptionHover = false">' +
+                '<span>' +
+                    '<i class="fa fa-volume-up dictionary__headword-transcription-audio" ng-class="{ hover: transcriptionHover }"></i>' +
+                    '<audio id="transcription-audio" preload="auto">' +
+                        '<source type="audio/mpeg">' +
+                    '</audio>' +
+                '</span>' +
+            '</div>',
+        link: function(scope, element, attrs) {
+            var audioSrc = attrs.audioSrc,
+                transcription = attrs.transcription,
+                soundElement = element.children(),
+                audioElements = soundElement.find('audio');
+            if (transcription) {
+                element.prepend('[' + transcription + ']');
+                if (audioSrc) {
+                    var sourceElement = audioElements.find('source')[0];
+                    sourceElement.src = audioSrc;
+                    element.bind('click', function() {
+                        audioElements[0].play()
+                    });
+                    element.addClass('with-audio');
+                } else {
+                    soundElement.remove();
+                };
+            } else {
+                element.remove();
+            };
+        }
+    }
+});

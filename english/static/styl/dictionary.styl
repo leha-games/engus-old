@@ -31,12 +31,15 @@
         font-size: 1.3rem;
         display: inline-block;
         color: #555;
-        cursor: pointer;
+
+        &.with-audio {
+            cursor: pointer;
+        }
     }
 
     &__headword-transcription-audio {
         font-size: 1rem;
-        margin-left: 0.2rem;
+        margin-left: 0.5rem;
 
         &.hover {
             color: orange;
@@ -97,35 +100,34 @@
         }
     }
 
-    &__definition {
-        margin: 0.8rem 0 1rem 0;
+    &__definitions {
+        margin: 1rem 0 5rem;
+    }
 
-        &_type {
+    &__definition-list {
+        counter-reset: item;
+    }
 
-            &_mueller {
+    &__definition-item {
+        margin-bottom: 0.7rem;
+        counter-increment: item;
 
-            }
+        &:before {
+            content: counter(item) ".";
+            display: inline-block;
+            margin-right: 0.3rem;
+            font-weight: bold;
         }
     }
 
-    &__muellerdef-numbers1 {
-        font-weight: bold;
-        color: green;
+    &__definition-example {
+        font-style: italic;
+        color: #777;
+        margin-top: 0.1rem;
     }
 
-    &__muellerdef-numbers2 {
-        font-weight: bold;
-        //color: blue;
-    }
-
-    &__muellerdef-numbers3 {
-        //color: orange;
-        color: #888;
-    }
-
-    &__muellerdef-numbers4 {
-        //color: orange;
-        color: #555;
+    &__mueller-definition {
+        margin: 1rem 0;
     }
 
     &__muellerdef-level2 {
