@@ -7,9 +7,9 @@ from .models import Word
 from .serializers import WordSerializer
 
 
-class WordListView(APIView):
+class FlatWordListView(APIView):
     def get(self, request, format=None):
-        data = [word.word for word in Word.objects.all()]
+        data = [word.word for word in Word.objects.filter(public=True)]
         return Response(data)
 
 

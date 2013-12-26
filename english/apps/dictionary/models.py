@@ -86,27 +86,16 @@ class Definition(models.Model):
         return u"definition/%s/%s" % (instance.word.pk, filename)
 
     word = models.ForeignKey(Word)
-    part_of_speach = models.SmallIntegerField(choices=PART_OF_SPEACH_CHOICES)
-    definition = models.TextField(blank=True)
-    russian_definition = models.TextField(blank=True)
+    """ Definition fields: """
     weight = models.SmallIntegerField(default=0)
+    part_of_speach = models.SmallIntegerField(choices=PART_OF_SPEACH_CHOICES)
+    definition = models.CharField(max_length=255, blank=True)
+    russian_definition = models.CharField(max_length=255, blank=True)
     illustration = models.ImageField(upload_to=make_upload_path, null=True, blank=True)
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
-    
-
-class DefinitionExample(models.Model):
-    definition = models.ForeignKey(Definition)
-    example = models.TextField()
-    russian_translation = models.TextField(blank=True)
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
-
-
-class Sentence(models.Model):
-    word = models.ForeignKey(Word)
-    sentence = models.TextField()
-    translation = models.TextField(blank=True)
-    level = models.PositiveIntegerField(null=True, blank=True)
+    """ Example fields: """
+    example = models.CharField(max_length=255, blank=True)
+    example_russian_translation = models.CharField(max_length=255, blank=True)
+    example_illustration = models.ImageField(upload_to="definition_example/%Y_%m_%d", null=True, blank=True)
+    """ Meta data fields: """
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
