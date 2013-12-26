@@ -149,7 +149,6 @@ button {
   font-size: 1.3rem;
   display: inline-block;
   color: #555;
-  margin: 0.2rem 0;
 }
 .dictionary__headword-transcription.with-audio {
   cursor: pointer;
@@ -161,61 +160,23 @@ button {
 .dictionary__headword-transcription-audio.hover {
   color: #ffa500;
 }
-.dictionary__search-form {
-  position: relative;
-}
-.dictionary__search-input {
-  display: block;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  height: 2.4rem;
-  width: 100%;
-  line-height: 2rem;
-  padding: 0.2rem 0.5rem;
-  margin: 0;
-  outline: none;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  border: 1px solid #aaa;
-  -webkit-border-radius: 0;
-  border-radius: 0;
-}
-.dictionary__search-dropdown {
-  position: absolute;
-  width: 100%;
-  max-height: 20rem;
-  overflow: scroll;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  top: 2.4rem;
-  background-color: #fff;
-  border: 1px solid #aaa;
-  border-top: none;
-  -webkit-box-shadow: 0 1px 6px rgba(0,0,0,0.2);
-  box-shadow: 0 1px 6px rgba(0,0,0,0.2);
-}
-.dictionary__search-dropdown-item_state_notfound {
-  padding: 0.3rem 0.5rem;
-  color: #999;
-  font-style: italic;
-}
-.dictionary__search-dropdown-item-link {
-  display: block;
-  padding: 0.3rem 0.5rem;
-  color: #000;
-  text-decoration: none;
-}
-.dictionary__search-dropdown-item-link:hover,
-.dictionary__search-dropdown-item-link:focus {
-  background-color: #ff0;
-}
 .dictionary__definitions {
   margin: 1rem 0 5rem;
 }
 .dictionary__definition-list {
   counter-reset: item;
+}
+.dictionary__definition-group-item {
+  margin-bottom: 1rem;
+}
+.dictionary__definition-group-name {
+  font-weight: bold;
+  font-style: italic;
+  margin-bottom: 0.3rem;
+  font-size: 1.1rem;
+}
+.dictionary__definition-group-name-icon {
+  margin-right: 0.5rem;
 }
 .dictionary__definition-item {
   margin-bottom: 0.7rem;
@@ -284,6 +245,56 @@ button {
   display: block;
   margin: 0.2rem 0;
   margin-left: 0.5rem;
+}
+.dictionary__search-form {
+  position: relative;
+}
+.dictionary__search-input {
+  display: block;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 2.4rem;
+  width: 100%;
+  line-height: 2rem;
+  padding: 0.2rem 0.5rem;
+  margin: 0;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: 1px solid #aaa;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+.dictionary__search-dropdown {
+  position: absolute;
+  width: 100%;
+  max-height: 20rem;
+  overflow: scroll;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  top: 2.4rem;
+  background-color: #fff;
+  border: 1px solid #aaa;
+  border-top: none;
+  -webkit-box-shadow: 0 1px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.2);
+}
+.dictionary__search-dropdown-item_state_notfound {
+  padding: 0.3rem 0.5rem;
+  color: #999;
+  font-style: italic;
+}
+.dictionary__search-dropdown-item-link {
+  display: block;
+  padding: 0.3rem 0.5rem;
+  color: #000;
+  text-decoration: none;
+}
+.dictionary__search-dropdown-item-link:hover,
+.dictionary__search-dropdown-item-link:focus {
+  background-color: #ff0;
 }
 .topmenu {
   display: -webkit-box;

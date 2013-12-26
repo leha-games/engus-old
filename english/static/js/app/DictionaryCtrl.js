@@ -14,7 +14,8 @@ angular.module('engusApp').controller('DictionaryCtrl',
 angular.module('engusApp').controller('DictionaryWordCtrl',
     ['DictionaryWord',
     function(DictionaryWord) {
-        this.word = DictionaryWord.data;
+        var word = this.word = DictionaryWord.data;
+        word.definitionsGroups = _.groupBy(word.definition_set, 'part_of_speach');
     }
 ]);
 angular.module('engusApp').directive('blurOnSubmit', function() {

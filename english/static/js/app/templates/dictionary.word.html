@@ -7,26 +7,32 @@
     </header>
     <transcription transcription="{{ WordCtrl.word.transcription }}" audio-src="{{ WordCtrl.word.audio }}"></transcription>
     <section class="dictionary__definitions" ng-if="WordCtrl.word.definition_set">
-        <ol class="dictionay__definition-list">
-            <li class="dictionary__definition-item" ng-repeat="definition in WordCtrl.word.definition_set | orderBy:'weight'">
-                {{ definition.definition }}
-                <div class="dictionary__definition-example" 
-                    ng-click="example.showIllustration = true"  
-                    ng-hide="example.showIllustration"
-                    ng-class="{ 'with-illustration': definition.example_illustration }" 
-                    ng-mouseover="exampleHover = true" 
-                    ng-mouseleave="exampleHover = false">
+        <ul class="dictionary__definition-group-list">
+            <li class="dictionary__definition-group-item" ng-repeat="(groupName, definitionsGroup) in WordCtrl.word.definitionsGroups">
+                <h1 class="dictionary__definition-group-name"><i class="fa fa-angle-right dictionary__definition-group-name-icon"></i>{{ groupName }}</h1>
+                <ol class="dictionary__definition-list">
+                    <li class="dictionary__definition-item" ng-repeat="definition in definitionsGroup | orderBy:'weight'">
+                        {{ definition.definition }}
+                        <div class="dictionary__definition-example" 
+                            ng-click="!!(definition.example_illustration) && (example.showIllustration = true)"  
+                            ng-hide="!!(example.showIllustration)"
+                            ng-class="{ 'with-illustration': definition.example_illustration }" 
+                            ng-mouseover="exampleHover = true" 
+                            ng-mouseleave="exampleHover = false">
 
-                    <span ng-bind-html="definition.example | markWord:WordCtrl.word.word"></span>
-                    <i ng-if="definition.example_illustration" class="fa fa-picture-o dictionary__definition-example-illustration-icon" ng-class="{ 'hover': exampleHover }"></i>
-                    — {{ definition.example_russian_translation }}
-                </div>
-                <div ng-if="definition.example_illustration" ng-show="example.showIllustration" ng-click="example.showIllustration = false" class="dictionary__definition-example-with-illustration">
-                    <img class="dictionary__definition-illustration" ng-src="{{ definition.example_illustration }}">
-                    <div class="dictionary__definition-illustration-text" ng-bind-html="definition.example | markWord:WordCtrl.word.word"></div>
-                </div>
+                            <span ng-bind-html="definition.example | markWord:WordCtrl.word.word"></span>
+                            <i ng-if="definition.example_illustration" class="fa fa-picture-o dictionary__definition-example-illustration-icon" ng-class="{ 'hover': exampleHover }"></i>
+                            — {{ definition.example_russian_translation }}
+                        </div>
+                        <div ng-if="definition.example_illustration" ng-show="example.showIllustration" ng-click="example.showIllustration = false" class="dictionary__definition-example-with-illustration">
+                            <img class="dictionary__definition-illustration" ng-src="{{ definition.example_illustration }}">
+                            <div class="dictionary__definition-illustration-text" ng-bind-html="definition.example | markWord:WordCtrl.word.word"></div>
+                        </div>
+                    </li>
+                </ol>
+
             </li>
-        </ol>
+        </ul>
     </section>
     <div class="dictionary__mueller-definition" ng-if="WordCtrl.word.definition_set.length === 0" ng-bind-html="WordCtrl.word.mueller_definition.trim() | mueller"></div>
 </div>
