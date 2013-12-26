@@ -5,10 +5,10 @@
     </h1>
     <i class="fa fa-star-o dictionary__word-star"></i>
     </header>
-    <div class="dictionary__headword-transcription" ng-mouseenter="transcriptionActive = true" ng-mouseleave="transcriptionActive = false" onclick="document.getElementById('transcription-audio').play()">
+    <div class="dictionary__headword-transcription" ng-mouseenter="transcriptionHover = true" ng-mouseleave="transcriptionHover = false" onclick="document.getElementById('transcription-audio').play()">
         [{{ WordCtrl.word.transcription }}]
         <span ng-if="WordCtrl.word.audio">
-            <i class="fa fa-volume-up dictionary__headword-transcription-audio" ng-class="{ active: transcriptionActive }"></i>
+            <i class="fa fa-volume-up dictionary__headword-transcription-audio" ng-class="{ hover: transcriptionHover }"></i>
             <audio id="transcription-audio" src="{{ WordCtrl.word.audio }}" preload="auto">
                 <source src="{{ WordCtrl.word.audio }}" type="audio/mpeg"> 
             </audio>

@@ -155,7 +155,7 @@ button {
   font-size: 1rem;
   margin-left: 0.2rem;
 }
-.dictionary__headword-transcription-audio.active {
+.dictionary__headword-transcription-audio.hover {
   color: #ffa500;
 }
 .dictionary__search-form {
