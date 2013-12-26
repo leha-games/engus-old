@@ -19,6 +19,7 @@ project-docs/
 .idea/
 db/
 media/*
+english/media/*
 static/*
 
 # Specific files #
