@@ -218,6 +218,7 @@ button {
   position: relative;
   margin: 0.3rem 0 2rem;
   cursor: pointer;
+  overflow: hidden;
 }
 .dictionary__definition-illustration {
   max-width: 100%;

@@ -26,7 +26,7 @@
                                     <i ng-if="example.illustration" class="fa fa-picture-o dictionary__definition-example-illustration-icon" ng-class="{ 'hover': exampleHover }"></i>
                                     <span ng-if="example.russian_translation">— {{ example.russian_translation }}</span>
                                 </div>
-                                <div ng-if="example.illustration" ng-show="example.showIllustration" ng-click="example.showIllustration = false" class="dictionary__definition-example-with-illustration">
+                                <div ng-if="example.illustration && example.showIllustration" ng-click="example.showIllustration = false" class="dictionary__definition-example-with-illustration">
                                     <img class="dictionary__definition-illustration" ng-src="{{ example.illustration }}">
                                     <div class="dictionary__definition-illustration-text" ng-bind-html="example.text | markWord:WordCtrl.word.word"></div>
                                 </div>
