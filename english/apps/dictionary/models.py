@@ -95,7 +95,7 @@ class Definition(models.Model):
     modified = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return self.definition
+        return u'%s. %s. %d. %s' % (self.word, self.get_part_of_speach_display(), self.weight, self.definition)
 
 
 class Example(models.Model):
