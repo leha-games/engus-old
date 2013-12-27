@@ -1,6 +1,10 @@
 .dictionary {
     margin: 1.5rem 0;
 
+    @media (max-width: 400px) {
+        padding: 0 1rem;
+    }
+
     &__word {
         margin: 1rem 0;
     }
@@ -168,6 +172,7 @@
         box-shadow: none;
         border: 1px solid #aaa;
         border-radius: 0;
+        -webkit-appearance: none;
     }
 
     &__search-dropdown {

@@ -10,6 +10,10 @@ global-reset()
 
 .html {
     font-size: 20px;
+
+    @media (max-width: 400px) {
+        font-size: 17px;
+    }
 }
 
 .page {
@@ -21,4 +25,8 @@ global-reset()
     max-width: 650px;
     margin: 0 auto;
     padding: 0 1.2rem;
+
+    @media (max-width: 400px) {
+        padding: 0;
+    }
 }
