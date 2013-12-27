@@ -13,21 +13,25 @@
                 <ol class="dictionary__definition-list">
                     <li class="dictionary__definition-item" ng-repeat="definition in definitionsGroup | orderBy:'weight'">
                         {{ definition.definition }}
-                        <div class="dictionary__definition-example" 
-                            ng-click="!!(definition.example_illustration) && (example.showIllustration = true)"  
-                            ng-hide="!!(example.showIllustration)"
-                            ng-class="{ 'with-illustration': definition.example_illustration }" 
-                            ng-mouseover="exampleHover = true" 
-                            ng-mouseleave="exampleHover = false">
+                        <ul ng-if="definition.example_set">
+                            <li>
+                                <div class="dictionary__definition-example" 
+                                    ng-click="!!(definition.example_illustration) && (example.showIllustration = true)"  
+                                    ng-hide="!!(example.showIllustration)"
+                                    ng-class="{ 'with-illustration': definition.example_illustration }" 
+                                    ng-mouseover="exampleHover = true" 
+                                    ng-mouseleave="exampleHover = false">
 
-                            <span ng-bind-html="definition.example | markWord:WordCtrl.word.word"></span>
-                            <i ng-if="definition.example_illustration" class="fa fa-picture-o dictionary__definition-example-illustration-icon" ng-class="{ 'hover': exampleHover }"></i>
-                            — {{ definition.example_russian_translation }}
-                        </div>
-                        <div ng-if="definition.example_illustration" ng-show="example.showIllustration" ng-click="example.showIllustration = false" class="dictionary__definition-example-with-illustration">
-                            <img class="dictionary__definition-illustration" ng-src="{{ definition.example_illustration }}">
-                            <div class="dictionary__definition-illustration-text" ng-bind-html="definition.example | markWord:WordCtrl.word.word"></div>
-                        </div>
+                                    <span ng-bind-html="definition.example | markWord:WordCtrl.word.word"></span>
+                                    <i ng-if="definition.example_illustration" class="fa fa-picture-o dictionary__definition-example-illustration-icon" ng-class="{ 'hover': exampleHover }"></i>
+                                    — {{ definition.example_russian_translation }}
+                                </div>
+                                <div ng-if="definition.example_illustration" ng-show="example.showIllustration" ng-click="example.showIllustration = false" class="dictionary__definition-example-with-illustration">
+                                    <img class="dictionary__definition-illustration" ng-src="{{ definition.example_illustration }}">
+                                    <div class="dictionary__definition-illustration-text" ng-bind-html="definition.example | markWord:WordCtrl.word.word"></div>
+                                </div>
+                            </li>
+                        </ul>
                     </li>
                 </ol>
 

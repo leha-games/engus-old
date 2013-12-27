@@ -86,19 +86,26 @@ class Definition(models.Model):
         return u"definition/%s/%s" % (instance.word.pk, filename)
 
     word = models.ForeignKey(Word)
-    """ Definition fields: """
     weight = models.SmallIntegerField(default=0)
     part_of_speach = models.SmallIntegerField(choices=PART_OF_SPEACH_CHOICES)
     definition = models.CharField(max_length=255, blank=True)
     russian_definition = models.CharField(max_length=255, blank=True)
     illustration = models.ImageField(upload_to=make_upload_path, null=True, blank=True)
-    """ Example fields: """
-    example = models.CharField(max_length=255, blank=True)
-    example_russian_translation = models.CharField(max_length=255, blank=True)
-    example_illustration = models.ImageField(upload_to="definition_example/%Y_%m_%d", null=True, blank=True)
-    """ Meta data fields: """
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return self.definition
+
+
+class Example(models.Model):
+    definition = models.ForeignKey(Definition)
+    text = models.CharField(max_length=255)
+    russian_translation = models.CharField(max_length=255, blank=True)
+    illustration = models.ImageField(upload_to="definition_examples/%Y_%m_%d", null=True, blank=True)
+    level = models.PositiveIntegerField(null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return self.text
