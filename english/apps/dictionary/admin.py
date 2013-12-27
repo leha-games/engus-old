@@ -24,7 +24,7 @@ class DefinitionInline(admin.StackedInline):
 class WordAdmin(admin.ModelAdmin):
     search_fields = ['word']
     ordering = ['-modified', ]
-    list_display = ('word', 'transcription', 'public', 'created', 'modified', )
+    list_display = ('word', 'transcription', 'is_public', 'created', 'modified', )
     inlines = [
         DefinitionInline,
     ]

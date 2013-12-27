@@ -24,7 +24,7 @@
 
                                     <span ng-bind-html="example.text | markWord:WordCtrl.word.word"></span>
                                     <i ng-if="example.illustration" class="fa fa-picture-o dictionary__definition-example-illustration-icon" ng-class="{ 'hover': exampleHover }"></i>
-                                    — {{ example.russian_translation }}
+                                    <span ng-if="example.russian_translation">— {{ example.russian_translation }}</span>
                                 </div>
                                 <div ng-if="example.illustration" ng-show="example.showIllustration" ng-click="example.showIllustration = false" class="dictionary__definition-example-with-illustration">
                                     <img class="dictionary__definition-illustration" ng-src="{{ example.illustration }}">

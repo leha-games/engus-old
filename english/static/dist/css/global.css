@@ -195,15 +195,16 @@ button {
 }
 .dictionary__definition-example {
   font-style: italic;
-  color: #777;
+  color: #888;
   margin-top: 0.1rem;
 }
 .dictionary__definition-example.with-illustration {
   cursor: pointer;
 }
 .dictionary__definition-example > span > .bold {
-  color: #666;
+  color: #555;
   font-weight: bold;
+  font-weight: normal;
 }
 .dictionary__definition-example-illustration-icon {
   font-size: 0.9rem;

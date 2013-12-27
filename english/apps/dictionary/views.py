@@ -9,7 +9,7 @@ from .serializers import WordSerializer
 
 class FlatWordListView(APIView):
     def get(self, request, format=None):
-        data = [word.word for word in Word.objects.filter(public=True)]
+        data = [word.word for word in Word.objects.filter(is_public=True)]
         return Response(data)
 
 
