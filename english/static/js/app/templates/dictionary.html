@@ -19,5 +19,11 @@
             </li>
         </ul>
     </form>
-    <div ui-view></div>
+    <div ui-view>
+        <ul class="dictionary__word-list">
+            <li class="dictionary__word-list-item" ng-repeat="word in dict.dictionary | limitTo:50">
+                <a class="dictionary__word-list-item-link" href ui-sref="dictionary.word({ word: word })">{{ word }}</a>
+            </li>
+        </ul>
+    </div>
 </section>

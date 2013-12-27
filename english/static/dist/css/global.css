@@ -302,6 +302,18 @@ button {
 .dictionary__search-dropdown-item-link:focus {
   background-color: #ff0;
 }
+.dictionary__word-list {
+  margin: 1rem 0;
+}
+.dictionary__word-list-item-link {
+  display: block;
+  text-decoration: none;
+  color: #00f;
+  padding: 0.4rem 0.5rem;
+}
+.dictionary__word-list-item-link:hover {
+  background-color: rgba(0,0,255,0.02);
+}
 .topmenu {
   display: -webkit-box;
   display: -moz-box;
