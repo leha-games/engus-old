@@ -57,7 +57,7 @@ class WordForm(models.Model):
     )
     word = models.ForeignKey(Word)
     form = models.SmallIntegerField(choices=WORD_FORM_CHOICES)
-    headword = models.ForeignKey(Word, null=True, blank=True, related_name='headword_for')
+    headword = models.ForeignKey(Word, null=True, blank=True, related_name='headword_for_words')
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
