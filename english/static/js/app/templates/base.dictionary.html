@@ -12,7 +12,7 @@
             blur-with-timeout="isFocusOnSearch=false">
         <ul class="dictionary__search-dropdown" ng-if="dict.word && isFocusOnSearch">
             <li class="dictionary__search-dropdown-item" ng-repeat="word in dict.dictionary | filter:dict.word:dict.startsWith | limitTo: 30">
-                <a class="dictionary__search-dropdown-item-link" ui-sref="dictionary.word({ word: word })" ng-click="dict.word=''; event.stopPropagation()">{{ word }}</a>
+                <a class="dictionary__search-dropdown-item-link" ui-sref="base.dictionary.word({ word: word })" ng-click="dict.word=''; event.stopPropagation()">{{ word }}</a>
             </li>
             <li class="dictionary__search-dropdown-item dictionary__search-dropdown-item_state_notfound" ng-if="(dict.dictionary | filter:dict.word:dict.startsWith).length===0">
                 Слово не найдено
@@ -22,7 +22,7 @@
     <div ui-view>
         <ul class="dictionary__word-list">
             <li class="dictionary__word-list-item" ng-repeat="word in dict.dictionary | limitTo:50">
-                <a class="dictionary__word-list-item-link" href ui-sref="dictionary.word({ word: word })">{{ word }}</a>
+                <a class="dictionary__word-list-item-link" href ui-sref="base.dictionary.word({ word: word })">{{ word }}</a>
             </li>
         </ul>
     </div>

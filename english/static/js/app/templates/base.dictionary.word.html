@@ -3,7 +3,7 @@
     <h1 class="dictionary__headword">
         {{ WordCtrl.word.word }}
     </h1>
-    <i class="fa fa-star-o dictionary__word-star"></i>
+    <i ng-click="WordCtrl.switchCard()" class="fa dictionary__word-star" ng-class="{ 'fa-star-o': !(WordCtrl.card()), 'fa-star active': !!(WordCtrl.card()) }"></i>
     </header>
     <transcription transcription="{{ WordCtrl.word.transcription }}" audio-src="{{ WordCtrl.word.audio }}"></transcription>
     <section class="dictionary__definitions" ng-if="WordCtrl.word.definition_set">

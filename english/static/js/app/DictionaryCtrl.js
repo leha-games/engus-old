@@ -3,7 +3,7 @@ angular.module('engusApp').controller('DictionaryCtrl',
     function($scope, $state, $stateParams, Dictionary) {
         this.dictionary = Dictionary.data;
         this.search = function(word) {
-            $state.go('dictionary.word', { word: this.word });
+            $state.go('base.dictionary.word', { word: this.word });
             this.word = '';
         };
         this.startsWith = function(expected, actual) {
@@ -12,12 +12,50 @@ angular.module('engusApp').controller('DictionaryCtrl',
     }
 ]);
 angular.module('engusApp').controller('DictionaryWordCtrl',
-    ['DictionaryWord',
-    function(DictionaryWord) {
-        var word = this.word = DictionaryWord.data;
+    ['Word', 'CardService',
+    function(Word, CardService) {
+        var word = this.word = Word;
         word.definitionsGroups = _.groupBy(word.definition_set, 'part_of_speach');
+        this.card = function() {
+            return CardService.getCard(word.id);
+        };
+        this.switchCard = function() {
+            return CardService.switchCardForWord(this.card(), this.word.id);
+        };
     }
 ]);
+angular.module('engusApp').service('CardService', ['Restangular', function(Restangular) {
+    var cards;
+    this.cards = cards;
+    this.getCardList = function() {
+        return Restangular.one('cards').getList('cards').then(function(data) { 
+            cards = data; 
+        });
+    };
+    this.getCard = function(wordId) {
+        var card = _.find(cards, function(card) {
+            return card.word === wordId;
+        });
+        return card;
+    };
+    this.removeCard = function(card) {
+        card.remove().then(function(data) { 
+            cards.splice(cards.indexOf(card), 1);
+        });
+    };
+    this.addCard = function(wordId) {
+        cards.post({ word: wordId }).then(function(card) { 
+            cards.push(card);
+        });
+    };
+    this.switchCardForWord = function(card, wordId) {
+        if (card === undefined) {
+            this.addCard(wordId);
+        } else {
+            this.removeCard(card);
+        }
+    };
+}]);
 angular.module('engusApp').directive('blurOnSubmit', function() {
     return function(scope, element, attrs) {
         var formOfElement = angular.element(element[0].form);

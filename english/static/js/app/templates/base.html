@@ -1,0 +1,12 @@
+<ul class="topmenu">
+    <li class="topmenu__item" ng-class="{ active: $state.includes('base.home') }">
+        <a class="topmenu__item-link" ui-sref="base.home"><i class="fa fa-home topmenu__item-icon"></i> Моя страница</a>
+    </li>
+    <li class="topmenu__item" ng-class="{ active: $state.includes('base.dictionary') }">
+        <a class="topmenu__item-link" ui-sref="base.dictionary"><i class="fa fa-book topmenu__item-icon"></i> Словарь</a>
+    </li>
+    <li class="topmenu__item" ng-class="{ active: $state.includes('base.cards') }">
+        <a class="topmenu__item-link" ui-sref="base.cards"><i class="fa fa-star-o topmenu__item-icon"></i> Карточки</a>
+    </li>
+</ul>
+<div ui-view></div>

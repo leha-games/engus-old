@@ -1,14 +1,25 @@
-angular.module('engusApp', ['restangular', 'ui.router'])
+angular.module('engusApp', ['ngResource', 'restangular', 'ui.router'])
 .config(['$httpProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider',
     function($httpProvider, $locationProvider, $stateProvider, $urlRouterProvider) {
         $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+        $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+        $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 
-        $urlRouterProvider.otherwise('/dictionary/');
+        $urlRouterProvider.otherwise('/dictionary');
 
         $stateProvider
-            .state('dictionary', {
-                url: '/dictionary/',
-                templateUrl: '/static/js/app/templates/dictionary.html',
+            .state('base', {
+                abstract: true,
+                templateUrl: '/static/js/app/templates/base.html',
+                resolve: {
+                    Cards: ['CardService', function(CardService) {
+                        return CardService.getCardList();
+                    }]
+                }
+            })
+            .state('base.dictionary', {
+                url: '/dictionary',
+                templateUrl: '/static/js/app/templates/base.dictionary.html',
                 controller: 'DictionaryCtrl as dict',
                 resolve: {
                     Dictionary: function($http) {
@@ -16,22 +27,22 @@ angular.module('engusApp', ['restangular', 'ui.router'])
                     }
                 }
             })
-            .state('dictionary.word', {
-                url: ':word',
-                templateUrl: '/static/js/app/templates/dictionary.word.html',
+            .state('base.dictionary.word', {
+                url: '/:word',
+                templateUrl: '/static/js/app/templates/base.dictionary.word.html',
                 controller: 'DictionaryWordCtrl as WordCtrl',
                 resolve: {
-                    DictionaryWord: function($http, $stateParams) {
-                        return $http.get('/dictionary/' + $stateParams.word);
-                    }
+                    Word: ['Restangular', '$stateParams', function(Restangular, $stateParams) {
+                        return Restangular.one('dictionary', $stateParams.word).get();
+                    }]
                 }
             })
-            .state('home', {
-                url: '/home/',
+            .state('base.home', {
+                url: '/home',
                 template: ''
             })
-            .state('cards', {
-                url: '/cards/',
+            .state('base.cards', {
+                url: '/cards',
                 template: ''
             });
     }
