@@ -1,4 +1,4 @@
-angular.module('engusApp', ['ngResource', 'restangular', 'ui.router'])
+angular.module('engusApp', ['restangular', 'ui.router'])
 .config(['$httpProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider',
     function($httpProvider, $locationProvider, $stateProvider, $urlRouterProvider) {
         $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
