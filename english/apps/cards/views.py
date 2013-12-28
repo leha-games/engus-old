@@ -14,4 +14,4 @@ class CardViewSet(viewsets.ModelViewSet):
         return Card.objects.filter(user=user)
 
     def pre_save(self, obj):
-        obj.owner = self.request.user
+        obj.user = self.request.user
