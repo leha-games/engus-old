@@ -1,61 +1,57 @@
 angular.module('engusApp').controller('DictionaryCtrl', 
-    ['$scope', '$state', '$stateParams', 'Dictionary',
-    function($scope, $state, $stateParams, Dictionary) {
-        this.dictionary = Dictionary.data;
+    ['$scope', '$state', '$stateParams', 'WordFlatList',
+    function($scope, $state, $stateParams, WordFlatList) {
+        this.dictionary = WordFlatList.data;
         this.search = function(word) {
-            $state.go('base.dictionary.word', { word: this.word });
-            this.word = '';
+            var self = this;
+            this.searching = true;
+            $state.go('base.dictionary.word', { word: this.word }).then(function() {
+                self.word = '';
+                self.searching = false;
+            });
         };
         this.startsWith = function(expected, actual) {
             return expected.substr(0, actual.length).toLowerCase() == actual.toLowerCase();
         }
     }
 ]);
+
 angular.module('engusApp').controller('DictionaryWordCtrl',
-    ['Word', 'CardService',
-    function(Word, CardService) {
-        var word = this.word = Word;
+    ['Word', 'CardList', 'CardService', 'Restangular',
+    function(Word, CardList, CardService, Restangular) {
+        var word = this.word = Word.data;
         word.definitionsGroups = _.groupBy(word.definition_set, 'part_of_speach');
-        this.card = function() {
-            return CardService.getCard(word.id);
-        };
+        this.card = _.find(CardList, function(card) {
+            return card.word === word.id;
+        });
         this.switchCard = function() {
-            return CardService.switchCardForWord(this.card(), this.word.id);
+            if (this.card === undefined) {
+                this.card = new CardService({ word: word.id });
+                this.card.$save();
+            } else {
+                var self = this;
+                this.card.$remove();
+                this.card = undefined;
+            };
         };
+                
     }
 ]);
-angular.module('engusApp').service('CardService', ['Restangular', function(Restangular) {
-    var cards;
-    this.cards = cards;
-    this.getCardList = function() {
-        return Restangular.one('cards').getList('cards').then(function(data) { 
-            cards = data; 
-        });
-    };
-    this.getCard = function(wordId) {
-        var card = _.find(cards, function(card) {
-            return card.word === wordId;
-        });
-        return card;
-    };
-    this.removeCard = function(card) {
-        card.remove().then(function(data) { 
-            cards.splice(cards.indexOf(card), 1);
-        });
-    };
-    this.addCard = function(wordId) {
-        cards.post({ word: wordId }).then(function(card) { 
-            cards.push(card);
-        });
-    };
-    this.switchCardForWord = function(card, wordId) {
-        if (card === undefined) {
-            this.addCard(wordId);
-        } else {
-            this.removeCard(card);
-        }
-    };
-}]);
+
+angular.module('engusApp').factory('CardService', 
+    ['$resource',
+    function($resource) {
+        return $resource('/cards/cards/:id', {id: '@id'});
+    }
+]);
+
+angular.module('engusApp').factory('WordService', 
+    ['$resource',
+    function($resource) {
+        return $resource('/dictionary/:word', {word: '@word'});
+    }
+]);
+
 angular.module('engusApp').directive('blurOnSubmit', function() {
     return function(scope, element, attrs) {
         var formOfElement = angular.element(element[0].form);
@@ -64,6 +60,7 @@ angular.module('engusApp').directive('blurOnSubmit', function() {
         });
     };
 });
+
 angular.module('engusApp').directive('blurWithTimeout', 
     ['$timeout', function($timeout) {
         return function(scope, element, attrs) {
@@ -73,6 +70,7 @@ angular.module('engusApp').directive('blurWithTimeout',
         };
     }]
 );
+
 angular.module('engusApp').filter('mueller', ['$sce', function($sce) {
     return function(input) {
         var out;
@@ -87,6 +85,7 @@ angular.module('engusApp').filter('mueller', ['$sce', function($sce) {
         return $sce.trustAsHtml(out); 
     }
 }]);
+
 angular.module('engusApp').filter('markWord', ['$sce', function($sce) {
     return function(input, word) {
         var out;
@@ -95,6 +94,7 @@ angular.module('engusApp').filter('markWord', ['$sce', function($sce) {
         return $sce.trustAsHtml(out);
     }
 }]);
+
 angular.module('engusApp').directive('transcription', function() {
     return {
         restrict: 'A',

@@ -10,6 +10,7 @@
             blur-on-submit ng-model="dict.word" 
             ng-focus="isFocusOnSearch=true" 
             blur-with-timeout="isFocusOnSearch=false">
+        <i class="fa fa-refresh fa-spin dictionary__search-input-spinner" ng-show="dict.searching"></i>
         <ul class="dictionary__search-dropdown" ng-if="dict.word && isFocusOnSearch">
             <li class="dictionary__search-dropdown-item" ng-repeat="word in dict.dictionary | filter:dict.word:dict.startsWith | limitTo: 30">
                 <a class="dictionary__search-dropdown-item-link" ui-sref="base.dictionary.word({ word: word })" ng-click="dict.word=''; event.stopPropagation()">{{ word }}</a>

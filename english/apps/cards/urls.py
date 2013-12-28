@@ -5,7 +5,7 @@ from .views import CardViewSet
 
 
 router = DefaultRouter(trailing_slash=False)
-router.register(r'cards', CardViewSet)
+router.register(r'/cards', CardViewSet)
 
 
 urlpatterns = patterns('',

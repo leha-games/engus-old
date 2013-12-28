@@ -1,15 +1,16 @@
 from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.views.generic.base import TemplateView
+from django.contrib.auth.decorators import login_required
 
 from django.contrib import admin
 admin.autodiscover()
 
 
 urlpatterns = patterns('',
-    url(r'^$', TemplateView.as_view(template_name="base.html"), name="home"),
-    (r'^dictionary/', include('english.apps.dictionary.urls')),
-    (r'^cards/', include('english.apps.cards.urls')),
+    url(r'^$', login_required(TemplateView.as_view(template_name="base.html")), name="home"),
+    (r'^dictionary', include('english.apps.dictionary.urls')),
+    (r'^cards', include('english.apps.cards.urls')),
     (r'^englishadmin/', include(admin.site.urls)),
 )
 
