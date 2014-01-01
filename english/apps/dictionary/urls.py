@@ -4,6 +4,6 @@ from .views import WordDetailView, FlatWordListView
 
 
 urlpatterns = patterns('',
-    url(r'/(?P<word>[^/]+)$', WordDetailView.as_view()),
-    url(r'$', cache_page(60 * 15)(FlatWordListView.as_view())),
+    url(r'/words/flat/$', cache_page(60 * 15)(FlatWordListView.as_view())),
+    url(r'/words/(?P<word>[^/]+)$', WordDetailView.as_view()),
 )

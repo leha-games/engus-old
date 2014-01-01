@@ -273,7 +273,7 @@ button {
   position: absolute;
   right: 1rem;
   top: 0.7rem;
-  color: #00f;
+  color: rgba(0,0,255,0.4);
 }
 .dictionary__search-dropdown {
   position: absolute;

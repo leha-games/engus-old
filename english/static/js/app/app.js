@@ -18,7 +18,7 @@ angular.module('engusApp', ['ngResource', 'restangular', 'ui.router'])
                 controller: 'DictionaryCtrl as dict',
                 resolve: {
                     WordFlatList: ['$http', function($http) {
-                        return $http.get('/dictionary');
+                        return $http.get('/dictionary/words/flat/');
                     }]
                 }
             })
@@ -28,7 +28,7 @@ angular.module('engusApp', ['ngResource', 'restangular', 'ui.router'])
                 controller: 'DictionaryWordCtrl as WordCtrl',
                 resolve: {
                     Word: ['$http', '$stateParams', function($http, $stateParams) {
-                        return $http.get('/dictionary/' + $stateParams.word); 
+                        return $http.get('/dictionary/words/' + $stateParams.word); 
                     }],
                     CardList: ['CardService', function(CardService) {
                         return CardService.query().$promise;
