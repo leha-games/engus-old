@@ -1,0 +1,68 @@
+.learning {
+
+    &__word {
+        text-align: center;
+        margin: 2rem 0 1rem;
+    }
+
+    &__headword {
+        font-size: 2.7rem;
+    }
+
+    &__example {
+        text-align: center;
+        font-style: italic;
+        font-size: 1.1rem;
+    }
+
+    &__show {
+        display: block;
+        max-width: 400px;
+        margin: 2rem auto 0;
+        color: #333;
+        border-radius: 0.3rem;
+    }
+
+    &__btn {
+        border: 1px solid #ddd;
+        padding: 0.6rem 0;
+        font-size: 1.2rem;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    &__answer {
+
+        &-list {
+            display: flex;
+            margin-top: 2rem;
+
+            &-item {
+                flex-basis: 1%;
+                flex-grow: 1;
+
+                &:first-child {
+                    border-top-left-radius: 0.3rem;
+                    border-bottom-left-radius: 0.3rem;
+                }
+
+                &:last-child {
+                    border-top-right-radius: 0.3rem;
+                    border-bottom-right-radius: 0.3rem;
+                }
+
+                &:not(:last-child) {
+                    border-right: none;
+                }
+            }
+        }
+
+        &-forget {
+            color: red;
+        }
+
+        &-good {
+            color: green;
+        }
+    }
+}

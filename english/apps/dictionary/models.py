@@ -1,6 +1,7 @@
 import uuid
 import os
 from django.db import models
+from django.contrib.auth.models import User
 
 
 def get_file_path(instance, filename):
@@ -10,12 +11,11 @@ def get_file_path(instance, filename):
 
 
 class Word(models.Model):
-    word = models.CharField(max_length=64, unique=True)
+    word = models.CharField(max_length=32, primary_key=True)
     is_public = models.BooleanField(default=False)
     transcription = models.CharField(max_length=64, blank=True)
     weight = models.PositiveIntegerField(unique=True, null=True, blank=True)
     short_translation = models.CharField(max_length=64, blank=True)
-    mueller_definition = models.TextField(blank=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     audio = models.FileField(upload_to='word', null=True, blank=True)
@@ -102,11 +102,13 @@ class Example(models.Model):
     definition = models.ForeignKey(Definition)
     text = models.CharField(max_length=255)
     russian_translation = models.CharField(max_length=255, blank=True)
-    author_of_quote = models.CharField(max_length=64, null=True, blank=True)
+    source = models.CharField(max_length=128, null=True, blank=True)
     link_url = models.URLField(max_length=255, null=True, blank=True)
     illustration = models.ImageField(upload_to="definition_examples/%Y_%m_%d", null=True, blank=True)
     level = models.PositiveIntegerField(null=True, blank=True)
     is_public = models.BooleanField(default=False)
+    user = models.ForeignKey(User, null=True, blank=True)
+    is_marked_for_public = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 

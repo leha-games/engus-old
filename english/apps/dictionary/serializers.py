@@ -11,27 +11,25 @@ class UrlFileField(serializers.FileField):
 
 
 class ExampleSerializer(serializers.ModelSerializer):
-    illustration = UrlFileField('illustration')
+    illustration_url = UrlFileField('illustration', read_only=True)
     
     class Meta:
         model = Example
-        fields = ('text', 'russian_translation', 'illustration', )
+        fields = ('definition', 'text', 'russian_translation', 'illustration_url', )
 
 
 class DefinitionSerializer(serializers.ModelSerializer):
     part_of_speach = serializers.Field(source='get_part_of_speach_display')
-    illustration = UrlFileField('illustration')
-    example_set = ExampleSerializer(many=True)
     
     class Meta:
         model = Definition
-        fields = ('weight', 'part_of_speach', 'definition', 'russian_definition', 'illustration', 'example_set', )
+        fields = ('id', 'weight', 'part_of_speach', 'definition', 'russian_definition', )
         
 
 class WordSerializer(serializers.ModelSerializer):
-    audio = UrlFileField('audio')
+    audio_url = UrlFileField('audio', read_only=True)
     definition_set = DefinitionSerializer(many=True)
 
     class Meta:
         model = Word
-        fields = ('id', 'word', 'transcription', 'audio', 'mueller_definition', 'definition_set', )
+        fields = ('word', 'transcription', 'audio_url', 'definition_set', )

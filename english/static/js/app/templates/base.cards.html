@@ -1,0 +1,27 @@
+<div ui-view>
+    <a ui-sref="base.cards.learning" class="cards__begin-btn">
+        <span class="cards__begin-btn-text">
+            Начать повторение
+        </span>
+    </a>
+    <h1 class="cards__table-title">Мои карточки</h1>
+    <table class="cards__table">
+        <colgroup>
+            <col class="cards__table-col-word">
+            <col class="cards__table-col-level">
+        <thead>
+            <tr>
+                <th class="cards__table-th">Слово</th>
+                <th class="cards__table-th cards__table-level">Уровень</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="cards__table-row" ng-repeat="card in CardsCtrl.cards | orderBy:['level', '-created']">
+                <td class="cards__table-td">
+                    <a class="link" ui-sref="base.dictionary.word({ word: card.word })" ng-bind="card.word"></a>
+                </td>
+                <td class="cards__table-td cards__table-level" ng-bind="card.level"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

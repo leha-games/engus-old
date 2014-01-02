@@ -6,20 +6,20 @@
     <title>{% block pagetitle %}{% if page_title %}{{ page_title }}. {% endif %}{% endblock %}Engus. Изучение английского языка</title>
     {% load staticfiles %}
     <link rel="shortcut icon" href="{% static "dist/img/favicon.ico" %}" type="image/x-icon">
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-
-    <link rel="stylesheet" href="{% static "dist/css/font-awesome-4.0.3/css/font-awesome.min.css" %}"/>
-    <link rel="stylesheet" href="{% static "dist/css/global.css" %}"/>
+    <link rel="stylesheet" href="{% static "dist/css/app.min.css" %}"/>
     {% block extrastyles %}{% endblock %}
 
+    {% if  debug %}
     <script src="{% static "js/lib/underscore.min.js" %}"></script>
     <script src="{% static "js/lib/angular.min.js" %}"></script>
     <script src="{% static "js/lib/angular-resource.min.js" %}"></script>
     <script src="{% static "js/lib/angular-ui-router.min.js" %}"></script>
-    <script src="{% static "js/lib/restangular.min.js" %}"></script>
     <script src="{% static "js/app/app.js" %}"></script>
     <script src="{% static "js/app/DictionaryCtrl.js" %}"></script>
+    <script src="{% static "dist/js/engus.templates.js" %}"></script>
+    {% else %}
+    <script src="{% static "dist/js/app.min.js" %}"></script>
+    {% endif %}
     {% block extrascripts %}{% endblock %}
 
     {% block extrahead %}{% endblock %}

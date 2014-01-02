@@ -23,7 +23,7 @@
     <div ui-view>
         <ul class="dictionary__word-list">
             <li class="dictionary__word-list-item" ng-repeat="word in dict.dictionary | limitTo:50">
-                <a class="dictionary__word-list-item-link" href ui-sref="base.dictionary.word({ word: word })">{{ word }}</a>
+                <a class="link link_type_block dictionary__word-list-item-link" ng-class="{ last: $last }" href ui-sref="base.dictionary.word({ word: word })">{{ word }}</a>
             </li>
         </ul>
     </div>

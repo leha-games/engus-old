@@ -4,11 +4,19 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         concat: {
             options: {
-                separator: ';'
+                separator: ';\n'
             },
             dist: {
-                src: ['js/jquery-2.0.3.min.js', 'js/script.js'],
-                dest: 'dist/js/global.js'
+                src: [
+                    'js/lib/underscore.min.js',
+                    'js/lib/angular.min.js',
+                    'js/lib/angular-resource.min.js',
+                    'js/lib/angular-ui-router.min.js',
+                    'js/app/app.js', 
+                    'js/app/DictionaryCtrl.js', 
+                    '<%= ngtemplates.engusApp.dest %>' 
+                ],
+                dest: 'dist/js/app.js'
             }
         },
         uglify: {
@@ -17,7 +25,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'dist/js/global.min.js': ['<%= concat.dist.dest %>']
+                    'dist/js/app.min.js': ['<%= concat.dist.dest %>']
                 }
             }
         },
@@ -27,13 +35,27 @@ module.exports = function(grunt) {
                     compress: false
                 },
                 files: {
-                    'dist/css/global.css': 'styl/global.styl'
+                    'dist/css/app.css': 'styl/global.styl'
                 }
             }
         },
+        csso: {
+            dist: {
+                files: {
+                    'dist/css/app.min.css': ['css/font-awesome-4.0.3/css/font-awesome.min.css', 'dist/css/app.css']
+                }
+            }
+        },
+        ngtemplates: {
+            engusApp: {
+                cwd: 'js/app',
+                src: 'templates/**/*.html',
+                dest: 'dist/js/engus.templates.js'
+            }
+        },
         watch: {
-            files: ['styl/*'],
-            tasks: ['stylus']
+            files: ['styl/*', 'js/app/templates/**/*.html'],
+            tasks: ['stylus', 'csso', 'ngtemplates']
         }
     });
 
@@ -41,7 +63,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-angular-templates');
+    grunt.loadNpmTasks('grunt-csso');
 
-    grunt.registerTask('default', ['concat', 'uglify', 'stylus']);
+    grunt.registerTask('default', ['ngtemplates', 'concat', 'uglify', 'stylus', 'csso']);
 
 };

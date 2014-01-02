@@ -7,8 +7,7 @@ class Card(models.Model):
     user = models.ForeignKey(User)
     word = models.ForeignKey(Word)
     created = models.DateTimeField(auto_now_add=True)
-    repeat = models.DateTimeField(null=True, blank=True)
-    next_repeat = models.TimeField(null=True, blank=True)
+    level = models.PositiveIntegerField(default=0)
 
     class Meta:
         unique_together = ('user', 'word') 

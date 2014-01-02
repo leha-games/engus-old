@@ -17,19 +17,19 @@ angular.module('engusApp').controller('DictionaryCtrl',
 ]);
 
 angular.module('engusApp').controller('DictionaryWordCtrl',
-    ['Word', 'CardList', 'CardService', 'Restangular',
-    function(Word, CardList, CardService, Restangular) {
-        var word = this.word = Word.data;
-        word.definitionsGroups = _.groupBy(word.definition_set, 'part_of_speach');
-        this.card = _.find(CardList, function(card) {
-            return card.word === word.id;
-        });
+    ['Word', 'WordExamples', 'Card', 'CardService',
+    function(Word, WordExamples, Card, CardService) {
+        var word = this.word = Word;
+        if (word) {
+            word.definitionsGroups = _.groupBy(word.definition_set, 'part_of_speach');
+        };
+        this.examples = WordExamples;
+        this.card = Card;
         this.switchCard = function() {
             if (this.card === undefined) {
-                this.card = new CardService({ word: word.id });
+                this.card = new CardService({ word: word.word });
                 this.card.$save();
             } else {
-                var self = this;
                 this.card.$remove();
                 this.card = undefined;
             };
@@ -38,17 +38,91 @@ angular.module('engusApp').controller('DictionaryWordCtrl',
     }
 ]);
 
+angular.module('engusApp').controller('CardsCtrl',
+    ['Cards', 
+    function(Cards) {
+        this.cards = Cards;
+    }
+]);
+
+angular.module('engusApp').controller('CardsLearningCtrl',
+    ['Cards', '$filter', 'CardService', 'WordService', 'ExampleService',
+    function(Cards, $filter, CardService, WordService, ExampleService) {
+        var orderedCards = $filter('orderBy')(Cards, ['level', '-created']),
+            firstCard = orderedCards[0];
+
+        var getFullCard = function(card) {
+            var word = WordService.get({ word: card.word }),
+                examples = ExampleService.query({ 'definition__word': card.word }, function() {
+                    examples.random = getRandomElement(examples);
+                });
+            return {
+                card: card,
+                word: word,
+                examples: examples,
+                showDefinitions: false
+            };
+        };
+
+        var getNextCard = function(card) {
+            return getNextElement(orderedCards, card);
+        };
+
+        var getNextElement = function(array, element) {
+            var indexOfElement = array.indexOf(element),
+                nextElement = undefined;
+            if (indexOfElement < (array.length - 1)) {
+                nextElement = array[indexOfElement + 1];
+            } else {
+                nextElement = array[0];
+            }
+            return nextElement;
+        };
+
+        var getRandomElement = function(array) {
+            return array[Math.floor(Math.random() * array.length)];
+        }
+
+        this.current = getFullCard(firstCard);
+        this.next = getFullCard(getNextCard(firstCard));
+        this.switchCard = function(state) {
+            switch (state) {
+                case 'good':
+                    this.current.card.level += 1;
+                    this.current.card.$update();
+                    break;
+                case 'forget':
+                    this.current.card.level = 0;
+                    this.current.card.$update();
+                    break;
+            }
+            this.current = this.next;
+            this.next = getFullCard(getNextCard(this.current.card));
+        };
+    }
+]);
+
 angular.module('engusApp').factory('CardService', 
     ['$resource',
     function($resource) {
-        return $resource('/cards/cards/:id', {id: '@id'});
+        return $resource('/cards/cards/:id', {id: '@id'}, 
+            {
+                'update': { method: 'PUT' }
+            });
     }
 ]);
 
 angular.module('engusApp').factory('WordService', 
     ['$resource',
     function($resource) {
-        return $resource('/dictionary/:word', {word: '@word'});
+        return $resource('/dictionary/words/:word', {word: '@word'});
+    }
+]);
+
+angular.module('engusApp').factory('ExampleService', 
+    ['$resource',
+    function($resource) {
+        return $resource('/dictionary/examples/:id', {word: '@id'});
     }
 ]);
 
@@ -71,21 +145,6 @@ angular.module('engusApp').directive('blurWithTimeout',
     }]
 );
 
-angular.module('engusApp').filter('mueller', ['$sce', function($sce) {
-    return function(input) {
-        var out;
-        out = input.replace(/(\S{1})>/g, 
-            '<span class="dictionary__muellerdef-numbers4">$1)</span>'); // fourth level. a> б> в>
-        out = out.replace(/(\d{1,3})\)(.*)/g, 
-            '<div class="dictionary__muellerdef-level3"><span class="dictionary__muellerdef-numbers3">$1)</span>$2</div>'); // third level. 1) 2) 3)
-        out = out.replace(/(\d{1,3}\.)(.*)\n/g, 
-            '<div class="dictionary__muellerdef-level2"><span class="dictionary__muellerdef-numbers2">$1</span>$2</div>'); // second level. 1. 2. 3.
-        out = out.replace(/(?=[IVX])(X{0,3}I{0,3}|X{0,2}VI{0,3}|X{0,2}I?[VX])\)/g, 
-            '<span class="dictionary__muellerdef-numbers1">$1.</span>'); // first level. I) II) III)
-        return $sce.trustAsHtml(out); 
-    }
-}]);
-
 angular.module('engusApp').filter('markWord', ['$sce', function($sce) {
     return function(input, word) {
         var out;
@@ -99,34 +158,18 @@ angular.module('engusApp').directive('transcription', function() {
     return {
         restrict: 'A',
         replace: true,
-        template: 
-            '<div class="dictionary__headword-transcription" ng-mouseenter="transcriptionHover = true" ng-mouseleave="transcriptionHover = false">' +
-                '<span>' +
-                    '<i class="fa fa-volume-up dictionary__headword-transcription-audio" ng-class="{ hover: transcriptionHover }"></i>' +
-                    '<audio id="transcription-audio" preload="auto">' +
-                        '<source type="audio/mpeg">' +
-                    '</audio>' +
-                '</span>' +
-            '</div>',
+        templateUrl: 'templates/directives/transcription.html',
         link: function(scope, element, attrs) {
-            var audioSrc = attrs.audioSrc,
-                transcription = attrs.transcription,
-                soundElement = element.children(),
-                audioElements = soundElement.find('audio');
-            if (transcription) {
-                element.prepend('[' + transcription + ']');
-                if (audioSrc) {
-                    var sourceElement = audioElements.find('source')[0];
-                    sourceElement.src = audioSrc;
-                    element.bind('click', function() {
-                        audioElements[0].play()
-                    });
-                    element.addClass('with-audio');
-                } else {
-                    soundElement.remove();
+            scope.$watch(attrs.transcription, function(transcription) {
+                scope.transcription = '[' + transcription + ']';
+            });
+            scope.$watch(attrs.audioSrc, function(audioSrc) {
+                scope.audiosrc = audioSrc;
+            });
+            scope.playTranscription = function() {
+                if (scope.audiosrc) {
+                    element.find('audio')[0].play();
                 };
-            } else {
-                element.remove();
             };
         }
     }

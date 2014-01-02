@@ -5,6 +5,10 @@ $color(n)
     display: flex;
     border-bottom: 5px solid $color(1);
 
+    @media (max-width: 400px) {
+        border-bottom-width: 3px;
+    }
+
     &__item {
         flex-grow: 1;
         flex-basis: 1%;

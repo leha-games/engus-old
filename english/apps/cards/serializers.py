@@ -5,4 +5,5 @@ from .models import Card
 class CardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Card
-        fields = ('id', 'word', 'repeat', 'next_repeat', )
+        fields = ('id', 'word', 'level', 'created', )
+        read_only_fields = ('created', )

@@ -8,6 +8,7 @@ class CardViewSet(viewsets.ModelViewSet):
     model = Card
     serializer_class = CardSerializer
     permission_classes = (IsOwner, )
+    filter_fields = ('word', )
 
     def get_queryset(self):
         user = self.request.user

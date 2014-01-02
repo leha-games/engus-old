@@ -1,0 +1,19 @@
+.link {
+    color: blue;
+    text-decoration: none;
+
+    &:hover, &.hover {
+        color: red;
+    }
+
+    &_type {
+
+        &_dashed {
+            border-bottom: 1px dashed blue
+
+            &:hover {
+                border-bottom-color: red;
+            }
+        }
+    }
+}
