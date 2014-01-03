@@ -7,7 +7,7 @@ import os
 from .base import BASE_DIR
 
 
-ALLOWED_HOSTS = ['127.0.0.1', ]
+ALLOWED_HOSTS = ['engus.ru', ]
 
 
 ADMINS = (
