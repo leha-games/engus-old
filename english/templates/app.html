@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ru" class="html" ng-app="engusApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">      
+    <title>Engus. Изучение английского языка</title>
+    {% load staticfiles %}
+    <link rel="shortcut icon" href="{% static "dist/img/favicon.ico" %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static "dist/css/app.min.css" %}"/>
+    {% if  debug %}
+    <script src="{% static "js/lib/underscore.min.js" %}"></script>
+    <script src="{% static "js/lib/angular.min.js" %}"></script>
+    <script src="{% static "js/lib/angular-resource.min.js" %}"></script>
+    <script src="{% static "js/lib/angular-ui-router.min.js" %}"></script>
+    <script src="{% static "js/app/app.js" %}"></script>
+    <script src="{% static "js/app/DictionaryCtrl.js" %}"></script>
+    <script src="{% static "dist/js/engus.templates.js" %}"></script>
+    {% else %}
+    <script src="{% static "dist/js/app.min.js" %}"></script>
+    {% endif %}
+</head>
+<body class="page">
+    <div ui-view></div>
+</body>
+</html>
