@@ -15,7 +15,7 @@ angular.module('engusApp', ['ngResource', 'ui.router'])
             })
             .state('base.dictionary', {
                 url: 'dictionary/',
-                templateUrl: '/static/js/app/templates/base.dictionary.html',
+                templateUrl: 'templates/base.dictionary.html',
                 controller: 'DictionaryCtrl as dict',
                 resolve: {
                     WordFlatList: ['$http', function($http) {
@@ -25,7 +25,7 @@ angular.module('engusApp', ['ngResource', 'ui.router'])
             })
             .state('base.dictionary.word', {
                 url: ':word/',
-                templateUrl: '/static/js/app/templates/base.dictionary.word.html',
+                templateUrl: 'templates/base.dictionary.word.html',
                 controller: 'DictionaryWordCtrl as WordCtrl',
                 resolve: {
                     Word: ['$stateParams', 'WordService', function($stateParams, WordService) {

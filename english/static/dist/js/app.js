@@ -244,7 +244,7 @@ angular.module('engusApp', ['ngResource', 'ui.router'])
             })
             .state('base.dictionary', {
                 url: 'dictionary/',
-                templateUrl: '/static/js/app/templates/base.dictionary.html',
+                templateUrl: 'templates/base.dictionary.html',
                 controller: 'DictionaryCtrl as dict',
                 resolve: {
                     WordFlatList: ['$http', function($http) {
@@ -254,7 +254,7 @@ angular.module('engusApp', ['ngResource', 'ui.router'])
             })
             .state('base.dictionary.word', {
                 url: ':word/',
-                templateUrl: '/static/js/app/templates/base.dictionary.word.html',
+                templateUrl: 'templates/base.dictionary.word.html',
                 controller: 'DictionaryWordCtrl as WordCtrl',
                 resolve: {
                     Word: ['$stateParams', 'WordService', function($stateParams, WordService) {
@@ -359,11 +359,14 @@ angular.module('engusApp').controller('CardsLearningCtrl',
 
         var getFullCard = function(card) {
             var word = WordService.get({ word: card.word }),
-                examples = ExampleService.query({ 'definition__word': card.word });
+                examples = ExampleService.query({ 'definition__word': card.word }, function() {
+                    examples.random = getRandomElement(examples);
+                });
             return {
                 card: card,
                 word: word,
-                examples: examples
+                examples: examples,
+                showDefinitions: false
             };
         };
 
@@ -392,11 +395,11 @@ angular.module('engusApp').controller('CardsLearningCtrl',
             switch (state) {
                 case 'good':
                     this.current.card.level += 1;
-                    CardService.update({ id: this.current.card.id }, this.current.card);
+                    this.current.card.$update();
                     break;
                 case 'forget':
                     this.current.card.level = 0;
-                    CardService.update({ id: this.current.card.id }, this.current.card);
+                    this.current.card.$update();
                     break;
             }
             this.current = this.next;
@@ -518,11 +521,15 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "        <h1 class=\"learning__headword\" ng-bind=\"CardsLearningCtrl.current.card.word\"></h1>\n" +
     "        <transcription ng-if=\"CardsLearningCtrl.current.word.transcription\" transcription=\"CardsLearningCtrl.current.word.transcription\" audio-src=\"CardsLearningCtrl.current.word.audio_url\"></transcription>\n" +
     "    </header>\n" +
-    "    <ul class=\"learning__answer-list\">\n" +
-    "        <li ng-click=\"CardsLearningCtrl.switchCard('forget')\" class=\"learning__answer-list-item learning__answer-forget\">\n" +
+    "    <div class=\"learning__example\" ng-bind=\"CardsLearningCtrl.current.examples.random.text\"></div>\n" +
+    "\n" +
+    "    <div class=\"learning__show learning__btn\" ng-show=\"!(CardsLearningCtrl.current.showDefinitions)\" ng-click=\"CardsLearningCtrl.current.showDefinitions = true\">Показать определение</div>\n" +
+    "\n" +
+    "    <ul class=\"learning__answer-list\" ng-show=\"!!(CardsLearningCtrl.current.showDefinitions)\">\n" +
+    "        <li ng-click=\"CardsLearningCtrl.switchCard('forget')\" class=\"learning__answer-list-item learning__answer-forget learning__btn\">\n" +
     "            Забыл\n" +
     "        </li>\n" +
-    "        <li ng-click=\"CardsLearningCtrl.switchCard('good')\" class=\"learning__answer-list-item learning__answer-good\">\n" +
+    "        <li ng-click=\"CardsLearningCtrl.switchCard('good')\" class=\"learning__answer-list-item learning__answer-good learning__btn\">\n" +
     "            Вспомнил\n" +
     "        </li>\n" +
     "    </ul>\n" +
@@ -570,7 +577,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "    <h1 class=\"dictionary__headword\" ng-bind=\"WordCtrl.word.word\"></h1>\n" +
     "    <i ng-click=\"WordCtrl.switchCard()\" class=\"fa dictionary__word-star\" ng-class=\"{ 'fa-star-o': !(WordCtrl.card), 'fa-star active': !!(WordCtrl.card) }\"></i>\n" +
     "    </header>\n" +
-    "    <transcription ng-if=\"WordCtrl.word.transcription\" transcription=\"{{ WordCtrl.word.transcription }}\" audio-src=\"{{ WordCtrl.word.audio_url }}\"></transcription>\n" +
+    "    <transcription ng-if=\"WordCtrl.word.transcription\" transcription=\"WordCtrl.word.transcription\" audio-src=\"WordCtrl.word.audio_url\"></transcription>\n" +
     "    <section class=\"dictionary__definitions\" ng-if=\"WordCtrl.word.definition_set\">\n" +
     "        <ul class=\"dictionary__definition-group-list\">\n" +
     "            <li class=\"dictionary__definition-group-item\" ng-repeat=\"(groupName, definitionsGroup) in WordCtrl.word.definitionsGroups\">\n" +
