@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from english.apps.dictionary.models import Word
+from engus.apps.dictionary.models import Word
 
 
 class Card(models.Model):

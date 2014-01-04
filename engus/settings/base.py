@@ -35,10 +35,10 @@ INSTALLED_APPS = (
     'south',
 
     # Application base, containing global templates.
-    'english.apps.dictionary',
-    'english.apps.cards',
+    'engus.apps.dictionary',
+    'engus.apps.cards',
 
-    # Local apps, referenced via english.appname
+    # Local apps, referenced via engus.appname
 
 )
 
@@ -55,9 +55,9 @@ TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
 
-ROOT_URLCONF = 'english.urls'
+ROOT_URLCONF = 'engus.urls'
 
-WSGI_APPLICATION = 'english.wsgi.application'
+WSGI_APPLICATION = 'engus.wsgi.application'
 
 
 # Internationalization

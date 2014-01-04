@@ -10,9 +10,9 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', login_required(TemplateView.as_view(template_name="app.html")), name="home"),
-    (r'^dictionary', include('english.apps.dictionary.urls')),
-    (r'^cards', include('english.apps.cards.urls')),
-    (r'^englishadmin/', include(admin.site.urls)),
+    (r'^dictionary', include('engus.apps.dictionary.urls')),
+    (r'^cards', include('engus.apps.cards.urls')),
+    (r'^engusadmin/', include(admin.site.urls)),
 )
 
 

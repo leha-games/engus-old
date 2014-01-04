@@ -1,4 +1,4 @@
-""" Settings for english """
+""" Settings for engus """
 
 from .base import *
 try:
