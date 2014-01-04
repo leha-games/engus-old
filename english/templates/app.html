@@ -5,18 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">      
     <title>Engus. Изучение английского языка</title>
     {% load staticfiles %}
-    <link rel="shortcut icon" href="{% static "dist/img/favicon.ico" %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static "dist/css/app.min.css" %}"/>
-    {% if  debug %}
-    <script src="{% static "js/lib/underscore.min.js" %}"></script>
-    <script src="{% static "js/lib/angular.min.js" %}"></script>
-    <script src="{% static "js/lib/angular-resource.min.js" %}"></script>
-    <script src="{% static "js/lib/angular-ui-router.min.js" %}"></script>
-    <script src="{% static "js/app/app.js" %}"></script>
-    <script src="{% static "js/app/DictionaryCtrl.js" %}"></script>
-    <script src="{% static "dist/js/engus.templates.js" %}"></script>
+    <link rel="shortcut icon" href="{% static "img/favicon.ico" %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static "css/engusapp.min.css" %}"/>
+    {% if not debug %}
+    <script src="{% static "frontend/bower_components/lodash/dist/lodash.compat.js" %}"></script>
+    <script src="{% static "frontend/bower_components/angular/angular.js" %}"></script>
+    <script src="{% static "frontend/bower_components/angular-resource/angular-resource.js" %}"></script>
+    <script src="{% static "frontend/bower_components/angular-ui-router/release/angular-ui-router.js" %}"></script>
+    <script src="{% static "frontend/engusapp/app.js" %}"></script>
+    <script src="{% static "frontend/engusapp/DictionaryCtrl.js" %}"></script>
+    <script src="{% static "tmp/engus.templates.js" %}"></script>
     {% else %}
-    <script src="{% static "dist/js/app.min.js" %}"></script>
+    <script src="{% static "js/engusapp.min.js" %}"></script>
     {% endif %}
 </head>
 <body class="page">
