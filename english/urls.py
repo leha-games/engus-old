@@ -2,6 +2,7 @@ from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.views.generic.base import TemplateView
 from django.contrib.auth.decorators import login_required
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from django.contrib import admin
 admin.autodiscover()
@@ -24,3 +25,4 @@ if settings.DEBUG:
             (r'^500/$', 'django.views.defaults.server_error'),
             (r'^admin/', include(admin.site.urls)),
     )
+    urlpatterns += staticfiles_urlpatterns()
