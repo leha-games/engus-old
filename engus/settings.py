@@ -1,20 +1,13 @@
-"""
-Django main settings for django_test project.
-
-If you need to override a setting locally, use local.py
-"""
+from .local_settings import DEBUG, SECRET_KEY, DATABASE_USER, DATABASE_PASSWORD
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
-DEBUG = bool(os.environ.get('DJANGO_DEBUG', ''))
-
 TEMPLATE_DEBUG = DEBUG
 
-
-SECRET_KEY = os.environ['SECRET_KEY']
+INTERNAL_IPS = ('127.0.0.1')
 
 
 INSTALLED_APPS = (
@@ -60,8 +53,21 @@ ROOT_URLCONF = 'engus.urls'
 WSGI_APPLICATION = 'engus.wsgi.application'
 
 
+# Database 
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'engus',
+        'USER': DATABASE_USER,
+        'PASSWORD': DATABASE_PASSWORD,
+        'HOST': ‘localhost’,
+        'PORT': '',
+    }
+}
+
+
 # Internationalization
-# https://docs.djangoproject.com/en/1.6/topics/i18n/
 
 LANGUAGE_CODE = 'ru-RU'
 
@@ -74,23 +80,28 @@ USE_L10N = True
 USE_TZ = True
 
 
+# Media and Static Files
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.6/howto/static-files/
+MEDIA_ROOT = '/var/webapps/engus/www/media/'
+
+MEDIA_URL = '/media/'
+
+STATIC_ROOT = '/var/webapps/engus/www/static/'
 
 STATIC_URL = '/static/'
 
+
+
 APPEND_SLASH = False
-
-
 
 
 # Third-party apps settings
 
 # easy-thumbnails
 THUMBNAIL_SUBDIR = 'thumbs'
+THUMBNAIL_DEBUG = DEBUG
 
-
+# rest framework
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
 }
