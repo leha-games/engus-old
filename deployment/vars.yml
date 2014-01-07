@@ -1,0 +1,13 @@
+project_name: engus
+project_root: /var/webapps/engus
+project_repo: git@bitbucket.org:grialexey/engus.git
+system_packages:
+    - nginx
+    - supervisor
+    - git-core
+    - python-virtualenv
+    - libpq-dev
+    - python-dev
+    - postgresql
+    - postgresql-contrib
+    - python-psycopg2

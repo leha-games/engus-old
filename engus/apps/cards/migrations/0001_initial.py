@@ -8,29 +8,26 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'UserWord'
-        db.create_table(u'cards_userword', (
+        # Adding model 'Card'
+        db.create_table(u'cards_card', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
             ('word', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['dictionary.Word'])),
-            ('learning', self.gf('django.db.models.fields.BooleanField')(default=True)),
             ('created', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('last_repeat', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
-            ('repeat_level', self.gf('django.db.models.fields.SmallIntegerField')(default=0)),
-            ('next_repeat', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
+            ('level', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
         ))
-        db.send_create_signal(u'cards', ['UserWord'])
+        db.send_create_signal(u'cards', ['Card'])
 
-        # Adding unique constraint on 'UserWord', fields ['user', 'word']
-        db.create_unique(u'cards_userword', ['user_id', 'word_id'])
+        # Adding unique constraint on 'Card', fields ['user', 'word']
+        db.create_unique(u'cards_card', ['user_id', 'word_id'])
 
 
     def backwards(self, orm):
-        # Removing unique constraint on 'UserWord', fields ['user', 'word']
-        db.delete_unique(u'cards_userword', ['user_id', 'word_id'])
+        # Removing unique constraint on 'Card', fields ['user', 'word']
+        db.delete_unique(u'cards_card', ['user_id', 'word_id'])
 
-        # Deleting model 'UserWord'
-        db.delete_table(u'cards_userword')
+        # Deleting model 'Card'
+        db.delete_table(u'cards_card')
 
 
     models = {
@@ -63,14 +60,11 @@ class Migration(SchemaMigration):
             'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Permission']"}),
             'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
         },
-        u'cards.userword': {
-            'Meta': {'unique_together': "(('user', 'word'),)", 'object_name': 'UserWord'},
+        u'cards.card': {
+            'Meta': {'unique_together': "(('user', 'word'),)", 'object_name': 'Card'},
             'created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'last_repeat': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'learning': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'next_repeat': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'repeat_level': ('django.db.models.fields.SmallIntegerField', [], {'default': '0'}),
+            'level': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
             'word': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['dictionary.Word']"})
         },
@@ -85,14 +79,12 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['word']", 'object_name': 'Word'},
             'audio': ('django.db.models.fields.files.FileField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'is_public': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'mueller_definition': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'short_translation': ('django.db.models.fields.CharField', [], {'max_length': '64', 'blank': 'True'}),
             'transcription': ('django.db.models.fields.CharField', [], {'max_length': '64', 'blank': 'True'}),
             'weight': ('django.db.models.fields.PositiveIntegerField', [], {'unique': 'True', 'null': 'True', 'blank': 'True'}),
-            'word': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '64'})
+            'word': ('django.db.models.fields.CharField', [], {'max_length': '32', 'primary_key': 'True'})
         }
     }
 

@@ -14,3 +14,4 @@ pytils==0.3
 setproctitle==1.1.8
 six==1.4.1
 wsgiref==0.1.2
+psycopg2

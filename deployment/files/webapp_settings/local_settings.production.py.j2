@@ -1,0 +1,28 @@
+DEBUG = True
+
+TEMPLATE_DEBUG = DEBUG
+
+# easy-thumbnails
+THUMBNAIL_DEBUG = DEBUG
+
+SECRET_KEY = "{{ lookup('password', 'credentials/' + nickname + '/secret_key length=100') }}"
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': '{{ project_name }}',
+        'USER': '{{ project_name }}',
+        'PASSWORD': "{{ lookup('file', 'credentials/' + nickname + '/postgres_password') }}",
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
+
+ALLOWED_HOSTS = ['127.0.0.1', ]
+
+ADMINS = (
+# ('Your Name', 'your_email@example.com'),
+)
+
+MANAGERS = ADMINS
+

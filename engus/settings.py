@@ -1,11 +1,8 @@
-from .local_settings import DEBUG, SECRET_KEY, DATABASE_USER, DATABASE_PASSWORD
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_DIR = os.path.dirname(__file__)
 
-
-TEMPLATE_DEBUG = DEBUG
 
 INTERNAL_IPS = ('127.0.0.1')
 
@@ -23,6 +20,7 @@ INSTALLED_APPS = (
     'pytils',
     'easy_thumbnails',
     'rest_framework',
+    'django_extensions',
 
     # Database migrations
     'south',
@@ -51,20 +49,6 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
 ROOT_URLCONF = 'engus.urls'
 
 WSGI_APPLICATION = 'engus.wsgi.application'
-
-
-# Database 
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'engus',
-        'USER': DATABASE_USER,
-        'PASSWORD': DATABASE_PASSWORD,
-        'HOST': ‘localhost’,
-        'PORT': '',
-    }
-}
 
 
 # Internationalization
@@ -99,9 +83,10 @@ APPEND_SLASH = False
 
 # easy-thumbnails
 THUMBNAIL_SUBDIR = 'thumbs'
-THUMBNAIL_DEBUG = DEBUG
 
 # rest framework
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
 }
+
+from .local_settings import *

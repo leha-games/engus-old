@@ -14,18 +14,17 @@
 
 # Directories #
 ###############
+deployment/credentials
+deployment/hosts
+deployment/files/ssh
 logs/
-project-docs/
 .idea/
-db/
-media/*
-english/media/*
-static/*
+.vagrant/
 
 # Specific files #
 ##################
-*/settings/local.py
-secret_key.py
+local_settings.py
+
 
 # OS generated files #
 ######################

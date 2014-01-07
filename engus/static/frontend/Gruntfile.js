@@ -26,7 +26,7 @@ module.exports = function(grunt) {
                     compress: false
                 },
                 files: {
-                    '../tmp/engusapp.stylus.css': 'styl/global.styl'
+                    'tmp/engusapp.stylus.css': 'styl/global.styl'
                 }
             }
         },
@@ -35,7 +35,7 @@ module.exports = function(grunt) {
                 files: {
                     '../css/engusapp.min.css': [
                         'bower_components/font-awesome/css/font-awesome.min.css', 
-                        '../tmp/engusapp.stylus.css'
+                        'tmp/engusapp.stylus.css'
                     ]
                 }
             }
@@ -44,7 +44,7 @@ module.exports = function(grunt) {
             engusApp: {
                 cwd: 'engusapp',
                 src: 'templates/**/*.html',
-                dest: '../tmp/engusapp.templates.js'
+                dest: 'tmp/engusapp.templates.js'
             }
         },
         watch: {
