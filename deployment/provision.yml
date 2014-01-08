@@ -11,17 +11,18 @@
     file: state=directory path="{{ project_root }}"
 
   - name: Create project user.
-    user: home="{{ project_root }}/home/" 
-          name="{{ project_name }}" 
-          password="{{ lookup('file', 'credentials/' + nickname + '/project_user_password_crypted') }}" state=present
-          shell="/bin/bash"
+    user: >
+      home="{{ project_root }}/home/" 
+      name="{{ project_name }}" 
+      password="{{ lookup('file', 'credentials/' + nickname + '/project_user_password_crypted') }}" state=present
+      shell="/bin/bash"
 
   - name: Create the SSH directory.
     file: state=directory path="{{ project_root }}/home/.ssh/"
     when: vm == 0
 
-  - name: Upload SSH known hosts.
-    copy: src="files/ssh/known_hosts" dest="{{ project_root }}/home/.ssh/known_hosts" mode=0600
+  - name: Add {{ remote_host }} fingerprint to the SSH known_hosts.
+    shell: "ssh-keyscan {{ remote_host }} >> /etc/ssh/ssh_known_hosts"
     when: vm == 0
 
   - name: Upload repository SSH key.
@@ -46,21 +47,28 @@
     shell: "chown -R {{ project_name }}:{{ project_name }} {{ project_root }}"
     
   - name: Create database.
-    postgresql_db: name="{{ project_name }}"
-                   encoding='UTF-8' 
-                   lc_collate='en_US.UTF-8' 
-                   lc_ctype='en_US.UTF-8' 
-                   template='template0'
     sudo_user: postgres
+    postgresql_db: >
+      name="{{ project_name }}"
+      encoding='UTF-8' 
+      lc_collate='en_US.UTF-8' 
+      lc_ctype='en_US.UTF-8' 
+      template='template0'
+    tags: 
+      - database
 
   - name: Create database user.
-    postgresql_user: db={{ project_name }} 
-                     name={{ project_name }} 
-                     password="{{ lookup('password', 'credentials/' + nickname + '/postgres_password length=20') }}"
     sudo_user: postgres
+    postgresql_user: >
+      db={{ project_name }} 
+      name={{ project_name }} 
+      password="{{ lookup('password', 'credentials/' + nickname + '/postgres_password length=20') }}"
+    tags: 
+      - database 
 
   - name: Disable default nginx server block.
     file: path=/etc/nginx/sites-enabled/default state=absent
+    notify: restart nginx
 
   handlers:
     - include: handlers.yml

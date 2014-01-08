@@ -1,6 +1,6 @@
 server {  
 
-    server_name engus.ru;  
+    server_name {{ server_hostname }};  
 
     access_log {{ project_root }}/logs/nginx.access.log;
     error_log {{ project_root }}/logs/nginx.error.log; 
