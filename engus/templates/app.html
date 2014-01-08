@@ -7,7 +7,7 @@
     {% load staticfiles %}
     <link rel="shortcut icon" href="{% static "img/favicon.ico" %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static "css/engusapp.min.css" %}"/>
-    {% if not debug %}
+    {% if debug %}
     <script src="{% static "frontend/bower_components/lodash/dist/lodash.compat.js" %}"></script>
     <script src="{% static "frontend/bower_components/angular/angular.js" %}"></script>
     <script src="{% static "frontend/bower_components/angular-resource/angular-resource.js" %}"></script>
