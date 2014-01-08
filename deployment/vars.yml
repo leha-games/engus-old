@@ -4,12 +4,13 @@ project_repo: git@bitbucket.org:grialexey/engus.git
 server_hostname: engus.ru
 remote_host: bitbucket.org
 system_packages:
-    - nginx
-    - supervisor
-    - git-core
-    - python-virtualenv
-    - libpq-dev
-    - python-dev
-    - postgresql
-    - postgresql-contrib
-    - python-psycopg2
+  - build-essential 
+  - nginx
+  - supervisor
+  - git-core
+  - python-virtualenv
+  - libpq-dev
+  - python-dev
+  - postgresql
+  - postgresql-contrib
+  - python-psycopg2

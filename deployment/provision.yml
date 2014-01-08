@@ -42,7 +42,7 @@
   - name: Install required system packages.
     apt: pkg={{ item }} state=installed update-cache=yes
     with_items: system_packages
-        
+
   - name: Change permissions.
     shell: "chown -R {{ project_name }}:{{ project_name }} {{ project_root }}"
     
