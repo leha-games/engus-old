@@ -17,14 +17,21 @@ angular.module('engusApp').controller('DictionaryCtrl',
 ]);
 
 angular.module('engusApp').controller('DictionaryWordCtrl',
-    ['Word', 'WordExamples', 'Card', 'CardService',
-    function(Word, WordExamples, Card, CardService) {
+    ['$stateParams', 'Word', 'WordExamples', 'Card', 'CardService',
+    function($stateParams, Word, WordExamples, Card, CardService) {
+        this.rawWord = $stateParams.word;
         var word = this.word = Word;
         if (word) {
             word.definitionsGroups = _.groupBy(word.definition_set, 'part_of_speach');
         };
         this.examples = WordExamples;
-        this.card = Card;
+        this.card = Card.$promise.then(function(cards) {
+            if (cards.length === 0) {
+                 return undefined;
+            } else {
+                 return cards[0];
+            }
+        });
         this.switchCard = function() {
             if (this.card === undefined) {
                 this.card = new CardService({ word: word.word });

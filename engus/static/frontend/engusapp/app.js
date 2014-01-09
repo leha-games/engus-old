@@ -11,17 +11,17 @@ angular.module('engusApp', ['ngResource', 'ui.router'])
             .state('base', {
                 url: '/',
                 abstract: true,
-                templateUrl: 'templates/base.html'
-            })
-            .state('base.dictionary', {
-                url: 'dictionary/',
-                templateUrl: 'templates/base.dictionary.html',
-                controller: 'DictionaryCtrl as dict',
+                templateUrl: 'templates/base.html',
                 resolve: {
                     WordFlatList: ['$http', function($http) {
                         return $http.get('/dictionary/words/flat/');
                     }]
                 }
+            })
+            .state('base.dictionary', {
+                url: 'dictionary/',
+                templateUrl: 'templates/base.dictionary.html',
+                controller: 'DictionaryCtrl as dict'
             })
             .state('base.dictionary.word', {
                 url: ':word/',
@@ -29,21 +29,13 @@ angular.module('engusApp', ['ngResource', 'ui.router'])
                 controller: 'DictionaryWordCtrl as WordCtrl',
                 resolve: {
                     Word: ['$stateParams', 'WordService', function($stateParams, WordService) {
-                        return WordService.get({ word: $stateParams.word }).$promise; 
+                        return WordService.get({ word: $stateParams.word }); 
                     }],
                     WordExamples: ['$stateParams', 'ExampleService', function($stateParams, ExampleService) {
-                        return ExampleService.query({ 'definition__word': $stateParams.word }).$promise;
+                        return ExampleService.query({ 'definition__word': $stateParams.word });
                     }],
                     Card: ['$stateParams', 'CardService', function($stateParams, CardService) {
-                        return CardService.query({ 'word': $stateParams.word }).$promise.then(function(cards) {
-                            var card;
-                            if (cards.length === 0) {
-                                card = undefined;
-                            } else {
-                                card = cards[0];
-                            }
-                            return card;
-                        });
+                        return CardService.query({ 'word': $stateParams.word });
                     }]
                 }
             })
@@ -57,7 +49,7 @@ angular.module('engusApp', ['ngResource', 'ui.router'])
                 controller: 'CardsCtrl as CardsCtrl',
                 resolve: {
                     Cards: ['CardService', function(CardService) {
-                        return CardService.query().$promise;
+                        return CardService.query();
                     }]
                 }
             })
