@@ -142,6 +142,10 @@ button {
 .dictionary__word {
   margin: 1rem 0;
 }
+.dictionary__word-loading-icon {
+  color: #326ea0;
+  font-size: 1.5rem;
+}
 .dictionary__headword {
   font-size: 2.6rem;
   display: inline-block;

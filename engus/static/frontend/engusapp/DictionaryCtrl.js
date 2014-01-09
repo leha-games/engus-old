@@ -21,12 +21,16 @@ angular.module('engusApp').controller('DictionaryWordCtrl',
     function($stateParams, Word, WordExamples, Card, CardService) {
         this.rawWord = $stateParams.word;
         var word = this.word = Word;
+        this.loading = true;
+        var self = this;
         word.$promise.then(
             function(word) {
+                self.loading = false;
                 word.definitionsGroups = _.groupBy(word.definition_set, 'part_of_speach');
             },
             function() {
-                
+                self.loading = false;
+                self.wordNotFound = false;
             }
         );
         this.examples = WordExamples;
