@@ -5,13 +5,13 @@
     </header>
     <div class="learning__example" ng-bind="CardsLearningCtrl.current.examples.random.text"></div>
 
-    <div class="learning__show learning__btn" ng-show="!(CardsLearningCtrl.current.showDefinitions)" ng-click="CardsLearningCtrl.current.showDefinitions = true">Показать определение</div>
+    <div class="learning__btn learning__btn_type_show" ng-show="!(CardsLearningCtrl.current.showDefinitions)" ng-click="CardsLearningCtrl.current.showDefinitions = true">Показать определение</div>
 
     <ul class="learning__answer-list" ng-show="!!(CardsLearningCtrl.current.showDefinitions)">
-        <li ng-click="CardsLearningCtrl.switchCard('forget')" class="learning__answer-list-item learning__answer-forget learning__btn">
+        <li ng-click="CardsLearningCtrl.switchCard('forget')" class="learning__answer-list-item learning__btn learning__btn_type_forget">
             Забыл
         </li>
-        <li ng-click="CardsLearningCtrl.switchCard('good')" class="learning__answer-list-item learning__answer-good learning__btn">
+        <li ng-click="CardsLearningCtrl.switchCard('good')" class="learning__answer-list-item learning__btn learning__btn_type_good">
             Вспомнил
         </li>
     </ul>

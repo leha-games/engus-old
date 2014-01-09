@@ -14,14 +14,12 @@
     <script src="{% static "frontend/bower_components/angular-ui-router/release/angular-ui-router.js" %}"></script>
     <script src="{% static "frontend/engusapp/app.js" %}"></script>
     <script src="{% static "frontend/engusapp/DictionaryCtrl.js" %}"></script>
-    <script src="{% static "tmp/engusapp.templates.js" %}"></script>
+    <script src="{% static "frontend/tmp/engusapp.templates.js" %}"></script>
     {% else %}
     <script src="{% static "js/engusapp.min.js" %}"></script>
     {% endif %}
 </head>
 <body class="page">
-    <div ui-view>
-        <i class="fa fa-cog fa-spin"></i>
-    </div>
+    <div ui-view></div>
 </body>
 </html>

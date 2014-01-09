@@ -469,20 +469,63 @@ button {
   font-style: italic;
   font-size: 1.1rem;
 }
-.learning__show {
+.learning__btn {
   display: block;
   max-width: 400px;
-  margin: 2rem auto 0;
-  color: #333;
+  border: 1px solid rgba(0,0,0,0.1);
+  padding: 0.6rem 0;
   -webkit-border-radius: 0.3rem;
   border-radius: 0.3rem;
-}
-.learning__btn {
-  border: 1px solid #ddd;
-  padding: 0.6rem 0;
   font-size: 1.2rem;
   text-align: center;
   cursor: pointer;
+  -webkit-transition: border-color 0.3s;
+  -moz-transition: border-color 0.3s;
+  -o-transition: border-color 0.3s;
+  -ms-transition: border-color 0.3s;
+  transition: border-color 0.3s;
+}
+.learning__btn:active {
+  color: #fff;
+  -webkit-transition: all 0s;
+  -moz-transition: all 0s;
+  -o-transition: all 0s;
+  -ms-transition: all 0s;
+  transition: all 0s;
+}
+.learning__btn_type_show {
+  margin: 3.5rem auto 0;
+  color: #00f;
+  border-color: rgba(0,0,255,0.2);
+}
+.learning__btn_type_show:hover {
+  border-color: rgba(0,0,255,0.6);
+}
+.learning__btn_type_show:active {
+  background-color: #00f;
+  border-color: #00f;
+}
+.learning__btn_type_forget {
+  color: #f00;
+  border-color: rgba(255,0,0,0.2);
+}
+.learning__btn_type_forget:hover {
+  border-color: rgba(255,0,0,0.6);
+}
+.learning__btn_type_forget:active {
+  background-color: #f00;
+  border-color: #f00;
+}
+.learning__btn_type_good {
+  color: #008000;
+  border-color: rgba(0,128,0,0.2);
+}
+.learning__btn_type_good:hover {
+  border-color: rgba(0,128,0,0.6);
+}
+.learning__btn_type_good:active {
+  background-color: #008000;
+  border-color: #008000;
 }
 .learning__answer-list {
   display: -webkit-box;
@@ -505,21 +548,18 @@ button {
   flex-grow: 1;
 }
 .learning__answer-list-item:first-child {
-  border-top-left-radius: 0.3rem;
-  border-bottom-left-radius: 0.3rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 .learning__answer-list-item:last-child {
-  border-top-right-radius: 0.3rem;
-  border-bottom-right-radius: 0.3rem;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 .learning__answer-list-item:not(:last-child) {
   border-right: none;
 }
-.learning__answer-forget {
-  color: #f00;
-}
-.learning__answer-good {
-  color: #008000;
+.learning__answer-list-item:last-child {
+  border-left-color: rgba(0,0,0,0.1) !important;
 }
 .html {
   font-size: 20px;

@@ -40,13 +40,13 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "    </header>\n" +
     "    <div class=\"learning__example\" ng-bind=\"CardsLearningCtrl.current.examples.random.text\"></div>\n" +
     "\n" +
-    "    <div class=\"learning__show learning__btn\" ng-show=\"!(CardsLearningCtrl.current.showDefinitions)\" ng-click=\"CardsLearningCtrl.current.showDefinitions = true\">Показать определение</div>\n" +
+    "    <div class=\"learning__btn learning__btn_type_show\" ng-show=\"!(CardsLearningCtrl.current.showDefinitions)\" ng-click=\"CardsLearningCtrl.current.showDefinitions = true\">Показать определение</div>\n" +
     "\n" +
     "    <ul class=\"learning__answer-list\" ng-show=\"!!(CardsLearningCtrl.current.showDefinitions)\">\n" +
-    "        <li ng-click=\"CardsLearningCtrl.switchCard('forget')\" class=\"learning__answer-list-item learning__answer-forget learning__btn\">\n" +
+    "        <li ng-click=\"CardsLearningCtrl.switchCard('forget')\" class=\"learning__answer-list-item learning__btn learning__btn_type_forget\">\n" +
     "            Забыл\n" +
     "        </li>\n" +
-    "        <li ng-click=\"CardsLearningCtrl.switchCard('good')\" class=\"learning__answer-list-item learning__answer-good learning__btn\">\n" +
+    "        <li ng-click=\"CardsLearningCtrl.switchCard('good')\" class=\"learning__answer-list-item learning__btn learning__btn_type_good\">\n" +
     "            Вспомнил\n" +
     "        </li>\n" +
     "    </ul>\n" +

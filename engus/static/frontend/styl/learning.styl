@@ -15,20 +15,67 @@
         font-size: 1.1rem;
     }
 
-    &__show {
+    &__btn {
         display: block;
         max-width: 400px;
-        margin: 2rem auto 0;
-        color: #333;
-        border-radius: 0.3rem;
-    }
-
-    &__btn {
-        border: 1px solid #ddd;
+        border: 1px solid rgba(0,0,0,0.1);
         padding: 0.6rem 0;
+        border-radius: 0.3rem;
         font-size: 1.2rem;
         text-align: center;
         cursor: pointer;
+        transition: border-color 0.3s;
+
+        &:active {
+            color: #fff;
+            transition: all 0s;
+        }
+
+        &_type {
+
+            &_show {
+                margin: 3.5rem auto 0;
+                color: rgba(0,0,255,1);
+                border-color: rgba(0,0,255,0.2)
+
+                &:hover {
+                    border-color: rgba(0,0,255,0.6)
+                }
+
+                &:active {
+                    background-color: rgba(0,0,255,1);
+                    border-color: rgba(0,0,255,1);
+                }
+            }
+
+            &_forget {
+                color: rgba(255,0,0,1);
+                border-color: rgba(255,0,0,0.2)
+
+                &:hover {
+                    border-color: rgba(255,0,0,0.6)
+                }
+
+                &:active {
+                    background-color: rgba(255,0,0,1);
+                    border-color: rgba(255,0,0,1);
+                }
+            }
+
+            &_good {
+                color: rgba(0,128,0,1);
+                border-color: rgba(0,128,0,0.2)
+
+                &:hover {
+                    border-color: rgba(0,128,0,0.6)
+                }
+
+                &:active {
+                    background-color: rgba(0,128,0,1);
+                    border-color: rgba(0,128,0,1);
+                }
+            }
+        }
     }
 
     &__answer {
@@ -42,27 +89,23 @@
                 flex-grow: 1;
 
                 &:first-child {
-                    border-top-left-radius: 0.3rem;
-                    border-bottom-left-radius: 0.3rem;
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 0;
                 }
 
                 &:last-child {
-                    border-top-right-radius: 0.3rem;
-                    border-bottom-right-radius: 0.3rem;
+                    border-top-left-radius: 0;
+                    border-bottom-left-radius: 0;
                 }
 
                 &:not(:last-child) {
                     border-right: none;
                 }
+
+                &:last-child {
+                    border-left-color: rgba(0,0,0,0.1) !important;
+                }
             }
-        }
-
-        &-forget {
-            color: red;
-        }
-
-        &-good {
-            color: green;
         }
     }
 }
