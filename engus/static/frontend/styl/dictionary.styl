@@ -9,6 +9,13 @@
         font-size: 1.5rem;
     }
 
+    &__word-not-found {
+        font-style: italic;
+        color: #777;
+        font-size: 1.2rem;
+        margin-top: 1rem;
+    }
+
     &__headword {
         font-size: 2.6rem;
         display: inline-block;
@@ -49,112 +56,8 @@
         }
     }
 
-
     &__definitions {
         margin: 1rem 0 5rem;
-    }
-
-    &__definition-list {
-        counter-reset: item;
-    }
-
-    &__definition-group-item {
-        margin-bottom: 1rem;
-    }
-
-    &__definition-group-name {
-        font-weight: bold;
-        font-style: italic;
-        margin-bottom: 0.3rem;
-        font-size: 1.1rem;
-    }
-    
-    &__definition-group-name-icon {
-        margin-right: 0.5rem;
-    }
-
-    &__definition-item {
-        margin-bottom: 0.7rem;
-        counter-increment: item;
-
-        &:before {
-            content: counter(item) ".";
-            display: inline-block;
-            margin-right: 0.3rem;
-            font-weight: bold;
-        }
-    }
-
-    &__definition-example {
-        font-style: italic;
-        color: #888;
-        margin-top: 0.1rem;
-
-        &.with-illustration {
-            cursor: pointer;
-        }
-
-        > span > .bold {
-            color: #555;
-            font-weight: bold;
-            font-weight: normal;
-        }
-    }
-
-    &__definition-example-illustration-icon {
-        font-size: 0.9rem;
-        margin-left: 0.3rem;
-        color: #aaa;
-
-        &.hover {
-            color: green;
-        }
-    }
-
-    &__definition-example-with-illustration {
-        position: relative;
-        margin: 0.3rem 0 2rem;
-        cursor: pointer;
-        overflow: hidden;
-    }
-
-    &__definition-illustration {
-        max-width: 100%;
-        display: block;
-    }
-
-    &__definition-illustration-text {
-        display: block;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        padding: 0.5rem 1rem;
-        background-color: rgba(0,0,0,0.5);
-        color: rgba(255,255,255,0.8);
-        text-align: center;
-        font-style: italic;
-        font-size: 1.1rem;
-
-        > .bold {
-            font-weight: bold;
-            color: rgba(255,255,255,1);
-        }
-    }
-
-    &__mueller-definition {
-        margin: 1rem 0;
-    }
-
-    &__muellerdef-level2 {
-        display: block;
-        margin: 0.5rem 0 0.2rem;
-    }
-
-    &__muellerdef-level3 {
-        display: block;
-        margin: 0.2rem 0;
-        margin-left: 0.5rem;
     }
     
     &__search-form {

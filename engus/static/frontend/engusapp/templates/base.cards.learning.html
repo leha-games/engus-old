@@ -5,6 +5,19 @@
     </header>
     <div class="learning__example" ng-bind="CardsLearningCtrl.current.examples.random.text"></div>
 
+    <section class="learning__definitions" ng-if="CardsLearningCtrl.current.showDefinitions">
+        <ul class="definition__group-list">
+            <li class="definition__group-item" ng-repeat="(groupName, definitionsGroup) in CardsLearningCtrl.current.word.definitionsGroups">
+                <h1 class="definition__group-name"><i class="fa fa-angle-right definition__group-name-icon"></i>{{ groupName }}</h1>
+                <ol class="definition__list">
+                    <li class="definition__item" ng-repeat="definition in definitionsGroup | orderBy:'weight'">
+                        {{ definition.definition }}
+                    </li>
+                </ol>
+            </li>
+        </ul>
+    </section>
+
     <div class="learning__btn learning__btn_type_show" ng-show="!(CardsLearningCtrl.current.showDefinitions)" ng-click="CardsLearningCtrl.current.showDefinitions = true">Показать определение</div>
 
     <ul class="learning__answer-list" ng-show="!!(CardsLearningCtrl.current.showDefinitions)">

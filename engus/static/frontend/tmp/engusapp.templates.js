@@ -40,6 +40,19 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "    </header>\n" +
     "    <div class=\"learning__example\" ng-bind=\"CardsLearningCtrl.current.examples.random.text\"></div>\n" +
     "\n" +
+    "    <section class=\"learning__definitions\" ng-if=\"CardsLearningCtrl.current.showDefinitions\">\n" +
+    "        <ul class=\"definition__group-list\">\n" +
+    "            <li class=\"definition__group-item\" ng-repeat=\"(groupName, definitionsGroup) in CardsLearningCtrl.current.word.definitionsGroups\">\n" +
+    "                <h1 class=\"definition__group-name\"><i class=\"fa fa-angle-right definition__group-name-icon\"></i>{{ groupName }}</h1>\n" +
+    "                <ol class=\"definition__list\">\n" +
+    "                    <li class=\"definition__item\" ng-repeat=\"definition in definitionsGroup | orderBy:'weight'\">\n" +
+    "                        {{ definition.definition }}\n" +
+    "                    </li>\n" +
+    "                </ol>\n" +
+    "            </li>\n" +
+    "        </ul>\n" +
+    "    </section>\n" +
+    "\n" +
     "    <div class=\"learning__btn learning__btn_type_show\" ng-show=\"!(CardsLearningCtrl.current.showDefinitions)\" ng-click=\"CardsLearningCtrl.current.showDefinitions = true\">Показать определение</div>\n" +
     "\n" +
     "    <ul class=\"learning__answer-list\" ng-show=\"!!(CardsLearningCtrl.current.showDefinitions)\">\n" +
@@ -92,20 +105,20 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "<div class=\"dictionary__word\">\n" +
     "    <header class=\"dictionary__word-header\">\n" +
     "        <h1 class=\"dictionary__headword\" ng-bind=\"WordCtrl.rawWord\"></h1>\n" +
-    "        <i ng-click=\"WordCtrl.switchCard()\" ng-if=\"WordCtrl.word.word\" class=\"fa dictionary__word-star\" ng-class=\"{ 'fa-star-o': !(WordCtrl.card), 'fa-star active': !!(WordCtrl.card) }\"></i>\n" +
+    "        <i ng-click=\"WordCtrl.switchCard()\" ng-if=\"WordCtrl.word.word\" class=\"fa dictionary__word-star\" ng-class=\"{ 'fa-star-o': !(WordCtrl.card.id), 'fa-star active': !!(WordCtrl.card.id) }\"></i>\n" +
     "        <i ng-if=\"WordCtrl.loading\" class=\"fa fa-cog fa-spin dictionary__word-loading-icon\"></i>\n" +
     "    </header>\n" +
     "    <transcription ng-if=\"WordCtrl.word.transcription\" transcription=\"WordCtrl.word.transcription\" audio-src=\"WordCtrl.word.audio_url\"></transcription>\n" +
     "    <section class=\"dictionary__definitions\" ng-if=\"WordCtrl.word.definition_set\">\n" +
-    "        <ul class=\"dictionary__definition-group-list\">\n" +
-    "            <li class=\"dictionary__definition-group-item\" ng-repeat=\"(groupName, definitionsGroup) in WordCtrl.word.definitionsGroups\">\n" +
-    "                <h1 class=\"dictionary__definition-group-name\"><i class=\"fa fa-angle-right dictionary__definition-group-name-icon\"></i>{{ groupName }}</h1>\n" +
-    "                <ol class=\"dictionary__definition-list\">\n" +
-    "                    <li class=\"dictionary__definition-item\" ng-repeat=\"definition in definitionsGroup | orderBy:'weight'\">\n" +
+    "        <ul class=\"definition__group-list\">\n" +
+    "            <li class=\"definition__group-item\" ng-repeat=\"(groupName, definitionsGroup) in WordCtrl.word.definitionsGroups\">\n" +
+    "                <h1 class=\"definition__group-name\"><i class=\"fa fa-angle-right definition__group-name-icon\"></i>{{ groupName }}</h1>\n" +
+    "                <ol class=\"definition__list\">\n" +
+    "                    <li class=\"definition__item\" ng-repeat=\"definition in definitionsGroup | orderBy:'weight'\">\n" +
     "                        {{ definition.definition }}\n" +
     "                        <ul ng-if=\"(WordCtrl.examples | filter: {definition: definition.id}).length\">\n" +
     "                            <li ng-repeat=\"example in WordCtrl.examples | filter: {definition: definition.id}\">\n" +
-    "                                <div class=\"dictionary__definition-example\" \n" +
+    "                                <div class=\"definition__example\" \n" +
     "                                    ng-click=\"!!(example.illustration_url) && (example.showIllustration = true)\"  \n" +
     "                                    ng-hide=\"!!(example.showIllustration)\"\n" +
     "                                    ng-class=\"{ 'with-illustration': example.illustration_url }\" \n" +
@@ -113,12 +126,12 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "                                    ng-mouseleave=\"exampleHover = false\">\n" +
     "\n" +
     "                                    <span ng-bind-html=\"example.text | markWord:WordCtrl.word.word\"></span>\n" +
-    "                                    <i ng-if=\"example.illustration_url\" class=\"fa fa-picture-o dictionary__definition-example-illustration-icon\" ng-class=\"{ 'hover': exampleHover }\"></i>\n" +
+    "                                    <i ng-if=\"example.illustration_url\" class=\"fa fa-picture-o definition__example-illustration-icon\" ng-class=\"{ 'hover': exampleHover }\"></i>\n" +
     "                                    <span ng-if=\"example.russian_translation\">— {{ example.russian_translation }}</span>\n" +
     "                                </div>\n" +
-    "                                <div ng-if=\"example.illustration_url && example.showIllustration\" ng-click=\"example.showIllustration = false\" class=\"dictionary__definition-example-with-illustration\">\n" +
-    "                                    <img class=\"dictionary__definition-illustration\" ng-src=\"{{ example.illustration_url }}\">\n" +
-    "                                    <div class=\"dictionary__definition-illustration-text\" ng-bind-html=\"example.text | markWord:WordCtrl.word.word\"></div>\n" +
+    "                                <div ng-if=\"example.illustration_url && example.showIllustration\" ng-click=\"example.showIllustration = false\" class=\"definition__example-with-illustration\">\n" +
+    "                                    <img class=\"definition__illustration\" ng-src=\"{{ example.illustration_url }}\">\n" +
+    "                                    <div class=\"definition__illustration-text\" ng-bind-html=\"example.text | markWord:WordCtrl.word.word\"></div>\n" +
     "                                </div>\n" +
     "                            </li>\n" +
     "                        </ul>\n" +
@@ -127,6 +140,9 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            </li>\n" +
     "        </ul>\n" +
+    "    </section>\n" +
+    "    <section ng-if=\"WordCtrl.wordNotFound\" class=\"dictionary__word-not-found\">\n" +
+    "        Такое слово не найдено\n" +
     "    </section>\n" +
     "    <form style=\"display: none;\">\n" +
     "        <div>\n" +

@@ -1,20 +1,20 @@
 <div class="dictionary__word">
     <header class="dictionary__word-header">
         <h1 class="dictionary__headword" ng-bind="WordCtrl.rawWord"></h1>
-        <i ng-click="WordCtrl.switchCard()" ng-if="WordCtrl.word.word" class="fa dictionary__word-star" ng-class="{ 'fa-star-o': !(WordCtrl.card), 'fa-star active': !!(WordCtrl.card) }"></i>
+        <i ng-click="WordCtrl.switchCard()" ng-if="WordCtrl.word.word" class="fa dictionary__word-star" ng-class="{ 'fa-star-o': !(WordCtrl.card.id), 'fa-star active': !!(WordCtrl.card.id) }"></i>
         <i ng-if="WordCtrl.loading" class="fa fa-cog fa-spin dictionary__word-loading-icon"></i>
     </header>
     <transcription ng-if="WordCtrl.word.transcription" transcription="WordCtrl.word.transcription" audio-src="WordCtrl.word.audio_url"></transcription>
     <section class="dictionary__definitions" ng-if="WordCtrl.word.definition_set">
-        <ul class="dictionary__definition-group-list">
-            <li class="dictionary__definition-group-item" ng-repeat="(groupName, definitionsGroup) in WordCtrl.word.definitionsGroups">
-                <h1 class="dictionary__definition-group-name"><i class="fa fa-angle-right dictionary__definition-group-name-icon"></i>{{ groupName }}</h1>
-                <ol class="dictionary__definition-list">
-                    <li class="dictionary__definition-item" ng-repeat="definition in definitionsGroup | orderBy:'weight'">
+        <ul class="definition__group-list">
+            <li class="definition__group-item" ng-repeat="(groupName, definitionsGroup) in WordCtrl.word.definitionsGroups">
+                <h1 class="definition__group-name"><i class="fa fa-angle-right definition__group-name-icon"></i>{{ groupName }}</h1>
+                <ol class="definition__list">
+                    <li class="definition__item" ng-repeat="definition in definitionsGroup | orderBy:'weight'">
                         {{ definition.definition }}
                         <ul ng-if="(WordCtrl.examples | filter: {definition: definition.id}).length">
                             <li ng-repeat="example in WordCtrl.examples | filter: {definition: definition.id}">
-                                <div class="dictionary__definition-example" 
+                                <div class="definition__example" 
                                     ng-click="!!(example.illustration_url) && (example.showIllustration = true)"  
                                     ng-hide="!!(example.showIllustration)"
                                     ng-class="{ 'with-illustration': example.illustration_url }" 
@@ -22,12 +22,12 @@
                                     ng-mouseleave="exampleHover = false">
 
                                     <span ng-bind-html="example.text | markWord:WordCtrl.word.word"></span>
-                                    <i ng-if="example.illustration_url" class="fa fa-picture-o dictionary__definition-example-illustration-icon" ng-class="{ 'hover': exampleHover }"></i>
+                                    <i ng-if="example.illustration_url" class="fa fa-picture-o definition__example-illustration-icon" ng-class="{ 'hover': exampleHover }"></i>
                                     <span ng-if="example.russian_translation">— {{ example.russian_translation }}</span>
                                 </div>
-                                <div ng-if="example.illustration_url && example.showIllustration" ng-click="example.showIllustration = false" class="dictionary__definition-example-with-illustration">
-                                    <img class="dictionary__definition-illustration" ng-src="{{ example.illustration_url }}">
-                                    <div class="dictionary__definition-illustration-text" ng-bind-html="example.text | markWord:WordCtrl.word.word"></div>
+                                <div ng-if="example.illustration_url && example.showIllustration" ng-click="example.showIllustration = false" class="definition__example-with-illustration">
+                                    <img class="definition__illustration" ng-src="{{ example.illustration_url }}">
+                                    <div class="definition__illustration-text" ng-bind-html="example.text | markWord:WordCtrl.word.word"></div>
                                 </div>
                             </li>
                         </ul>
@@ -36,6 +36,9 @@
 
             </li>
         </ul>
+    </section>
+    <section ng-if="WordCtrl.wordNotFound" class="dictionary__word-not-found">
+        Такое слово не найдено
     </section>
     <form style="display: none;">
         <div>

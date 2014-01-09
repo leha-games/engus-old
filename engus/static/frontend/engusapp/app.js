@@ -34,7 +34,7 @@ angular.module('engusApp', ['ngResource', 'ui.router'])
                     WordExamples: ['$stateParams', 'ExampleService', function($stateParams, ExampleService) {
                         return ExampleService.query({ 'definition__word': $stateParams.word });
                     }],
-                    Card: ['$stateParams', 'CardService', function($stateParams, CardService) {
+                    Cards: ['$stateParams', 'CardService', function($stateParams, CardService) {
                         return CardService.query({ 'word': $stateParams.word });
                     }]
                 }

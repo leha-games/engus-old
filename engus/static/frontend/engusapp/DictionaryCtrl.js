@@ -17,33 +17,33 @@ angular.module('engusApp').controller('DictionaryCtrl',
 ]);
 
 angular.module('engusApp').controller('DictionaryWordCtrl',
-    ['$stateParams', 'Word', 'WordExamples', 'Card', 'CardService',
-    function($stateParams, Word, WordExamples, Card, CardService) {
-        this.rawWord = $stateParams.word;
-        var word = this.word = Word;
-        this.loading = true;
+    ['$stateParams', 'Word', 'WordExamples', 'Cards', 'CardService',
+    function($stateParams, Word, WordExamples, Cards, CardService) {
         var self = this;
-        word.$promise.then(
+        this.rawWord = $stateParams.word;
+        this.word = Word;
+        this.loading = true;
+        this.wordNotFound = false;
+        this.examples = WordExamples;
+        this.card = undefined;
+        Cards.$promise.then(function(cards) {
+            if (cards.length > 0) {
+                self.card = cards[0];
+            };
+        });
+        Word.$promise.then(
             function(word) {
                 self.loading = false;
-                word.definitionsGroups = _.groupBy(word.definition_set, 'part_of_speach');
+                self.word.definitionsGroups = _.groupBy(word.definition_set, 'part_of_speach');
             },
             function() {
                 self.loading = false;
-                self.wordNotFound = false;
+                self.wordNotFound = true;
             }
         );
-        this.examples = WordExamples;
-        this.card = Card.$promise.then(function(cards) {
-            if (cards.length === 0) {
-                 return undefined;
-            } else {
-                 return cards[0];
-            }
-        });
         this.switchCard = function() {
             if (this.card === undefined) {
-                this.card = new CardService({ word: word.word });
+                this.card = new CardService({ word: self.word.word });
                 this.card.$save();
             } else {
                 this.card.$remove();
@@ -64,11 +64,13 @@ angular.module('engusApp').controller('CardsCtrl',
 angular.module('engusApp').controller('CardsLearningCtrl',
     ['Cards', '$filter', 'CardService', 'WordService', 'ExampleService',
     function(Cards, $filter, CardService, WordService, ExampleService) {
-        var orderedCards = $filter('orderBy')(Cards, ['level', '-created']),
-            firstCard = orderedCards[0];
+        var self = this;
+        this.loading = true;
 
         var getFullCard = function(card) {
-            var word = WordService.get({ word: card.word }),
+            var word = WordService.get({ word: card.word }, function() {
+                    word.definitionsGroups = _.groupBy(word.definition_set, 'part_of_speach');
+                }),
                 examples = ExampleService.query({ 'definition__word': card.word }, function() {
                     examples.random = getRandomElement(examples);
                 });
@@ -76,12 +78,12 @@ angular.module('engusApp').controller('CardsLearningCtrl',
                 card: card,
                 word: word,
                 examples: examples,
-                showDefinitions: false
+                showDefinitions: false,
             };
         };
 
         var getNextCard = function(card) {
-            return getNextElement(orderedCards, card);
+            return getNextElement(self.orderedCards, card);
         };
 
         var getNextElement = function(array, element) {
@@ -97,10 +99,21 @@ angular.module('engusApp').controller('CardsLearningCtrl',
 
         var getRandomElement = function(array) {
             return array[Math.floor(Math.random() * array.length)];
-        }
+        };
 
-        this.current = getFullCard(firstCard);
-        this.next = getFullCard(getNextCard(firstCard));
+
+        Cards.$promise.then(
+            function(cards) {
+                self.loading = false;
+                self.orderedCards = $filter('orderBy')(Cards, ['level', '-created']);
+                var firstCard = self.orderedCards[0];
+                self.current = getFullCard(firstCard);
+                self.next = getFullCard(getNextCard(firstCard));
+            },
+            function() {
+
+            }
+        );
         this.switchCard = function(state) {
             switch (state) {
                 case 'good':

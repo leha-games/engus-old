@@ -146,6 +146,12 @@ button {
   color: #326ea0;
   font-size: 1.5rem;
 }
+.dictionary__word-not-found {
+  font-style: italic;
+  color: #777;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
 .dictionary__headword {
   font-size: 2.6rem;
   display: inline-block;
@@ -180,91 +186,6 @@ button {
 }
 .dictionary__definitions {
   margin: 1rem 0 5rem;
-}
-.dictionary__definition-list {
-  counter-reset: item;
-}
-.dictionary__definition-group-item {
-  margin-bottom: 1rem;
-}
-.dictionary__definition-group-name {
-  font-weight: bold;
-  font-style: italic;
-  margin-bottom: 0.3rem;
-  font-size: 1.1rem;
-}
-.dictionary__definition-group-name-icon {
-  margin-right: 0.5rem;
-}
-.dictionary__definition-item {
-  margin-bottom: 0.7rem;
-  counter-increment: item;
-}
-.dictionary__definition-item:before {
-  content: counter(item) ".";
-  display: inline-block;
-  margin-right: 0.3rem;
-  font-weight: bold;
-}
-.dictionary__definition-example {
-  font-style: italic;
-  color: #888;
-  margin-top: 0.1rem;
-}
-.dictionary__definition-example.with-illustration {
-  cursor: pointer;
-}
-.dictionary__definition-example > span > .bold {
-  color: #555;
-  font-weight: bold;
-  font-weight: normal;
-}
-.dictionary__definition-example-illustration-icon {
-  font-size: 0.9rem;
-  margin-left: 0.3rem;
-  color: #aaa;
-}
-.dictionary__definition-example-illustration-icon.hover {
-  color: #008000;
-}
-.dictionary__definition-example-with-illustration {
-  position: relative;
-  margin: 0.3rem 0 2rem;
-  cursor: pointer;
-  overflow: hidden;
-}
-.dictionary__definition-illustration {
-  max-width: 100%;
-  display: block;
-}
-.dictionary__definition-illustration-text {
-  display: block;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 0.5rem 1rem;
-  background-color: rgba(0,0,0,0.5);
-  color: rgba(255,255,255,0.8);
-  text-align: center;
-  font-style: italic;
-  font-size: 1.1rem;
-}
-.dictionary__definition-illustration-text > .bold {
-  font-weight: bold;
-  color: #fff;
-}
-.dictionary__mueller-definition {
-  margin: 1rem 0;
-}
-.dictionary__muellerdef-level2 {
-  display: block;
-  margin: 0.5rem 0 0.2rem;
-}
-.dictionary__muellerdef-level3 {
-  display: block;
-  margin: 0.2rem 0;
-  margin-left: 0.5rem;
 }
 .dictionary__search-form {
   position: relative;
@@ -329,6 +250,79 @@ button {
 .dictionary__word-list-item-link {
   display: block;
   padding: 0.5rem 0;
+}
+.definition__list {
+  counter-reset: item;
+}
+.definition__group-item {
+  margin-bottom: 1rem;
+}
+.definition__group-name {
+  font-weight: bold;
+  font-style: italic;
+  margin-bottom: 0.3rem;
+  font-size: 1.1rem;
+}
+.definition__group-name-icon {
+  margin-right: 0.5rem;
+}
+.definition__item {
+  margin-bottom: 0.7rem;
+  counter-increment: item;
+}
+.definition__item:before {
+  content: counter(item) ".";
+  display: inline-block;
+  margin-right: 0.3rem;
+  font-weight: bold;
+}
+.definition__example {
+  font-style: italic;
+  color: #888;
+  margin-top: 0.1rem;
+}
+.definition__example.with-illustration {
+  cursor: pointer;
+}
+.definition__example > span > .bold {
+  color: #555;
+  font-weight: bold;
+  font-weight: normal;
+}
+.definition__example-illustration-icon {
+  font-size: 0.9rem;
+  margin-left: 0.3rem;
+  color: #aaa;
+}
+.definition__example-illustration-icon.hover {
+  color: #008000;
+}
+.definition__example-with-illustration {
+  position: relative;
+  margin: 0.3rem 0 2rem;
+  cursor: pointer;
+  overflow: hidden;
+}
+.definition__illustration {
+  max-width: 100%;
+  display: block;
+}
+.definition__illustration-text {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5rem 1rem;
+  background-color: rgba(0,0,0,0.5);
+  color: rgba(255,255,255,0.8);
+  text-align: center;
+  font-style: italic;
+  font-size: 1.1rem;
+}
+.definition__illustration-text > .bold {
+  font-weight: bold;
+  color: #fff;
 }
 .cards__table {
   width: 100%;
@@ -473,6 +467,10 @@ button {
   font-style: italic;
   font-size: 1.1rem;
 }
+.learning__definitions {
+  max-width: 400px;
+  margin: 1rem auto;
+}
 .learning__btn {
   display: block;
   max-width: 400px;
@@ -491,14 +489,14 @@ button {
 }
 .learning__btn:active {
   color: #fff;
-  -webkit-transition: all 0s;
-  -moz-transition: all 0s;
-  -o-transition: all 0s;
-  -ms-transition: all 0s;
-  transition: all 0s;
+  -webkit-transition: all 0.05s;
+  -moz-transition: all 0.05s;
+  -o-transition: all 0.05s;
+  -ms-transition: all 0.05s;
+  transition: all 0.05s;
 }
 .learning__btn_type_show {
-  margin: 3.5rem auto 0;
+  margin: 2.5rem auto 0;
   color: #00f;
   border-color: rgba(0,0,255,0.2);
 }
@@ -538,7 +536,7 @@ button {
   display: -ms-flexbox;
   display: box;
   display: flex;
-  margin-top: 2rem;
+  margin-top: 2.5rem;
 }
 .learning__answer-list-item {
   -webkit-flex-basis: 1%;
