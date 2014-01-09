@@ -4,9 +4,6 @@ import os
 BASE_DIR = os.path.dirname(__file__)
 
 
-INTERNAL_IPS = ('127.0.0.1')
-
-
 INSTALLED_APPS = (
     # Django contrib apps
     'django.contrib.admin',

@@ -5,6 +5,8 @@ TEMPLATE_DEBUG = DEBUG
 # easy-thumbnails
 THUMBNAIL_DEBUG = DEBUG
 
+INTERNAL_IPS = ('127.0.0.1', '10.0.2.2', )
+
 SECRET_KEY = "{{ lookup('password', 'credentials/' + nickname + '/secret_key length=100') }}"
 
 DATABASES = {
