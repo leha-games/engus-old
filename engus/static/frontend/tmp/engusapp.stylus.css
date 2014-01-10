@@ -457,6 +457,17 @@ button {
 .learning__word {
   text-align: center;
   margin: 2rem 0 1rem;
+  position: relative;
+}
+.learning__card-number {
+  position: absolute;
+  top: -1rem;
+  right: 0;
+  font-size: 0.9rem;
+  color: #888;
+}
+.learning__card-number-current {
+  color: #555;
 }
 .learning__headword {
   font-size: 2.7rem;

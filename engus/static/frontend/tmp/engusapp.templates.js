@@ -37,6 +37,9 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "    <header class=\"learning__word\">\n" +
     "        <h1 class=\"learning__headword\" ng-bind=\"CardsLearningCtrl.current.card.word\"></h1>\n" +
     "        <transcription ng-if=\"CardsLearningCtrl.current.word.transcription\" transcription=\"CardsLearningCtrl.current.word.transcription\" audio-src=\"CardsLearningCtrl.current.word.audio_url\"></transcription>\n" +
+    "        <div class=\"learning__card-number\">\n" +
+    "            <span class=\"learning__card-number-current\" ng-bind=\"CardsLearningCtrl.orderedCards.indexOf(CardsLearningCtrl.current.card) + 1\"></span>/<span ng-bind=\"CardsLearningCtrl.orderedCards.length\"></span>\n" +
+    "        </div>\n" +
     "    </header>\n" +
     "    <div class=\"learning__example\" ng-bind=\"CardsLearningCtrl.current.examples.random.text\"></div>\n" +
     "\n" +
