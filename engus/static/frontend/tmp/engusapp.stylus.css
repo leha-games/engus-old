@@ -367,11 +367,6 @@ button {
   border-radius: 0.3rem;
   text-decoration: none;
 }
-.cards__begin-btn:active,
-.cards__begin-btn.active {
-  top: 3px;
-  border-bottom-color: #fff;
-}
 .cards__begin-btn-text {
   position: relative;
   display: block;
@@ -391,6 +386,8 @@ button {
   display: -ms-flexbox;
   display: box;
   display: flex;
+  width: 100%;
+  overflow: hidden;
   border-bottom: 5px solid #326ea0;
 }
 @media (max-width: 400px) {
@@ -412,16 +409,6 @@ button {
   color: #326ea0;
   font-size: 1.1rem;
 }
-@media (max-width: 600px) {
-  .topmenu__item {
-    font-size: 0.8rem;
-  }
-}
-@media (max-width: 400px) {
-  .topmenu__item {
-    font-size: 0.8rem;
-  }
-}
 .topmenu__item:hover {
   background: rgba(50,110,160,0.05);
 }
@@ -434,11 +421,23 @@ button {
   color: #fff;
   text-shadow: 0 1px 1px rgba(0,0,0,0.7);
 }
+@media (max-width: 600px) {
+  .topmenu__item-text {
+    display: block;
+    font-size: 0.8rem;
+  }
+}
+@media (max-width: 400px) {
+  .topmenu__item-text {
+    font-size: 0.8rem;
+  }
+}
 .topmenu__item-link {
   display: block;
   padding: 0.5rem 0;
   color: inherit;
   text-decoration: none;
+  cursor: pointer;
 }
 .topmenu__item-icon {
   margin-right: 0.2rem;
@@ -585,4 +584,7 @@ button {
   .page {
     padding: 0;
   }
+}
+* {
+  -webkit-tap-highlight-color: transparent;
 }

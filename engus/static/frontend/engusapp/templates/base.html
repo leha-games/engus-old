@@ -1,12 +1,21 @@
 <ul class="topmenu">
     <li class="topmenu__item" ng-class="{ active: $state.includes('base.home') }">
-        <a class="topmenu__item-link" ui-sref="base.home"><i class="fa fa-home topmenu__item-icon"></i> Моя страница</a>
+        <div class="topmenu__item-link" ng-click="$state.go('base.home', {}, { reload: true })">
+            <i class="fa fa-home topmenu__item-icon"></i> 
+            <span class="topmenu__item-text">Моя страница</span>
+        </div>
     </li>
     <li class="topmenu__item" ng-class="{ active: $state.includes('base.dictionary') }">
-        <a class="topmenu__item-link" ui-sref="base.dictionary"><i class="fa fa-book topmenu__item-icon"></i> Словарь</a>
+        <div class="topmenu__item-link" ng-click="$state.go('base.dictionary', {}, { reload: true })">
+            <i class="fa fa-book topmenu__item-icon"></i> 
+            <span class="topmenu__item-text">Словарь</span>
+        </div>
     </li>
     <li class="topmenu__item" ng-class="{ active: $state.includes('base.cards') }">
-        <a class="topmenu__item-link" ui-sref="base.cards"><i class="fa fa-star-o topmenu__item-icon"></i> Карточки</a>
+        <div class="topmenu__item-link" ng-click="$state.go('base.cards', {}, { reload: true })">
+            <i class="fa fa-star-o topmenu__item-icon"></i> 
+            <span class="topmenu__item-text">Карточки</span>
+        </div>
     </li>
 </ul>
 <div class="content" ui-view></div>

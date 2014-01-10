@@ -7,7 +7,7 @@
     <transcription ng-if="WordCtrl.word.transcription" transcription="WordCtrl.word.transcription" audio-src="WordCtrl.word.audio_url"></transcription>
     <section class="dictionary__definitions" ng-if="WordCtrl.word.definition_set">
         <ul class="definition__group-list">
-            <li class="definition__group-item" ng-repeat="(groupName, definitionsGroup) in WordCtrl.word.definitionsGroups">
+            <li class="definition__group-item" ng-repeat="(groupName, definitionsGroup) in WordCtrl.word.definition_set | groupBy:'part_of_speach'">
                 <h1 class="definition__group-name"><i class="fa fa-angle-right definition__group-name-icon"></i>{{ groupName }}</h1>
                 <ol class="definition__list">
                     <li class="definition__item" ng-repeat="definition in definitionsGroup | orderBy:'weight'">

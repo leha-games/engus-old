@@ -3,11 +3,11 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
 
   $templateCache.put('templates/base.cards.html',
     "<div ui-view>\n" +
-    "    <a ui-sref=\"base.cards.learning\" class=\"cards__begin-btn\">\n" +
+    "    <div ng-click=\"$state.go('base.cards.learning')\" class=\"cards__begin-btn\">\n" +
     "        <span class=\"cards__begin-btn-text\">\n" +
     "            Начать повторение\n" +
     "        </span>\n" +
-    "    </a>\n" +
+    "    </div>\n" +
     "    <h1 class=\"cards__table-title\">Мои карточки</h1>\n" +
     "    <table class=\"cards__table\">\n" +
     "        <colgroup>\n" +
@@ -42,7 +42,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    <section class=\"learning__definitions\" ng-if=\"CardsLearningCtrl.current.showDefinitions\">\n" +
     "        <ul class=\"definition__group-list\">\n" +
-    "            <li class=\"definition__group-item\" ng-repeat=\"(groupName, definitionsGroup) in CardsLearningCtrl.current.word.definitionsGroups\">\n" +
+    "            <li class=\"definition__group-item\" ng-repeat=\"(groupName, definitionsGroup) in CardsLearningCtrl.current.word.definition_set | groupBy:'part_of_speach'\">\n" +
     "                <h1 class=\"definition__group-name\"><i class=\"fa fa-angle-right definition__group-name-icon\"></i>{{ groupName }}</h1>\n" +
     "                <ol class=\"definition__list\">\n" +
     "                    <li class=\"definition__item\" ng-repeat=\"definition in definitionsGroup | orderBy:'weight'\">\n" +
@@ -111,7 +111,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "    <transcription ng-if=\"WordCtrl.word.transcription\" transcription=\"WordCtrl.word.transcription\" audio-src=\"WordCtrl.word.audio_url\"></transcription>\n" +
     "    <section class=\"dictionary__definitions\" ng-if=\"WordCtrl.word.definition_set\">\n" +
     "        <ul class=\"definition__group-list\">\n" +
-    "            <li class=\"definition__group-item\" ng-repeat=\"(groupName, definitionsGroup) in WordCtrl.word.definitionsGroups\">\n" +
+    "            <li class=\"definition__group-item\" ng-repeat=\"(groupName, definitionsGroup) in WordCtrl.word.definition_set | groupBy:'part_of_speach'\">\n" +
     "                <h1 class=\"definition__group-name\"><i class=\"fa fa-angle-right definition__group-name-icon\"></i>{{ groupName }}</h1>\n" +
     "                <ol class=\"definition__list\">\n" +
     "                    <li class=\"definition__item\" ng-repeat=\"definition in definitionsGroup | orderBy:'weight'\">\n" +
@@ -170,13 +170,22 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
   $templateCache.put('templates/base.html',
     "<ul class=\"topmenu\">\n" +
     "    <li class=\"topmenu__item\" ng-class=\"{ active: $state.includes('base.home') }\">\n" +
-    "        <a class=\"topmenu__item-link\" ui-sref=\"base.home\"><i class=\"fa fa-home topmenu__item-icon\"></i> Моя страница</a>\n" +
+    "        <div class=\"topmenu__item-link\" ng-click=\"$state.go('base.home', {}, { reload: true })\">\n" +
+    "            <i class=\"fa fa-home topmenu__item-icon\"></i> \n" +
+    "            <span class=\"topmenu__item-text\">Моя страница</span>\n" +
+    "        </div>\n" +
     "    </li>\n" +
     "    <li class=\"topmenu__item\" ng-class=\"{ active: $state.includes('base.dictionary') }\">\n" +
-    "        <a class=\"topmenu__item-link\" ui-sref=\"base.dictionary\"><i class=\"fa fa-book topmenu__item-icon\"></i> Словарь</a>\n" +
+    "        <div class=\"topmenu__item-link\" ng-click=\"$state.go('base.dictionary', {}, { reload: true })\">\n" +
+    "            <i class=\"fa fa-book topmenu__item-icon\"></i> \n" +
+    "            <span class=\"topmenu__item-text\">Словарь</span>\n" +
+    "        </div>\n" +
     "    </li>\n" +
     "    <li class=\"topmenu__item\" ng-class=\"{ active: $state.includes('base.cards') }\">\n" +
-    "        <a class=\"topmenu__item-link\" ui-sref=\"base.cards\"><i class=\"fa fa-star-o topmenu__item-icon\"></i> Карточки</a>\n" +
+    "        <div class=\"topmenu__item-link\" ng-click=\"$state.go('base.cards', {}, { reload: true })\">\n" +
+    "            <i class=\"fa fa-star-o topmenu__item-icon\"></i> \n" +
+    "            <span class=\"topmenu__item-text\">Карточки</span>\n" +
+    "        </div>\n" +
     "    </li>\n" +
     "</ul>\n" +
     "<div class=\"content\" ui-view></div>\n"
@@ -186,10 +195,8 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
   $templateCache.put('templates/directives/transcription.html',
     "<div class=\"dictionary__headword-transcription\" ng-class=\"{ 'with-audio': !!(audiosrc) }\" ng-click=\"playTranscription()\" ng-mouseenter=\"transcriptionHover = true\" ng-mouseleave=\"transcriptionHover = false\">\n" +
     "    <span ng-bind=\"transcription\"></span>\n" +
-    "    <span ng-if=\"audiosrc\">\n" +
-    "        <i class=\"fa fa-volume-up dictionary__headword-transcription-audio\" ng-class=\"{ hover: transcriptionHover }\"></i>\n" +
-    "        <audio id=\"transcription-audio\" preload=\"auto\" ng-src=\"{{ audiosrc }}\" type=\"audio/mpeg\"></audio>\n" +
-    "    </span>\n" +
+    "    <i ng-if=\"audiosrc\" class=\"fa fa-volume-up dictionary__headword-transcription-audio\" ng-class=\"{ hover: transcriptionHover }\"></i>\n" +
+    "    <audio ng-if=\"audiosrc\" id=\"transcription-audio\" preload=\"auto\" ng-src=\"{{ audiosrc }}\" type=\"audio/mpeg\" style=\"height: 0; width: 0;\"></audio>\n" +
     "</div>\n"
   );
 

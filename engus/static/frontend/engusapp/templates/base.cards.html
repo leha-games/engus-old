@@ -1,9 +1,9 @@
 <div ui-view>
-    <a ui-sref="base.cards.learning" class="cards__begin-btn">
+    <div ng-click="$state.go('base.cards.learning')" class="cards__begin-btn">
         <span class="cards__begin-btn-text">
             Начать повторение
         </span>
-    </a>
+    </div>
     <h1 class="cards__table-title">Мои карточки</h1>
     <table class="cards__table">
         <colgroup>

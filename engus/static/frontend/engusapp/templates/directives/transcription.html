@@ -1,7 +1,5 @@
 <div class="dictionary__headword-transcription" ng-class="{ 'with-audio': !!(audiosrc) }" ng-click="playTranscription()" ng-mouseenter="transcriptionHover = true" ng-mouseleave="transcriptionHover = false">
     <span ng-bind="transcription"></span>
-    <span ng-if="audiosrc">
-        <i class="fa fa-volume-up dictionary__headword-transcription-audio" ng-class="{ hover: transcriptionHover }"></i>
-        <audio id="transcription-audio" preload="auto" ng-src="{{ audiosrc }}" type="audio/mpeg"></audio>
-    </span>
+    <i ng-if="audiosrc" class="fa fa-volume-up dictionary__headword-transcription-audio" ng-class="{ hover: transcriptionHover }"></i>
+    <audio ng-if="audiosrc" id="transcription-audio" preload="auto" ng-src="{{ audiosrc }}" type="audio/mpeg" style="height: 0; width: 0;"></audio>
 </div>
