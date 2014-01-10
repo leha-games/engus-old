@@ -14,10 +14,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     # Third-party apps, patches, fixes
-    'pytils',
     'easy_thumbnails',
     'rest_framework',
-    'django_extensions',
+    'registration',
 
     # Database migrations
     'south',
@@ -25,6 +24,7 @@ INSTALLED_APPS = (
     # Application base, containing global templates.
     'engus.apps.dictionary',
     'engus.apps.cards',
+    'engus.apps.accounts',
 
     # Local apps, referenced via engus.appname
 
@@ -72,7 +72,6 @@ STATIC_ROOT = '/var/webapps/engus/www/static/'
 STATIC_URL = '/static/'
 
 
-
 APPEND_SLASH = False
 
 
@@ -85,5 +84,10 @@ THUMBNAIL_SUBDIR = 'thumbs'
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
 }
+
+# django registration
+ACCOUNT_ACTIVATION_DAYS = 7
+
+
 
 from .local_settings import *

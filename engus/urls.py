@@ -9,9 +9,11 @@ admin.autodiscover()
 
 
 urlpatterns = patterns('',
-    url(r'^$', login_required(TemplateView.as_view(template_name="app.html")), name="home"),
-    (r'^dictionary', include('engus.apps.dictionary.urls')),
+    url(r'^$', login_required(TemplateView.as_view(template_name="home.html")), name="home"),
+    url(r'^app/$', login_required(TemplateView.as_view(template_name="app.html")), name="app"),
+    (r'^accounts/', include('registration.backends.default.urls')),
     (r'^cards', include('engus.apps.cards.urls')),
+    (r'^dictionary', include('engus.apps.dictionary.urls')),
     (r'^engusadmin/', include(admin.site.urls)),
 )
 
