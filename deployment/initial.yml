@@ -21,5 +21,15 @@
     template: src="files/conf/sshd_config.j2" dest="/etc/ssh/sshd_config" backup=yes owner=0 group=0 mode=0644
     notify: restart ssh
 
+  - name: Set localtime to {{ timezone }}
+    shell: "/bin/cp /usr/share/zoneinfo/{{ timezone }} /etc/localtime"
+
+  - name: Set timezone to {{ timezone }}
+    template: src="files/conf/timezone.j2" dest="/etc/timezone"
+    notify: update tzdata
+
   handlers:
+    - name: Update tzdata
+      shell: /usr/sbin/dpkg-reconfigure --frontend noninteractive tzdata
+
     - include: handlers.yml

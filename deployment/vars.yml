@@ -3,6 +3,7 @@ project_root: /var/webapps/engus
 project_repo: git@bitbucket.org:grialexey/engus.git
 server_hostname: engus.ru
 remote_host: bitbucket.org
+timezone: Europe/Moscow
 system_packages:
   - build-essential 
   - nginx
@@ -14,3 +15,4 @@ system_packages:
   - postgresql
   - postgresql-contrib
   - python-psycopg2
+  - postfix
