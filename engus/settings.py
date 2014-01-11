@@ -6,7 +6,6 @@ BASE_DIR = os.path.dirname(__file__)
 
 INSTALLED_APPS = (
     # Django contrib apps
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -28,6 +27,8 @@ INSTALLED_APPS = (
 
     # Local apps, referenced via engus.appname
 
+
+    'django.contrib.admin',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -73,6 +74,9 @@ STATIC_URL = '/static/'
 
 
 APPEND_SLASH = False
+
+
+LOGIN_REDIRECT_URL = "/"
 
 
 # Third-party apps settings

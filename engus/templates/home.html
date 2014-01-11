@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+    <section class="homepage__splash">
+        <div class="page__container">
+            <h1 class="homepage__title">Лучший способ изучения английского</h1>
+            <p class="homepage__subtitle"><b class="homepage__subtitle_type_bold">Повторение слов в контексте.</b> Изучение должно быть интересным!</p>
+            <!--
+            <ul>
+                <li>
+                    <h2>Бесплатно</h2>
+                    <p>Сервис абсолютно бесплатный</p>
+                </li>
+            </ul>
+            -->
+        </div>
+    </section>
+    <section class="homepage__features">
+        <div class="page__container">
+            <div class="homepage__feature">
+                <img class="homepage__feature-img" src="{% static "img/repeat.jpg" %}">
+                <h1 class="homepage__feature-title">Повторения</h1>
+                <p class="homepage__feature-text">Повторения это естественный способ запомнить иностранные слова. В Engus при повторении вы сами определяете, насколько хорошо запомнили слово. Некоторые слова сложно поддаются изучению. Просто чаще повторяйте их и добейтесь своего! :)</p>
+            </div>
+            <div class="homepage__feature">
+                <img class="homepage__feature-img" src="{% static "img/context.jpg" %}">
+                <h1 class="homepage__feature-title">Контекст</h1>
+                <p class="homepage__feature-text">Намного проще запомнить слово в контексте фразы, предложения. В контексте вы можете прочувствовать смысл слова, у вас останется эмоциональный след. Engus специально для вас подобрал предложения с каждым словом, много предложений!</p>
+            </div>
+            <div class="homepage__feature">
+                <img class="homepage__feature-img" src="{% static "img/brain.jpg" %}">
+                <h1 class="homepage__feature-title">Возможности</h1>
+                <p class="homepage__feature-text">Используй возможности своего мозга на 100%. Как насчет визуальной памяти? Говорят, лучше один раз увидеть, чем сто раз услышать. В Engus, для лучшего запоминания, к примерам употребления слов подобраны соответсвующие иллюстации.</p>
+            </div>
+            <div class="homepage__feature">
+                <img class="homepage__feature-img" src="{% static "img/dictionary.jpg" %}">
+                <h1 class="homepage__feature-title">Словарь</h1>
+                <p class="homepage__feature-text">Полное определение, транскрипция, произношение каждого слова. Определение на русском и английском языке. После того, как выучите необходимый минимум лексики, переключайтесь в английский режми, для более полного понимания смысла слов.</p>
+            </div>
+            <div class="homepage__feature">
+                <img class="homepage__feature-img" src="{% static "img/american-flag.jpg" %}">
+                <h1 class="homepage__feature-title">Американский</h1>
+                <p class="homepage__feature-text">Американский английский более распространен, чем его британский аналог. На американском производится огромное количество контента: фильмы, телешоу, компьютерные игры, книги. Кроме того, британцы вас поймут :)</p>
+            </div>
+            <div class="homepage__feature">
+                <img class="homepage__feature-img" src="{% static "img/mobile.jpg" %}">
+                <h1 class="homepage__feature-title">Везде</h1>
+                <p class="homepage__feature-text">Engus адаптирован для мобильных устройств. Повторяйте слова в пробках и поездках до работы. Смотрите перевод слова прямо с мобильного, когда читаете или смотрите фильм.</p>
+            </div>
+        </div>
+    </section>
+    <section class="homepage__instruction">
+        <div class="page__container">
+            <h1 class="homepage__instruction-title">Инструкция. Лучший способ изучения английского.</h1>
+            <ol class="homepage__instruction-list">
+                <li class="homepage__instruction-list-item">Начните читать интересную вам книгу или статью на английском, посмотрите интересный фильм.</li>
+                <li class="homepage__instruction-list-item">Встретилось незнакомое слово?</li>
+                <li class="homepage__instruction-list-item">Найдите это слово в словаре.</li>
+                <li class="homepage__instruction-list-item">Добавьте слово в карточки.</li>
+                <li class="homepage__instruction-list-item">В любое время начните повторять карточки.</li>
+                <li class="homepage__instruction-list-item">Попытайтесь вспомнить слово. Если вспомнили в течение 10 секунд, нажмите «Показать определение», свертесь, потом нажмите «Вспомнил». Если же не вспомнили, или неправльно вспомнили :), то попытайтесь запомнить слово и жмите «Забыл».</li>
+                <li class="homepage__instruction-list-item">Когда вы поняли, что запомнили слово, можете убрать его из карточек и добавить в свой список изученных слов.</li>
+            </ol>
+        </div>
+    </section>
+{% endblock %}

@@ -4,30 +4,19 @@ global-reset()
 
 @import 'hacks.styl';
 
-// blocks:
-@import 'link.styl';
-@import 'content.styl';
-@import 'dictionary.styl';
-@import 'definition.styl';
-@import 'cards.styl';
-@import 'topmenu.styl';
-@import 'learning.styl';
-
 .html {
     font-size: 20px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif
 
     @media (max-width: 400px) {
         font-size: 17px;
     }
 }
 
-.page {
-    font-size: 1rem;
-    font-family: Helvetica, serif;
-    font-family: Georgia, serif;
+.app {
     font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-    line-height: 1.4;
     max-width: 650px;
+    line-height: 1.4;
     margin: 0 auto;
     padding: 0 1.2rem;
 
@@ -39,3 +28,14 @@ global-reset()
 * {
     -webkit-tap-highlight-color: transparent;
 }
+
+// blocks:
+@import 'link.styl';
+@import 'page.styl';
+@import 'homepage.styl';
+@import 'content.styl';
+@import 'dictionary.styl';
+@import 'definition.styl';
+@import 'cards.styl';
+@import 'topmenu.styl';
+@import 'learning.styl';

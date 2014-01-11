@@ -1,10 +1,14 @@
 {% extends "base.html" %}
 
-{% block body %}
-		<h1>Вход на сайт</h1>
+{% block content %}
+<section class="page__form">
+		<h1 class="page__form-title">Вход на сайт</h1>
     <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
         {% csrf_token %}
         {{ form.as_p }}
         <input class="submit" type="submit" name="submit" value="Войти">
     </form>
+    <p><a class="link" href="{% url "auth_password_reset" %}">Забыли пароль?</a></p>
+    <p><a class="link" href="{% url "registration_register" %}">Регистрация</a></p>
+</section>
 {% endblock %}

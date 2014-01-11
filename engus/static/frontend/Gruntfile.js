@@ -27,16 +27,16 @@ module.exports = function(grunt) {
                     compress: false
                 },
                 files: {
-                    'tmp/engusapp.stylus.css': 'styl/global.styl'
+                    'tmp/global.stylus.css': 'styl/global.styl'
                 }
             }
         },
         csso: {
             dist: {
                 files: {
-                    '../css/engusapp.min.css': [
+                    '../css/global.min.css': [
                         'bower_components/font-awesome/css/font-awesome.min.css', 
-                        'tmp/engusapp.stylus.css'
+                        'tmp/global.stylus.css'
                     ]
                 }
             }

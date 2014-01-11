@@ -6,7 +6,7 @@
     <title>Engus. Изучение английского языка</title>
     {% load staticfiles %}
     <link rel="shortcut icon" href="{% static "img/favicon.ico" %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static "css/engusapp.min.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/global.min.css" %}"/>
     {% if debug %}
     <script src="{% static "frontend/bower_components/lodash/dist/lodash.compat.js" %}"></script>
     <script src="{% static "frontend/bower_components/angular/angular.js" %}"></script>
@@ -20,7 +20,7 @@
     <script src="{% static "js/engusapp.min.js" %}"></script>
     {% endif %}
 </head>
-<body class="page">
+<body class="app">
     <div ui-view></div>
 </body>
 </html>

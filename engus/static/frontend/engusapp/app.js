@@ -41,7 +41,7 @@ angular.module('engusApp', ['ngResource', 'ui.router', 'ngTouch'])
             })
             .state('base.home', {
                 url: 'home/',
-                template: ''
+                templateUrl: 'templates/base.home.html'
             })
             .state('base.cards', {
                 url: 'cards/',

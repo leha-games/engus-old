@@ -170,6 +170,11 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('templates/base.home.html',
+    "<a class=\"link\" href=\"/accounts/logout/\">Выйти</a>\n"
+  );
+
+
   $templateCache.put('templates/base.html',
     "<ul class=\"topmenu\">\n" +
     "    <li class=\"topmenu__item\" ng-class=\"{ active: $state.includes('base.home') }\">\n" +
