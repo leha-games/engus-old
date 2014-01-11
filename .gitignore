@@ -24,6 +24,7 @@ logs/
 # Specific files #
 ##################
 local_settings.py
+vagrant_ansible_inventory_default
 
 
 # OS generated files #
