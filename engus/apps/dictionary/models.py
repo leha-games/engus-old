@@ -89,7 +89,7 @@ class Definition(models.Model):
     weight = models.SmallIntegerField(default=0)
     part_of_speach = models.SmallIntegerField(choices=PART_OF_SPEACH_CHOICES)
     definition = models.CharField(max_length=255, blank=True)
-    clarification = models.CharField(max_length=100, blank=True)
+    label = models.CharField(max_length=100, blank=True)
     russian_definition = models.CharField(max_length=255, blank=True)
     illustration = models.ImageField(upload_to=make_upload_path, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
