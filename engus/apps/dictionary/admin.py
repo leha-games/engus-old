@@ -5,7 +5,7 @@ from .models import Word, Definition, Example
 
 
 class ExampleAdmin(admin.ModelAdmin):
-    list_display = ('definition', 'is_public', 'created', 'modified', )
+    list_display = ('definition', 'created', 'modified', )
     ordering = ['-modified', ]
     formfield_overrides = {
         models.CharField: {'widget': TextInput(attrs={'size':'150'})},
