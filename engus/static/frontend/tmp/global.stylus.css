@@ -542,6 +542,11 @@ button {
   margin-right: 0.3rem;
   font-weight: bold;
 }
+.definition__item.transparent {
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+}
 .definition__example {
   font-style: italic;
   color: #888;

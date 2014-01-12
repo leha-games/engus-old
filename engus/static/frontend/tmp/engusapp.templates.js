@@ -48,7 +48,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "            <li class=\"definition__group-item\" ng-repeat=\"(groupName, definitionsGroup) in CardsLearningCtrl.current.word.definitionGroups\">\n" +
     "                <h1 class=\"definition__group-name\"><i class=\"fa fa-angle-right definition__group-name-icon\"></i>{{ groupName }}</h1>\n" +
     "                <ol class=\"definition__list\">\n" +
-    "                    <li class=\"definition__item\" ng-repeat=\"definition in definitionsGroup | orderBy:'weight'\">\n" +
+    "                    <li class=\"definition__item\" ng-class=\"{ transparent: (definition.id !== CardsLearningCtrl.current.examples.random.definition) }\" ng-repeat=\"definition in definitionsGroup | orderBy:'weight'\">\n" +
     "                        {{ definition.definition }}\n" +
     "                    </li>\n" +
     "                </ol>\n" +
