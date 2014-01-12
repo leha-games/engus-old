@@ -8,7 +8,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "            Начать повторение\n" +
     "        </span>\n" +
     "    </div>\n" +
-    "    <h1 class=\"cards__table-title\">Мои карточки</h1>\n" +
+    "    <h1 class=\"cards__table-title\">Мои карточки (<span ng-bind=\"CardsCtrl.cards.length\"></span>)</h1>\n" +
     "    <table class=\"cards__table\">\n" +
     "        <colgroup>\n" +
     "            <col class=\"cards__table-col-word\">\n" +
