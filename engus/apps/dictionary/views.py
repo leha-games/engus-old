@@ -1,4 +1,3 @@
-from django.db.models import Q
 from django.views.generic import DetailView
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
@@ -28,7 +27,4 @@ class ExampleViewSet(ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return Example.objects.filter(Q(user=user) | Q(is_public=True))
-
-    def pre_save(self, obj):
-        obj.user = self.request.user
+        return Example.objects.all()
