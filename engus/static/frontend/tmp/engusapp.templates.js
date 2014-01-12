@@ -45,7 +45,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    <section class=\"learning__definitions\" ng-if=\"CardsLearningCtrl.current.showDefinitions\">\n" +
     "        <ul class=\"definition__group-list\">\n" +
-    "            <li class=\"definition__group-item\" ng-repeat=\"(groupName, definitionsGroup) in CardsLearningCtrl.current.word.definition_set | groupBy:'part_of_speach'\">\n" +
+    "            <li class=\"definition__group-item\" ng-repeat=\"(groupName, definitionsGroup) in CardsLearningCtrl.current.word.definitionGroups\">\n" +
     "                <h1 class=\"definition__group-name\"><i class=\"fa fa-angle-right definition__group-name-icon\"></i>{{ groupName }}</h1>\n" +
     "                <ol class=\"definition__list\">\n" +
     "                    <li class=\"definition__item\" ng-repeat=\"definition in definitionsGroup | orderBy:'weight'\">\n" +
@@ -114,7 +114,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "    <transcription ng-if=\"WordCtrl.word.transcription\" transcription=\"WordCtrl.word.transcription\" audio-src=\"WordCtrl.word.audio_url\"></transcription>\n" +
     "    <section class=\"dictionary__definitions\" ng-if=\"WordCtrl.word.definition_set\">\n" +
     "        <ul class=\"definition__group-list\">\n" +
-    "            <li class=\"definition__group-item\" ng-repeat=\"(groupName, definitionsGroup) in WordCtrl.word.definition_set | groupBy:'part_of_speach'\">\n" +
+    "            <li class=\"definition__group-item\" ng-repeat=\"(groupName, definitionsGroup) in WordCtrl.word.definitionGroups\">\n" +
     "                <h1 class=\"definition__group-name\"><i class=\"fa fa-angle-right definition__group-name-icon\"></i>{{ groupName }}</h1>\n" +
     "                <ol class=\"definition__list\">\n" +
     "                    <li class=\"definition__item\" ng-repeat=\"definition in definitionsGroup | orderBy:'weight'\">\n" +
@@ -178,13 +178,13 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
   $templateCache.put('templates/base.html',
     "<ul class=\"topmenu\">\n" +
     "    <li class=\"topmenu__item\" ng-class=\"{ active: $state.includes('base.home') }\">\n" +
-    "        <div class=\"topmenu__item-link\" ng-click=\"$state.go('base.home', {}, { reload: true })\">\n" +
+    "        <div class=\"topmenu__item-link\" ng-click=\"$state.go('base.home')\">\n" +
     "            <i class=\"fa fa-home topmenu__item-icon\"></i> \n" +
     "            <span class=\"topmenu__item-text\">Моя страница</span>\n" +
     "        </div>\n" +
     "    </li>\n" +
     "    <li class=\"topmenu__item\" ng-class=\"{ active: $state.includes('base.dictionary') }\">\n" +
-    "        <div class=\"topmenu__item-link\" ng-click=\"$state.go('base.dictionary', {}, { reload: true })\">\n" +
+    "        <div class=\"topmenu__item-link\" ng-click=\"$state.go('base.dictionary')\">\n" +
     "            <i class=\"fa fa-book topmenu__item-icon\"></i> \n" +
     "            <span class=\"topmenu__item-text\">Словарь</span>\n" +
     "        </div>\n" +

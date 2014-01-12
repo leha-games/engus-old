@@ -34,6 +34,7 @@ angular.module('engusApp').controller('DictionaryWordCtrl',
         Word.$promise.then(
             function(word) {
                 self.loading = false;
+                self.word.definitionGroups = _.groupBy(word.definition_set, 'part_of_speach');
             },
             function() {
                 self.loading = false;
@@ -67,7 +68,9 @@ angular.module('engusApp').controller('CardsLearningCtrl',
         this.loading = true;
 
         var getFullCard = function(card) {
-            var word = WordService.get({ word: card.word }),
+            var word = WordService.get({ word: card.word }, function() {
+                    word.definitionGroups = _.groupBy(word.definition_set, 'part_of_speach');
+                }),
                 examples = ExampleService.query({ 'definition__word': card.word }, function() {
                     examples.random = getRandomElement(examples);
                 });
@@ -181,9 +184,9 @@ angular.module('engusApp').filter('markWord', ['$sce', function($sce) {
 }]);
 
 angular.module('engusApp').filter('groupBy', function() {
-    return _.memoize(function(input, by) {
+    return function(input, by) {
         return _.groupBy(input, by);
-    });
+    }
 });
 
 angular.module('engusApp').directive('transcription', function() {

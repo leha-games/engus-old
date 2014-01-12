@@ -1,12 +1,12 @@
 <ul class="topmenu">
     <li class="topmenu__item" ng-class="{ active: $state.includes('base.home') }">
-        <div class="topmenu__item-link" ng-click="$state.go('base.home', {}, { reload: true })">
+        <div class="topmenu__item-link" ng-click="$state.go('base.home')">
             <i class="fa fa-home topmenu__item-icon"></i> 
             <span class="topmenu__item-text">Моя страница</span>
         </div>
     </li>
     <li class="topmenu__item" ng-class="{ active: $state.includes('base.dictionary') }">
-        <div class="topmenu__item-link" ng-click="$state.go('base.dictionary', {}, { reload: true })">
+        <div class="topmenu__item-link" ng-click="$state.go('base.dictionary')">
             <i class="fa fa-book topmenu__item-icon"></i> 
             <span class="topmenu__item-text">Словарь</span>
         </div>
