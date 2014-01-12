@@ -5,8 +5,27 @@ from .models import Word, Definition, Example
 
 
 class ExampleAdmin(admin.ModelAdmin):
-    list_display = ('definition', 'created', 'modified', )
+    list_display = ('definition', 'is_public', 'created', 'modified', )
     ordering = ['-modified', ]
+    formfield_overrides = {
+        models.CharField: {'widget': TextInput(attrs={'size':'150'})},
+    }
+
+
+class ExampleInline(admin.StackedInline):
+    model = Example
+    extra = 1
+    formfield_overrides = {
+        models.CharField: {'widget': TextInput(attrs={'size':'150'})},
+    }
+    
+
+class DefinitionAdmin(admin.ModelAdmin):
+    list_display = ('word', 'part_of_speach', 'definition', 'weight', )
+    search_fields = ['word', ]
+    inlines = [
+        ExampleInline,
+    ]
     formfield_overrides = {
         models.CharField: {'widget': TextInput(attrs={'size':'150'})},
     }
@@ -31,3 +50,4 @@ class WordAdmin(admin.ModelAdmin):
     
 admin.site.register(Word, WordAdmin)
 admin.site.register(Example, ExampleAdmin)
+admin.site.register(Definition, DefinitionAdmin)
