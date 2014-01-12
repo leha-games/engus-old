@@ -102,6 +102,7 @@ class Definition(models.Model):
 class Example(models.Model):
     definition = models.ForeignKey(Definition)
     text = models.CharField(max_length=255)
+    text_equal = models.CharField(max_length=100, blank=True)
     russian_translation = models.CharField(max_length=255, blank=True)
     illustration = models.ImageField(upload_to="definition_examples/%Y_%m_%d", null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
