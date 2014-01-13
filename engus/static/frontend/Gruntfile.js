@@ -27,7 +27,7 @@ module.exports = function(grunt) {
                     compress: false
                 },
                 files: {
-                    'tmp/global.stylus.css': 'styl/global.styl'
+                    'tmp/global.stylus.css': 'stylus/global.styl'
                 }
             }
         },
@@ -49,7 +49,7 @@ module.exports = function(grunt) {
             }
         },
         watch: {
-            files: ['styl/*', 'engusapp/templates/**/*.html'],
+            files: ['stylus/*', 'engusapp/templates/**/*.html'],
             tasks: ['stylus', 'csso', 'ngtemplates']
         }
     });
