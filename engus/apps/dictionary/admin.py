@@ -6,7 +6,7 @@ from .models import Word, Definition, Example
 
 class ExampleInline(admin.StackedInline):
     model = Example
-    extra = 1
+    extra = 5
     formfield_overrides = {
         models.CharField: {'widget': TextInput(attrs={'size':'150'})},
     }
