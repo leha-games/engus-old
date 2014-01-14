@@ -1,0 +1,26 @@
+{
+  "name": "engus",
+  "version": "0.1.0",
+  "authors": [
+    "Alexey Grigoriev <grialexey@gmail.com>"
+  ],
+  "license": "commercial",
+  "homepage": "engus.ru",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-animate": "~1.2.8",
+    "angular-resource": "~1.2.7",
+    "angular-touch": "~1.2.7",
+    "angular-ui-router": "~0.2.7",
+    "angular": "~1.2.7",
+    "font-awesome": "~4.0.3",
+    "lodash": "~2.4.1"
+  }
+}
