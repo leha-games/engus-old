@@ -119,7 +119,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "                <ol class=\"definition__list\">\n" +
     "                    <li class=\"definition__item\" ng-repeat=\"definition in definitionsGroup | orderBy:'weight'\">\n" +
     "                        {{ definition.definition }}\n" +
-    "                        <ul ng-if=\"(WordCtrl.examples | filter: {definition: definition.id}).length\">\n" +
+    "                        <ul class=\"definition__examples-list\" ng-if=\"(WordCtrl.examples | filter: {definition: definition.id}).length\">\n" +
     "                            <li ng-repeat=\"example in WordCtrl.examples | filter: {definition: definition.id}\">\n" +
     "                                <div class=\"definition__example\" \n" +
     "                                    ng-click=\"!!(example.illustration_url) && (example.showIllustration = true)\"  \n" +

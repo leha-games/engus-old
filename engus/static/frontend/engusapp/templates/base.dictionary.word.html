@@ -12,7 +12,7 @@
                 <ol class="definition__list">
                     <li class="definition__item" ng-repeat="definition in definitionsGroup | orderBy:'weight'">
                         {{ definition.definition }}
-                        <ul ng-if="(WordCtrl.examples | filter: {definition: definition.id}).length">
+                        <ul class="definition__examples-list" ng-if="(WordCtrl.examples | filter: {definition: definition.id}).length">
                             <li ng-repeat="example in WordCtrl.examples | filter: {definition: definition.id}">
                                 <div class="definition__example" 
                                     ng-click="!!(example.illustration_url) && (example.showIllustration = true)"  
