@@ -57,7 +57,12 @@ angular.module('engusApp').controller('DictionaryWordCtrl',
 angular.module('engusApp').controller('CardsCtrl',
     ['Cards', 
     function(Cards) {
+        var self = this;
+        this.loading = true;
         this.cards = Cards;
+        Cards.$promise.then(function() {
+            self.loading = false;
+        });
     }
 ]);
 

@@ -8,7 +8,11 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "            Начать повторение\n" +
     "        </span>\n" +
     "    </div>\n" +
-    "    <h1 class=\"cards__table-title\">Мои карточки (<span ng-bind=\"CardsCtrl.cards.length\"></span>)</h1>\n" +
+    "    <h1 class=\"cards__table-title\">\n" +
+    "        Мои карточки \n" +
+    "        <span ng-if=\"!(CardsCtrl.loading)\">(<span ng-bind=\"CardsCtrl.cards.length\"></span>)</span>\n" +
+    "        <i ng-if=\"CardsCtrl.loading\" class=\"fa fa-cog fa-spin cards__loading-icon\"></i>\n" +
+    "    </h1>\n" +
     "    <table class=\"cards__table\">\n" +
     "        <colgroup>\n" +
     "            <col class=\"cards__table-col-word\">\n" +
