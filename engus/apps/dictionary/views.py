@@ -10,12 +10,12 @@ from .serializers import WordSerializer, ExampleSerializer
 
 class FlatWordListView(APIView):
     def get(self, request, format=None):
-        data = [word.word for word in Word.objects.filter(is_public=True)]
+        data = [word.word for word in Word.objects.all()]
         return Response(data)
 
 
 class WordDetailView(RetrieveAPIView):
-    queryset = Word.objects.filter(is_public=True)
+    queryset = Word.objects.all()
     serializer_class = WordSerializer
     lookup_field = "word"
 

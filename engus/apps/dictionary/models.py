@@ -12,10 +12,7 @@ def get_file_path(instance, filename):
 
 class Word(models.Model):
     word = models.CharField(max_length=32, primary_key=True)
-    is_public = models.BooleanField(default=False)
     transcription = models.CharField(max_length=64, blank=True)
-    weight = models.PositiveIntegerField(unique=True, null=True, blank=True)
-    short_translation = models.CharField(max_length=64, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     audio = models.FileField(upload_to='word', null=True, blank=True)
@@ -72,15 +69,47 @@ class Definition(models.Model):
     CONJUCTION = 7
     INTERJECTION = 8
     PART_OF_SPEACH_CHOICES = (
-            (NOUN, 'noun'),
-            (PRONOUN, 'pronoun'),
-            (ADJECTIVE, 'adjective'),
-            (VERB, 'verb'),
-            (ADVERB, 'adverb'),
-            (PREPOSITION, 'predosition'),
-            (CONJUCTION, 'conjuction'),
-            (INTERJECTION, 'interjection'),
+        (NOUN, 'noun'),
+        (PRONOUN, 'pronoun'),
+        (ADJECTIVE, 'adjective'),
+        (VERB, 'verb'),
+        (ADVERB, 'adverb'),
+        (PREPOSITION, 'predosition'),
+        (CONJUCTION, 'conjuction'),
+        (INTERJECTION, 'interjection'),
     )
+
+    APPROVING = 1
+    DISAPPROVING = 2
+    FIGURATIVE = 3
+    FORMAL = 4
+    HUMOROUS = 5
+    INFORMAL = 6
+    IRONIC = 7
+    LITERARY = 8
+    OFFENSIVE = 9
+    SLANG = 10
+    TECHNICAL = 11
+    OLDFASHIONED = 12
+    OLDUSE = 13
+    SAYING = 14
+    LABEL_CHOICES = (
+        (APPROVING, 'approving'),
+        (DISAPPROVING, 'disapproving'),
+        (FIGURATIVE, 'figurative'),
+        (FORMAL, 'formal'),
+        (HUMOROUS, 'humorous'),
+        (INFORMAL, 'informal'),
+        (IRONIC, 'ironic'),
+        (LITERARY, 'literary'),
+        (OFFENSIVE, 'offensive'),
+        (SLANG, 'slang'),
+        (TECHNICAL, 'technical'),
+        (OLDFASHIONED, 'old-fashioned'),
+        (OLDUSE, 'old use'),
+        (SAYING, 'saying'),
+    )
+
 
     def make_upload_path(instance, filename):
         return u"definition/%s/%s" % (instance.word.pk, filename)
@@ -88,8 +117,9 @@ class Definition(models.Model):
     word = models.ForeignKey(Word)
     part_of_speach = models.SmallIntegerField(choices=PART_OF_SPEACH_CHOICES)
     weight = models.SmallIntegerField(default=0)
+    label = models.SmallIntegerField(choices=LABEL_CHOICES, null=True, blank=True)
     definition = models.CharField(max_length=255, blank=True)
-    label = models.CharField(max_length=100, blank=True)
+    explanation = models.CharField(max_length=100, blank=True)
     russian_definition = models.CharField(max_length=255, blank=True)
     illustration = models.ImageField(upload_to=make_upload_path, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -101,6 +131,7 @@ class Definition(models.Model):
 
 class Example(models.Model):
     definition = models.ForeignKey(Definition)
+    label = models.SmallIntegerField(choices=Definition.LABEL_CHOICES, null=True, blank=True)
     text = models.CharField(max_length=255)
     text_equal = models.CharField(max_length=100, blank=True)
     russian_translation = models.CharField(max_length=255, blank=True)
