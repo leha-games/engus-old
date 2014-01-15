@@ -86,8 +86,8 @@ class Definition(models.Model):
         return u"definition/%s/%s" % (instance.word.pk, filename)
 
     word = models.ForeignKey(Word)
-    weight = models.SmallIntegerField(default=0)
     part_of_speach = models.SmallIntegerField(choices=PART_OF_SPEACH_CHOICES)
+    weight = models.SmallIntegerField(default=0)
     definition = models.CharField(max_length=255, blank=True)
     label = models.CharField(max_length=100, blank=True)
     russian_definition = models.CharField(max_length=255, blank=True)
