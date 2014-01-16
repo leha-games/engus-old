@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 from .models import Card
 from .serializers import CardSerializer
 from .permissions import IsOwner
@@ -7,7 +8,7 @@ from .permissions import IsOwner
 class CardViewSet(viewsets.ModelViewSet):
     model = Card
     serializer_class = CardSerializer
-    permission_classes = (IsOwner, )
+    permission_classes = (IsAuthenticated, IsOwner, )
     filter_fields = ('word', )
 
     def get_queryset(self):
