@@ -118,6 +118,7 @@ class Definition(models.Model):
     part_of_speach = models.SmallIntegerField(choices=PART_OF_SPEACH_CHOICES)
     weight = models.SmallIntegerField(default=0)
     label = models.SmallIntegerField(choices=LABEL_CHOICES, null=True, blank=True)
+    where_used = models.CharField(max_length=100, blank=True)
     definition = models.CharField(max_length=255, blank=True)
     explanation = models.CharField(max_length=100, blank=True)
     russian_definition = models.CharField(max_length=255, blank=True)
