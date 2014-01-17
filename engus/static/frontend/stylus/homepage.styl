@@ -7,17 +7,73 @@ $color2(n)
 .homepage {
 
     &__splash {
-        padding: 2rem 0 7rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        box-sizing: border-box;
+        padding: 3rem 0;
         background: linear-gradient($color2(0.5), $color2(0.8));
-        text-align: center;
+        background: url(../img/engus_splash.jpg) no-repeat center center;
+        background-size: cover;
+        text-align: left;
+        min-height: 100vh;;
+
+        &-textblock {
+            color: #fff;
+            text-shadow: 0px 1px 4px rgba(0,0,0,0.9);
+            background-color: rgba(0,0,0,0.8);
+            text-align: left;
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+        }
+
+        &-container {
+            max-width: 1100px;
+            margin: 0 5rem;
+
+            @media(max-width: 600px) {
+                margin: 0 1rem;
+            }
+        }
+
+        &_direction {
+
+            &_column {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+
     }
 
-    &__title {
-        font-size: 2.3rem;
-        line-height: 1.3;
+    &__regbutton {
         color: #fff;
-        text-shadow: 0px 1px 2px rgba(25,45,60,0.7);
-        margin: 1rem 0;
+        background-color: rgba(0,0,0,0.8);
+        display: inline-block;
+        text-decoration: none;
+        padding: 0.5rem 1.5rem;
+        margin-right: 1rem;
+        margin-bottom: 1rem;
+        color: rgba(255,255,255,0.8);
+
+        &:hover {
+            color: #fff;
+        }
+    }
+
+
+    &__title {
+        font-size: 2rem;
+        letter-spacing: 0.1rem;
+        line-height: 1.2;
+        font-weight: bold;
+        margin-bottom: 0.8rem;
+    }
+
+    &__clarification {
+        font-size: 0.9rem;
+        line-height: 1.6;
+        color: rgba(255,255,255,0.8);
     }
 
     &__subtitle {

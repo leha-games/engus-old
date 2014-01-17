@@ -2,20 +2,28 @@
 
 {% load staticfiles %}
 
+{% block splash %}
+<section class="homepage__splash homepage__splash_direction_column">
+    <header class="homepage__header homepage__splash-container">
+        <a class="homepage__regbutton" href="{% url "django.contrib.auth.views.login" %}">Войти</a>
+        <a class="homepage__regbutton" href="{% url "registration_register" %}">Регистрация</a>
+    </header>
+    <div class="homepage__splash-textblock">
+        <div class="homepage__splash-container">
+            <h1 class="homepage__title">
+                <div class="homepage__title-container">
+                    Все изучают английский в Ингус
+                </div>
+            </h1>
+            <p class="homepage__clarification">
+                Сервисом Ингус пользуются все, кто хочет научиться свободно читать английские тексты, понимать английску речь и&nbsp;начать разговаривать на&nbsp;английском. Изучение основано на&nbsp;повторении слов в&nbsp;контексте, за&nbsp;счет чего происходит быстрое запоминание слов и&nbsp;выражений, а&nbsp;так&nbsp;же погружение в&nbsp;мир языковых конструкций. Читайте интересную литературу, смотрите интересные фильмы, запоминайте слова в&nbsp;Ингус, и&nbsp;вы&nbsp;не&nbsp;заметите как свободно овладеете языком!
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
 {% block content %}
-    <section class="homepage__splash">
-        <div class="page__container">
-            <h1 class="homepage__title">Сервис для изучения английских слов</h1>
-            <p class="homepage__subtitle"><b class="homepage__subtitle_type_bold">Повторение слов в контексте.</b></p>
-        </div>
-    </section>
-    {% comment %}
-    <section>
-        <div class="page__container" style="margin: 1rem auto;">
-            Внимание! Сервис находится в стадии тестирования. Словарь наполняется, некоторые функции в настоящий момент не работают, или работают неправильно :) Возможны перерывы в работе сервиса.
-        </div>
-    </section>
-    {% endcomment %}
     <section class="homepage__features">
         <div class="page__container">
             <div class="homepage__feature">

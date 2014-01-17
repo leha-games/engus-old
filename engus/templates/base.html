@@ -6,6 +6,7 @@
     <title>{% block pagetitle %}{% if page_title %}{{ page_title }}. {% endif %}{% endblock %}Engus. Изучение английского языка</title>
     {% load staticfiles %}
     <link rel="shortcut icon" href="{% static "img/favicon.ico" %}" type="image/x-icon">
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{% static "css/global.min.css" %}"/>
     {% block extrastyles %}{% endblock %}
     {% block extrascripts %}{% endblock %}
@@ -13,23 +14,20 @@
     {% block extrahead %}{% endblock %}
 </head>
 <body class="page">
-    <header class="page__header">
-        <div class="page__container page__header-container">
-                <h1 class="page__header-title">
-                    <a class="page__header-title-link" href="{% url "home" %}">EngUs.Ru</a>
-                </h1>
-            <div class="page__header-login">
-                <a href="{% url "registration_register" %}" class="page__btn page__btn_color_yellow">Регистрация</a>
-                <a href="{% url "django.contrib.auth.views.login" %}" class="page__btn">Войти</a>
-            </div>
-        </div>
-    </header>
+
+    {% block splash %}
+    <section class="homepage__splash">
+        {% block splashcontent %}
+        {% endblock %}
+    </section>
+    {% endblock %}
 
     {% block content %}
     {% endblock %}
 
     {% if not debug %}
         {% comment %} Analytics {% endcomment %}
+        <!-- Yandex.Metrika counter --><script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter23664607 = new Ya.Metrika({id:23664607, clickmap:true, trackLinks:true, accurateTrackBounce:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/23664607" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
     {% endif %}
 </body>
 </html>
