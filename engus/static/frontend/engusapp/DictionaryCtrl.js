@@ -23,10 +23,12 @@ angular.module('engusApp').controller('DictionaryWordCtrl',
         this.rawWord = $stateParams.word;
         this.word = Word;
         this.loading = true;
+        this.cardsLoading = true;
         this.wordNotFound = false;
         this.examples = WordExamples;
         this.card = undefined;
         Cards.$promise.then(function(cards) {
+            self.cardsLoading = false;
             if (cards.length > 0) {
                 self.card = cards[0];
             };
