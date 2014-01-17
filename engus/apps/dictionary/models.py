@@ -74,40 +74,9 @@ class Definition(models.Model):
         (ADJECTIVE, 'adjective'),
         (VERB, 'verb'),
         (ADVERB, 'adverb'),
-        (PREPOSITION, 'predosition'),
+        (PREPOSITION, 'preposition'),
         (CONJUCTION, 'conjuction'),
         (INTERJECTION, 'interjection'),
-    )
-
-    APPROVING = 1
-    DISAPPROVING = 2
-    FIGURATIVE = 3
-    FORMAL = 4
-    HUMOROUS = 5
-    INFORMAL = 6
-    IRONIC = 7
-    LITERARY = 8
-    OFFENSIVE = 9
-    SLANG = 10
-    TECHNICAL = 11
-    OLDFASHIONED = 12
-    OLDUSE = 13
-    SAYING = 14
-    LABEL_CHOICES = (
-        (APPROVING, 'approving'),
-        (DISAPPROVING, 'disapproving'),
-        (FIGURATIVE, 'figurative'),
-        (FORMAL, 'formal'),
-        (HUMOROUS, 'humorous'),
-        (INFORMAL, 'informal'),
-        (IRONIC, 'ironic'),
-        (LITERARY, 'literary'),
-        (OFFENSIVE, 'offensive'),
-        (SLANG, 'slang'),
-        (TECHNICAL, 'technical'),
-        (OLDFASHIONED, 'old-fashioned'),
-        (OLDUSE, 'old use'),
-        (SAYING, 'saying'),
     )
 
 
@@ -117,7 +86,7 @@ class Definition(models.Model):
     word = models.ForeignKey(Word)
     part_of_speach = models.SmallIntegerField(choices=PART_OF_SPEACH_CHOICES)
     weight = models.SmallIntegerField(default=0)
-    label = models.SmallIntegerField(choices=LABEL_CHOICES, null=True, blank=True)
+    label = models.CharField(max_length=100, blank=True)
     where_used = models.CharField(max_length=100, blank=True)
     definition = models.CharField(max_length=255, blank=True)
     explanation = models.CharField(max_length=100, blank=True)
@@ -132,7 +101,7 @@ class Definition(models.Model):
 
 class Example(models.Model):
     definition = models.ForeignKey(Definition)
-    label = models.SmallIntegerField(choices=Definition.LABEL_CHOICES, null=True, blank=True)
+    label = models.CharField(max_length=100, blank=True)
     text = models.CharField(max_length=255)
     text_equal = models.CharField(max_length=100, blank=True)
     russian_translation = models.CharField(max_length=255, blank=True)
