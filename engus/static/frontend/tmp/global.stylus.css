@@ -343,7 +343,7 @@ button {
   background: -o-linear-gradient(rgba(100,160,210,0.5), rgba(100,160,210,0.8));
   background: -ms-linear-gradient(rgba(100,160,210,0.5), rgba(100,160,210,0.8));
   background: linear-gradient(rgba(100,160,210,0.5), rgba(100,160,210,0.8));
-  background: url("../img/engus_splash4.jpg") no-repeat center center;
+  background: url("../img/engus_splash.jpg") no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
