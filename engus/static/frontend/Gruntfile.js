@@ -50,7 +50,7 @@ module.exports = function(grunt) {
         },
         watch: {
             files: ['stylus/*', 'engusapp/templates/**/*.html'],
-            tasks: ['stylus', 'csso', 'ngtemplates']
+            tasks: ['stylus', 'csso', 'ngtemplates', 'uglify']
         }
     });
 
