@@ -10,6 +10,74 @@ $color(n)
         padding: 1rem;
     }
 
+    &__splash {
+        box-sizing: border-box;
+        padding: 3rem 0;
+        background: linear-gradient($color2(0.5), $color2(0.8));
+        background: url(../img/engus_splash_1920_70.jpg) no-repeat center center;
+        background-size: cover;
+        text-align: left;
+        min-height: 100vh;;
+
+        @media (max-width: 600px) {
+            background: url(../img/engus_splash_square_750_60.jpg) no-repeat center center;
+            background-size: auto 100% ;
+        }
+
+        &-textblock {
+            color: #fff;
+            text-shadow: 0px 1px 4px rgba(0,0,0,0.9);
+            background-color: rgba(0,0,0,0.8);
+            text-align: left;
+            padding: 1.5rem 0;
+            margin-top: 7rem;
+        }
+
+        &-container {
+            max-width: 1100px;
+            margin-right: 8rem;
+            margin-left: 5rem;
+
+            @media(max-width: 1200px) {
+                margin-left: 3rem;
+                margin-right: 5rem;
+            }
+
+            @media(max-width: 600px) {
+                margin: 0 1rem;
+            }
+        }
+
+        &_type {
+
+            &_flexbox {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: flex-start;
+                align-items: stretch;
+            }
+        }
+    }
+
+    &__title {
+        font-size: 1.7rem;
+        margin-bottom: 1.3rem;
+        padding-bottom: 0.2rem;
+        font-family: 'Pacifico', cursive;
+
+        &-link {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            transition: all 0.15s;
+
+            &:hover {
+                color: rgba(255,255,255,1);
+            }
+        }
+    }
+
+
     &__header {
         background: linear-gradient($color(0.6), $color(1));
         border-bottom: 1px solid #fff;
@@ -21,17 +89,6 @@ $color(n)
             @media (max-width: 600px) {
                 flex-direction: column;
                 align-items: stretch;
-            }
-        }
-
-        &-title {
-            font-size: 1.5rem;
-            
-            &-link {
-                color: #fff;
-                text-shadow: 0 1px 1px #333;
-                text-decoration: none;
-                color: #fff;
             }
         }
 
@@ -70,11 +127,14 @@ $color(n)
 
     &__form {
         max-width: 400px;
-        flex-grow: 1;
-        padding: 1rem 2rem;
+        padding: 1rem 2rem 0.3rem;
         margin: 2rem auto;
         color: #fff;
         background-color: rgba(0,0,0,0.8);
+
+        @media (max-width: 450px) {
+            padding: 1rem 1rem 0.3rem;
+        }
 
         &-title {
             font-size: 1.5rem;
@@ -114,8 +174,9 @@ $color(n)
             box-sizing: border-box;
             width: 100%;
             border: none;
-            padding: 0.35rem 0.5rem;
+            padding: 0.5rem 0.5rem;
             color: #000;
+            background-color: #fff;
         }
 
         input[type="submit"] {
@@ -124,11 +185,16 @@ $color(n)
             font-size: 1.1rem;
             text-align: center;
             color: #fff;
-            border: none;
+            border: 1px solid #fff;
             outline: none;
-            background: rgba(0,0,0,0.7);
+            background: rgba(255,255,255,0);
             cursor: pointer;
             text-decoration: none;
+            transition: background 0.3s;
+
+            &:hover {
+                background: rgba(255,255,255,0.15);
+            }
         }
     }
 }

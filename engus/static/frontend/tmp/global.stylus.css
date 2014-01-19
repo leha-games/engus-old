@@ -121,6 +121,11 @@ button {
   font-size: 20px;
   font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+@media (max-width: 1200px) {
+  .html {
+    font-size: 19px;
+  }
+}
 @media (max-width: 400px) {
   .html {
     font-size: 17px;
@@ -163,6 +168,105 @@ button {
   margin: 0 auto;
   padding: 1rem;
 }
+.page__splash {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 3rem 0;
+  background: -webkit-linear-gradient($color2(), $color2());
+  background: -moz-linear-gradient($color2(), $color2());
+  background: -o-linear-gradient($color2(), $color2());
+  background: -ms-linear-gradient($color2(), $color2());
+  background: linear-gradient($color2(), $color2());
+  background: url("../img/engus_splash_1920_70.jpg") no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  text-align: left;
+  min-height: 100vh;
+}
+@media (max-width: 600px) {
+  .page__splash {
+    background: url("../img/engus_splash_square_750_60.jpg") no-repeat center center;
+    -webkit-background-size: auto 100%;
+    -moz-background-size: auto 100%;
+    background-size: auto 100%;
+  }
+}
+.page__splash-textblock {
+  color: #fff;
+  text-shadow: 0px 1px 4px rgba(0,0,0,0.9);
+  background-color: rgba(0,0,0,0.8);
+  text-align: left;
+  padding: 1.5rem 0;
+  margin-top: 7rem;
+}
+.page__splash-container {
+  max-width: 1100px;
+  margin-right: 8rem;
+  margin-left: 5rem;
+}
+@media (max-width: 1200px) {
+  .page__splash-container {
+    margin-left: 3rem;
+    margin-right: 5rem;
+  }
+}
+@media (max-width: 600px) {
+  .page__splash-container {
+    margin: 0 1rem;
+  }
+}
+.page__splash_type_flexbox {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -o-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: justify;
+  -moz-box-pack: justify;
+  -o-box-pack: justify;
+  -ms-flex-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-box-align: start;
+  -moz-box-align: start;
+  -o-box-align: start;
+  -ms-flex-align: start;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+  -webkit-box-align: stretch;
+  -moz-box-align: stretch;
+  -o-box-align: stretch;
+  -ms-flex-align: stretch;
+  -webkit-align-items: stretch;
+  align-items: stretch;
+}
+.page__title {
+  font-size: 1.7rem;
+  margin-bottom: 1.3rem;
+  padding-bottom: 0.2rem;
+  font-family: 'Pacifico', cursive;
+}
+.page__title-link {
+  color: rgba(255,255,255,0.9);
+  text-decoration: none;
+  -webkit-transition: all 0.15s;
+  -moz-transition: all 0.15s;
+  -o-transition: all 0.15s;
+  -ms-transition: all 0.15s;
+  transition: all 0.15s;
+}
+.page__title-link:hover {
+  color: #fff;
+}
 .page__header {
   background: -webkit-linear-gradient(rgba(50,110,160,0.6), #326ea0);
   background: -moz-linear-gradient(rgba(50,110,160,0.6), #326ea0);
@@ -200,15 +304,6 @@ button {
     -webkit-align-items: stretch;
     align-items: stretch;
   }
-}
-.page__header-title {
-  font-size: 1.5rem;
-}
-.page__header-title-link {
-  color: #fff;
-  text-shadow: 0 1px 1px #333;
-  text-decoration: none;
-  color: #fff;
 }
 .page__header-login {
   -webkit-box-flex: 1;
@@ -255,17 +350,15 @@ button {
 }
 .page__form {
   max-width: 400px;
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -o-box-flex: 1;
-  -ms-box-flex: 1;
-  box-flex: 1;
-  -webkit-flex-grow: 1;
-  flex-grow: 1;
-  padding: 1rem 2rem;
+  padding: 1rem 2rem 0.3rem;
   margin: 2rem auto;
   color: #fff;
   background-color: rgba(0,0,0,0.8);
+}
+@media (max-width: 450px) {
+  .page__form {
+    padding: 1rem 1rem 0.3rem;
+  }
 }
 .page__form-title {
   font-size: 1.5rem;
@@ -300,8 +393,9 @@ button {
   box-sizing: border-box;
   width: 100%;
   border: none;
-  padding: 0.35rem 0.5rem;
+  padding: 0.5rem 0.5rem;
   color: #000;
+  background-color: #fff;
 }
 .page__form input[type="submit"] {
   margin: 1.7rem 0;
@@ -309,90 +403,40 @@ button {
   font-size: 1.1rem;
   text-align: center;
   color: #fff;
-  border: none;
+  border: 1px solid #fff;
   outline: none;
-  background: rgba(0,0,0,0.7);
+  background: rgba(255,255,255,0);
   cursor: pointer;
   text-decoration: none;
+  -webkit-transition: background 0.3s;
+  -moz-transition: background 0.3s;
+  -o-transition: background 0.3s;
+  -ms-transition: background 0.3s;
+  transition: background 0.3s;
 }
-.homepage__splash {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: box;
-  display: flex;
-  -webkit-box-pack: justify;
-  -moz-box-pack: justify;
-  -o-box-pack: justify;
-  -ms-flex-pack: justify;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
-  -webkit-box-align: start;
-  -moz-box-align: start;
-  -o-box-align: start;
-  -ms-flex-align: start;
-  -webkit-align-items: flex-start;
-  align-items: flex-start;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 3rem 0;
-  background: -webkit-linear-gradient(rgba(100,160,210,0.5), rgba(100,160,210,0.8));
-  background: -moz-linear-gradient(rgba(100,160,210,0.5), rgba(100,160,210,0.8));
-  background: -o-linear-gradient(rgba(100,160,210,0.5), rgba(100,160,210,0.8));
-  background: -ms-linear-gradient(rgba(100,160,210,0.5), rgba(100,160,210,0.8));
-  background: linear-gradient(rgba(100,160,210,0.5), rgba(100,160,210,0.8));
-  background: url("../img/engus_splash.jpg") no-repeat center center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
-  text-align: left;
-  min-height: 100vh;
-}
-.homepage__splash-textblock {
-  color: #fff;
-  text-shadow: 0px 1px 4px rgba(0,0,0,0.9);
-  background-color: rgba(0,0,0,0.8);
-  text-align: left;
-  padding: 1.5rem 0;
-  margin-top: 3rem;
-}
-.homepage__splash-container {
-  max-width: 1100px;
-  margin: 0 5rem;
-}
-@media (max-width: 600px) {
-  .homepage__splash-container {
-    margin: 0 1rem;
-  }
-}
-.homepage__splash_direction_column {
-  -webkit-box-orient: vertical;
-  -moz-box-orient: vertical;
-  -o-box-orient: vertical;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-align: stretch;
-  -moz-box-align: stretch;
-  -o-box-align: stretch;
-  -ms-flex-align: stretch;
-  -webkit-align-items: stretch;
-  align-items: stretch;
+.page__form input[type="submit"]:hover {
+  background: rgba(255,255,255,0.15);
 }
 .homepage__regbutton {
   color: #fff;
-  background-color: rgba(0,0,0,0.8);
+  background-color: rgba(0,0,0,0.6);
   display: inline-block;
   text-decoration: none;
   padding: 0.5rem 1.5rem;
   margin-right: 1rem;
   margin-bottom: 1rem;
-  color: rgba(255,255,255,0.8);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.8);
+  -webkit-transition: all 0.15s;
+  -moz-transition: all 0.15s;
+  -o-transition: all 0.15s;
+  -ms-transition: all 0.15s;
+  transition: all 0.15s;
 }
 .homepage__regbutton:hover {
   color: #fff;
+  background-color: rgba(0,0,0,0.4);
+  border-color: #fff;
 }
 .homepage__title {
   font-size: 2rem;
@@ -418,35 +462,39 @@ button {
 .homepage__features {
   background-color: #f9f9f9;
   padding: 2rem 0 5rem;
-  zoom: 1;
-}
-.homepage__features:before,
-.homepage__features:after {
-  content: "";
-  display: table;
-}
-.homepage__features:after {
-  clear: both;
+  text-align: center;
 }
 .homepage__feature {
-  padding: 30px;
+  display: inline-block;
   width: 255px;
+  padding: 30px;
   margin: 0 3px 3px 0;
   background-color: #fff;
   border-bottom: 3px solid #d9d9d9;
   border-right: 2px solid #d9d9d9;
-  float: left;
   line-height: 1.3;
-  height: 490px;
+  vertical-align: top;
+  text-align: left;
+}
+@media (max-width: 450px) {
+  .homepage__feature {
+    width: auto;
+  }
 }
 .homepage__feature-text {
   color: #888;
-  font-size: 0.78rem;
+  font-size: 0.9rem;
   line-height: 1.4;
+  height: 13rem;
+}
+@media (max-width: 450px) {
+  .homepage__feature-text {
+    height: auto;
+  }
 }
 .homepage__feature-title {
   color: #000;
-  font-size: 1.3rem;
+  font-size: 1.6rem;
   margin: 0.5rem 0;
 }
 .homepage__feature-img {
