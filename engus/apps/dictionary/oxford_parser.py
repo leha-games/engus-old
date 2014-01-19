@@ -4,6 +4,7 @@ import re
 from bs4 import BeautifulSoup
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
+from django.utils.text import slugify
 from .models import Word, Definition, Example
 
 DICTIONARY_BASE_URL = "http://oaadonline.oxfordlearnersdictionaries.com"
@@ -13,43 +14,52 @@ def parse(word):
     url =  WORD_URL + word
     page = urllib.urlopen(url).read()
     soup = BeautifulSoup(page)
-    word_not_found = soup.find(text=re.compile("Sorry, no search result for"))
+    word_not_found = soup.find(text=re.compile(r"(Sorry, no search result for)|(Entry not found in this dictionary)"))
     if word_not_found:
-        try:
-            word_obj = Word.objects.get(word=word)
-            word_obj.delete()
-            print "Delete word '%s' since not found in dictionary" % word
-        except Word.DoesNotExist:
-            pass
-        return
+        is_deleted = delete_word(word, "not found in dictionary")
+        return not is_deleted
     search_results = soup.find(id="relatedentries")
-    word_anchors = search_results.find_all(href=re.compile(r"^{0}(_\d)?$".format(word)))
+    word_anchors = search_results.find_all("a", href=re.compile(r"^{0}(_\d)?$".format(slugify(word))))
+    if len(word_anchors) == 0:
+        is_deleted = delete_word(word, "no word links")
+        return not is_deleted
     for word_anchor in word_anchors:
         word_link = word_anchor["href"]
-        parse_word(word_link)
+        parse_word(word_link, word)
+    return True
 
-def parse_word(word_link):
+def delete_word(word, message):
+    try:
+        word_obj = Word.objects.get(word=word)
+        word_obj.delete()
+        print 'Delete word "%s" since %s' % (word, message)
+        with open('/var/webapps/engus/code/data/oxford_parsing_details/deleted_words.txt', 'a') as f:
+            f.write("%s\n" % word)
+        return True
+    except Word.DoesNotExist:
+        return False
+
+
+def parse_word(word_link, origin_word):
+    print 'Parsing "%s"' % word_link
     page = urllib.urlopen(WORD_URL + word_link).read()
     soup = BeautifulSoup(page)
     entry = soup.find("div", class_="entry")
-    # remove idioms:
-    idioms_element = entry.find("span", class_="ids-g")
-    if idioms_element:
-        idioms_element.decompose()
-    # remove Vocabulary Building Box:
-    vocabulary_building_box_element = entry.find("span", class_="unbox")
-    if vocabulary_building_box_element:
-        vocabulary_building_box_element.decompose()
-    # remove phrasal verbs:
-    phrasal_verbs_elements = entry.find_all("div", { "class": ["pvp-g", "pv-g"] })
-    if phrasal_verbs_elements:
-        for el in phrasal_verbs_elements:
+    # remove idioms(ids-g), Vocabulary Building Boxes(unbox), phrasal verbs(pvp-g, pv-g), deriviates(dr-g):
+    elements_to_remove = entry.find_all(["span", "div"], {"class": ["ids-g", "unbox", "pvp-g", "pv-g", "dr-g"]})
+    if elements_to_remove:
+        for el in elements_to_remove:
             el.decompose()
-    get_word(entry)
+    get_word(entry, origin_word)
 
 
-def get_word(element):
+def get_word(element, origin_word):
     word = element.find("h2", class_="h").get_text().strip()
+    if word != origin_word:
+        print 'Word not the same: "%s" != "%s"' % (word, origin_word)
+        with open('/var/webapps/engus/code/data/oxford_parsing_details/not-the-same-word.txt', 'a') as f:
+            f.write('%s != %s\n' % (word, origin_word))
+        return
     transcription_element = element.find("span", class_="phon-us")
     transcription = ''
     if transcription_element:
@@ -59,10 +69,19 @@ def get_word(element):
     if audio_element:
         audio_rel_link = audio_element["onclick"].replace("playSoundFromFlash('", "").replace("', this)", "").strip()
         audio_url = DICTIONARY_BASE_URL + audio_rel_link
-    part_of_speach = element.find("span", class_="pos").get_text() 
-    is_oxford_3000 = False
-    word_obj = save_word(word, transcription, is_oxford_3000, audio_url)
-    get_definitions(element, word_obj, part_of_speach)
+    part_of_speach_element = element.find("span", class_="pos") 
+    if part_of_speach_element:
+        part_of_speach = part_of_speach_element.get_text()
+        is_oxford_3000_element = element.find("img", { "title": "Oxford3000" })
+        is_oxford_3000 = False
+        if is_oxford_3000_element:
+            is_oxford_3000 = True
+        word_obj = save_word(word, transcription, is_oxford_3000, audio_url)
+        get_definitions(element, word_obj, part_of_speach)
+    else:
+        print "Not found part of speach"
+        with open('/var/webapps/engus/code/data/oxford_parsing_details/not-found-part-of-speach.txt', 'a') as f:
+            f.write('%s\n' % (word))
 
 
 def get_definitions(element, word_obj, part_of_speach):
@@ -115,7 +134,7 @@ def get_examples(element, definition_obj):
 
 def save_definition(word_obj, part_of_speach, text, weight, label, where_used, explanation):
     weight = int(weight)
-    part_of_speach=getattr(Definition, part_of_speach.upper())
+    part_of_speach=getattr(Definition, part_of_speach.upper().replace(" ", ""))
     definition, definition_created = Definition.objects.get_or_create(
         word=word_obj, 
         part_of_speach=part_of_speach,
@@ -137,5 +156,6 @@ def save_word(word, transcription, is_oxford_3000, audio_url):
             audio_temp.write(urllib2.urlopen(audio_url).read())
             audio_temp.flush()
             word_obj.audio.save(word + ".mp3", File(audio_temp))
-        word_obj.save()
+    word_obj.is_oxford_3000 = is_oxford_3000
+    word_obj.save()
     return word_obj
