@@ -501,28 +501,52 @@ button {
   display: block;
   margin: 0 auto 1.5rem;
 }
-.homepage__instruction {
-  margin: 2rem 0 3rem;
+.homepage__howto {
+  padding: 2rem 0 5rem;
 }
-.homepage__instruction-title {
-  font-size: 1.6rem;
-  margin-bottom: 1.3rem;
-  color: #282864;
+.homepage__howto-title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
 }
-.homepage__instruction-list {
+.homepage__howto-list {
   counter-reset: item;
 }
-.homepage__instruction-list-item {
+.homepage__howto-list-item {
   counter-increment: item;
   margin: 1rem 0;
-  color: #333;
+  color: #555;
 }
-.homepage__instruction-list-item:before {
+.homepage__howto-list-item:before {
   content: counter(item) ".";
   display: inline-block;
   margin-right: 0.5rem;
   font-weight: bold;
   color: #000;
+  font-size: 1.2rem;
+}
+.homepage__howto-screen {
+  display: block;
+  margin: 0.5rem 0 1.5rem;
+  max-width: 100%;
+}
+.homepage__registration-big-button {
+  font-size: 1.5rem;
+  text-align: center;
+  margin: 5rem auto 3rem;
+  display: block;
+  padding: 0.6rem 0;
+  max-width: 500px;
+  border: 1px solid rgba(0,0,255,0.3);
+  text-decoration: none;
+  color: #00f;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.homepage__registration-big-button:hover {
+  border-color: #00f;
 }
 .content {
   margin: 1.5rem 0;
@@ -531,6 +555,15 @@ button {
   .content {
     padding: 0 1rem;
   }
+}
+.app__loading {
+  font-size: 1.4rem;
+  text-align: center;
+  margin-top: 5rem;
+}
+.app__loading-icon {
+  color: #326ea0;
+  margin-left: 0.5rem;
 }
 .dictionary__word {
   margin: 1rem 0;

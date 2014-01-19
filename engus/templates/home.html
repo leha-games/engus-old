@@ -63,4 +63,44 @@
             </div>
         </div>
     </section>
+    <section class="homepage__howto">
+        <div class="page__container">
+            <h2 class="homepage__howto-title">
+                Изучение английского вместе с&nbsp;Engus.<br> 
+                <b>Быстро и&nbsp;интересно.</b>
+            </h2>
+            <ol class="homepage__howto-list">
+                <li class="homepage__howto-list-item">
+                    Начните читать интересную вам книгу, или смотреть интересный фильм с субтитрами.
+                </li>
+                <li class="homepage__howto-list-item">
+                    Если вам встретилось незнакомое слово, посмотрите его перевод в словаре Ингус.
+                    <img class="homepage__howto-screen" src="{% static "img/screen1.png" %}">
+                </li>
+                <li class="homepage__howto-list-item">
+                    Можете добавить слово в карточки. Для этого нажмите на звезду рядом со словом. Она станет оранжевой.
+                    <img class="homepage__howto-screen" src="{% static "img/screen2.png" %}">
+                </li>
+                <li class="homepage__howto-list-item">
+                    В любое время начните повторять слова, которые вы добавили в карточки.
+                    <img class="homepage__howto-screen" src="{% static "img/screen3.png" %}">
+                </li>
+                <li class="homepage__howto-list-item">
+                    Просмотрите слово, прослушайте его перевод, прочитайте пример употребления. Попытайтесь вспомнить, что означает данное слово. После этого нажмите "Показать определение".
+                    <img class="homepage__howto-screen" src="{% static "img/screen4.png" %}">
+                </li>
+                <li class="homepage__howto-list-item">
+                    Просмотрите определение. Если вы правильно вспомнили значение слова, отлично! Нажмите "Вспомнил". Если же вспомнить не удалось, нажмите "Забыл". Это значит, что в следующий раз вы в первую очередь повторите это слово.
+                    <img class="homepage__howto-screen" src="{% static "img/screen5.png" %}">
+                </li>
+                <li class="homepage__howto-list-item">
+                    Повторяйте слова в любое удобное вам время. На мобильном телефоне, на планшете, на компьютере.
+                </li>
+                <li class="homepage__howto-list-item">
+                    Таким образом вы будете запоминать до 3000 слов за месяц и вскоре начнете свободно читать и понимать английску речь. А при небольшой практике, даже разговаривать на английском! 
+                </li>
+            </ol>
+            <a class="homepage__registration-big-button" href="{% url "registration_register" %}">Регистрация</a>
+        </div>
+    </section>
 {% endblock %}

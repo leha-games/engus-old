@@ -49,7 +49,7 @@ module.exports = function(grunt) {
             }
         },
         watch: {
-            files: ['stylus/*', 'engusapp/templates/**/*.html'],
+            files: ['stylus/*', 'engusapp/**/*'],
             tasks: ['stylus', 'csso', 'ngtemplates', 'uglify']
         }
     });

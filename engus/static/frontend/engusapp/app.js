@@ -15,6 +15,12 @@ angular.module('engusApp', ['ngResource', 'ui.router', 'ngTouch'])
                 resolve: {
                     WordFlatList: ['$http', function($http) {
                         return $http.get('/dictionary/words/flat/');
+                    }], 
+                    Account: [function() {
+                        return {
+                            is_eng_mode: true,
+                            paid_till: 0
+                        };
                     }]
                 }
             })
