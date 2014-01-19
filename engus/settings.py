@@ -76,7 +76,7 @@ STATIC_URL = '/static/'
 APPEND_SLASH = False
 
 
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/app/"
 
 
 # Third-party apps settings

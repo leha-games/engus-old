@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">      
-    <title>{% block pagetitle %}{% if page_title %}{{ page_title }}. {% endif %}{% endblock %}Engus. Изучение английского языка</title>
+    <title>{% block pagetitle %}{% if page_title %}{{ page_title }}. {% endif %}{% endblock %}Ингус. Изучение английского языка</title>
     {% load staticfiles %}
     <link rel="shortcut icon" href="{% static "img/favicon.ico" %}" type="image/x-icon">
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{% static "css/global.min.css" %}"/>
     {% block extrastyles %}{% endblock %}
     {% block extrascripts %}{% endblock %}
@@ -16,7 +17,12 @@
 <body class="page">
 
     {% block splash %}
-    <section class="homepage__splash">
+    <section class="page__splash {% block splashclass %}{% endblock %}">
+        <header class="page__splash-container">
+            <h1 class="page__title"><a class="page__title-link" href="{% url "home" %}">Engus</a></h1>
+            {% block headercontent %}
+            {% endblock %}
+        </header>
         {% block splashcontent %}
         {% endblock %}
     </section>

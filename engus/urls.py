@@ -9,7 +9,8 @@ admin.autodiscover()
 
 
 urlpatterns = patterns('',
-    url(r'^$', 'engus.apps.accounts.views.home', name="home"),
+    url(r'^$', TemplateView.as_view(template_name="home.html"), name="home"),
+    url(r'^app/$', login_required(TemplateView.as_view(template_name="app.html")), name="app"),
     url(r'^accounts/password/done/$', 'django.contrib.auth.views.password_reset_done', { 'template_name': 'registration/password_reset_done.html' }, name='password_reset_done'),
     (r'^accounts/', include('registration.backends.default.urls')),
     (r'^cards', include('engus.apps.cards.urls')),
