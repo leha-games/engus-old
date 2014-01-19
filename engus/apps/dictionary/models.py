@@ -16,6 +16,8 @@ class Word(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     audio = models.FileField(upload_to='word', null=True, blank=True)
+    is_oxford_3000 = models.BooleanField(default=False)
+    mueller_definition = models.TextField(blank=True)
 
     class Meta:
         ordering = ['word', ]
@@ -66,8 +68,19 @@ class Definition(models.Model):
     VERB = 4
     ADVERB = 5
     PREPOSITION = 6
-    CONJUCTION = 7
+    CONJUNCTION = 7
     INTERJECTION = 8
+    ABBREVIATION = 9 
+    EXCLAMATION = 10
+    INDEFINITEARTICLE = 11
+    SYMBOL = 12
+    DETERMINER = 13
+    NUMBER = 14
+    AUXILIARYVERB = 15
+    COMBININGFORM = 16
+    ADJECTIVES = 17
+    MODALVERB = 18
+    ORDINALNUMBER = 19
     PART_OF_SPEACH_CHOICES = (
         (NOUN, 'noun'),
         (PRONOUN, 'pronoun'),
@@ -75,8 +88,19 @@ class Definition(models.Model):
         (VERB, 'verb'),
         (ADVERB, 'adverb'),
         (PREPOSITION, 'preposition'),
-        (CONJUCTION, 'conjuction'),
+        (CONJUNCTION, 'conjuction'),
         (INTERJECTION, 'interjection'),
+        (ABBREVIATION, 'abbreviation'),
+        (EXCLAMATION, 'exclamation'),
+        (INDEFINITEARTICLE, 'indefinite article'),
+        (SYMBOL, 'symbol'),
+        (DETERMINER, 'determiner'),
+        (NUMBER, 'number'),
+        (AUXILIARYVERB,'auxiliary verb'),
+        (COMBININGFORM, 'combining form'),
+        (ADJECTIVES, 'adjectives'),
+        (MODALVERB, 'modal verb'),
+        (ORDINALNUMBER, 'ordinal number'),
     )
 
 
@@ -86,10 +110,10 @@ class Definition(models.Model):
     word = models.ForeignKey(Word)
     part_of_speach = models.SmallIntegerField(choices=PART_OF_SPEACH_CHOICES)
     weight = models.SmallIntegerField(default=0)
-    label = models.CharField(max_length=100, blank=True)
-    where_used = models.CharField(max_length=100, blank=True)
-    definition = models.CharField(max_length=255, blank=True)
-    explanation = models.CharField(max_length=100, blank=True)
+    label = models.CharField(max_length=255, blank=True)
+    where_used = models.CharField(max_length=255, blank=True)
+    definition = models.TextField(blank=True)
+    explanation = models.CharField(max_length=255, blank=True)
     russian_definition = models.CharField(max_length=255, blank=True)
     illustration = models.ImageField(upload_to=make_upload_path, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -103,7 +127,7 @@ class Example(models.Model):
     definition = models.ForeignKey(Definition)
     label = models.CharField(max_length=100, blank=True)
     text = models.CharField(max_length=255)
-    text_equal = models.CharField(max_length=100, blank=True)
+    text_equal = models.CharField(max_length=255, blank=True)
     russian_translation = models.CharField(max_length=255, blank=True)
     illustration = models.ImageField(upload_to="definition_examples/%Y_%m_%d", null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
