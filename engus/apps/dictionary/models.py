@@ -81,6 +81,10 @@ class Definition(models.Model):
     ADJECTIVES = 17
     MODALVERB = 18
     ORDINALNUMBER = 19
+    NOUNS = 20
+    DEFINITEARTICLE = 21
+    LINKINGVERB = 22
+    INFINITIVEMARKER = 23
     PART_OF_SPEACH_CHOICES = (
         (NOUN, 'noun'),
         (PRONOUN, 'pronoun'),
@@ -101,6 +105,10 @@ class Definition(models.Model):
         (ADJECTIVES, 'adjectives'),
         (MODALVERB, 'modal verb'),
         (ORDINALNUMBER, 'ordinal number'),
+        (NOUNS, 'nouns'),
+        (DEFINITEARTICLE, 'definite article'),
+        (LINKINGVERB, 'linking verb'),
+        (INFINITIVEMARKER, 'infinitive marker'),
     )
 
 
