@@ -136,18 +136,6 @@ button {
     font-size: 17px;
   }
 }
-.app {
-  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-  max-width: 650px;
-  line-height: 1.4;
-  margin: 0 auto;
-  padding: 0 1.2rem;
-}
-@media (max-width: 400px) {
-  .app {
-    padding: 0;
-  }
-}
 * {
   -webkit-tap-highlight-color: transparent;
 }
@@ -416,6 +404,8 @@ button {
   padding: 0.5rem 0.5rem;
   color: #000;
   background-color: #fff;
+  -webkit-border-radius: 0;
+  border-radius: 0;
 }
 .page__form input[type="submit"] {
   margin: 1.7rem 0;
@@ -575,6 +565,18 @@ button {
 @media (max-width: 400px) {
   .content {
     padding: 0 1rem;
+  }
+}
+.app {
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  max-width: 650px;
+  line-height: 1.4;
+  margin: 0 auto;
+  padding: 0 1.2rem;
+}
+@media (max-width: 400px) {
+  .app {
+    padding: 0;
   }
 }
 .app__loading {
