@@ -21,6 +21,7 @@ class DefinitionAdmin(admin.ModelAdmin):
     formfield_overrides = {
         models.CharField: {'widget': TextInput(attrs={'size':'150'})},
     }
+    list_filter = ('part_of_speach', )
 
 
 class DefinitionInline(admin.StackedInline):
@@ -36,6 +37,7 @@ class WordAdmin(admin.ModelAdmin):
     search_fields = ['word']
     ordering = ['-modified', ]
     list_display = ('word', 'transcription', 'audio', 'created', 'modified', )
+    list_filter = ('is_oxford_3000', )
     inlines = [
         DefinitionInline,
     ]
