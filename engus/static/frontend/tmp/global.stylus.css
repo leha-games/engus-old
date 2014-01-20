@@ -126,7 +126,12 @@ button {
     font-size: 19px;
   }
 }
-@media (max-width: 400px) {
+@media (max-width: 1024px) {
+  .html {
+    font-size: 18px;
+  }
+}
+@media (max-width: 600px) {
   .html {
     font-size: 17px;
   }
@@ -184,6 +189,11 @@ button {
   background-size: cover;
   text-align: left;
 }
+@media (max-width: 1024px) {
+  .page__splash {
+    padding: 2rem 0;
+  }
+}
 @media (max-width: 600px) {
   .page__splash {
     background: url("../img/engus_splash_square_750_60.jpg") no-repeat center center;
@@ -200,6 +210,11 @@ button {
   padding: 1.5rem 0;
   margin-top: 7rem;
 }
+@media (max-width: 1024px) {
+  .page__splash-textblock {
+    padding: 1rem 0 1.5rem;
+  }
+}
 .page__splash-container {
   max-width: 1100px;
   margin-right: 8rem;
@@ -209,6 +224,12 @@ button {
   .page__splash-container {
     margin-left: 3rem;
     margin-right: 5rem;
+  }
+}
+@media (max-width: 1024px) {
+  .page__splash-container {
+    margin-left: 2rem;
+    margin-right: 2rem;
   }
 }
 @media (max-width: 600px) {
