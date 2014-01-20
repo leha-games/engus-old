@@ -30,6 +30,17 @@
 
     {% block content %}
     {% endblock %}
+    
+    <script>
+        function splashMinHeight() {
+            var splashes = document.getElementsByClassName('page__splash');
+            for (var i = 0; i < splashes.length; ++i) {
+                splashes[i].style.minHeight = window.innerHeight + 'px';
+            };
+        }
+        splashMinHeight();
+        window.onresize = splashMinHeight;
+    </script>
 
     {% if not debug %}
         {% comment %} Analytics {% endcomment %}

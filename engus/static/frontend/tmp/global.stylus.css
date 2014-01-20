@@ -183,7 +183,6 @@ button {
   -moz-background-size: cover;
   background-size: cover;
   text-align: left;
-  min-height: 100vh;
 }
 @media (max-width: 600px) {
   .page__splash {
