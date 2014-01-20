@@ -100,7 +100,11 @@
                     Таким образом вы будете запоминать до 3000 слов за месяц и вскоре начнете свободно читать и понимать английску речь. А при небольшой практике, даже разговаривать на английском! 
                 </li>
             </ol>
-            <a class="homepage__registration-big-button" href="{% url "registration_register" %}">Регистрация</a>
+            {% if user.is_authenticated %}
+                <a class="homepage__registration-big-button" href="{% url "app" %}">Войти</a>
+            {% else %}
+                <a class="homepage__registration-big-button" href="{% url "registration_register" %}">Регистрация</a>
+            {% endif %}
         </div>
     </section>
 {% endblock %}

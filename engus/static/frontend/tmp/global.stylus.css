@@ -544,6 +544,7 @@ button {
   -o-transition: all 0.3s;
   -ms-transition: all 0.3s;
   transition: all 0.3s;
+  font-weight: bold;
 }
 .homepage__registration-big-button:hover {
   border-color: #00f;
