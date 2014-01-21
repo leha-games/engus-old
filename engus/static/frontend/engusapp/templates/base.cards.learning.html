@@ -13,7 +13,7 @@
     <section class="learning__definitions" ng-if="CardsLearningCtrl.current.showDefinitions">
         <div class="dictionary__mueller" ng-if="!CardsLearningCtrl.profile.is_english_mode" ng-bind-html="CardsLearningCtrl.current.word.mueller_definition | mueller"></div>
 
-        <ul class="definition__group-list" ng-if="CardsLearningCtrl.profile.is_english_mode">
+        <ul class="definition__group-list" ng-if="CardsLearningCtrl.profile.is_english_mode || !CardsLearningCtrl.current.word.mueller_definition">
             <li class="definition__group-item" ng-repeat="(groupName, definitionsGroup) in CardsLearningCtrl.current.word.definitionGroups">
                 <h1 class="definition__group-name"><i class="fa fa-angle-right definition__group-name-icon"></i>{{ groupName }}</h1>
                 <ol class="definition__list">

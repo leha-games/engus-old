@@ -52,7 +52,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "    <section class=\"learning__definitions\" ng-if=\"CardsLearningCtrl.current.showDefinitions\">\n" +
     "        <div class=\"dictionary__mueller\" ng-if=\"!CardsLearningCtrl.profile.is_english_mode\" ng-bind-html=\"CardsLearningCtrl.current.word.mueller_definition | mueller\"></div>\n" +
     "\n" +
-    "        <ul class=\"definition__group-list\" ng-if=\"CardsLearningCtrl.profile.is_english_mode\">\n" +
+    "        <ul class=\"definition__group-list\" ng-if=\"CardsLearningCtrl.profile.is_english_mode || !CardsLearningCtrl.current.word.mueller_definition\">\n" +
     "            <li class=\"definition__group-item\" ng-repeat=\"(groupName, definitionsGroup) in CardsLearningCtrl.current.word.definitionGroups\">\n" +
     "                <h1 class=\"definition__group-name\"><i class=\"fa fa-angle-right definition__group-name-icon\"></i>{{ groupName }}</h1>\n" +
     "                <ol class=\"definition__list\">\n" +
