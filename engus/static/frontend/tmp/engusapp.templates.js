@@ -3,11 +3,11 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
 
   $templateCache.put('templates/base.cards.html',
     "<div ui-view>\n" +
-    "    <div ng-click=\"$state.go('base.cards.learning')\" class=\"cards__begin-btn\">\n" +
+    "    <a ui-sref=\"base.cards.learning\" class=\"cards__begin-btn\">\n" +
     "        <span class=\"cards__begin-btn-text\">\n" +
     "            Начать повторение\n" +
     "        </span>\n" +
-    "    </div>\n" +
+    "    </a>\n" +
     "    <h1 class=\"cards__table-title\">\n" +
     "        Мои карточки \n" +
     "        <span ng-if=\"!(CardsCtrl.loading)\">(<span ng-bind=\"CardsCtrl.cards.length\"></span>)</span>\n" +
@@ -47,20 +47,23 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "    </header>\n" +
     "    <div class=\"learning__example\" ng-bind=\"CardsLearningCtrl.current.examples.random.text\"></div>\n" +
     "\n" +
+    "    <div class=\"learning__btn learning__btn_type_show\" ng-show=\"!(CardsLearningCtrl.current.showDefinitions)\" ng-click=\"CardsLearningCtrl.current.showDefinitions = true\">Показать определение</div>\n" +
+    "\n" +
     "    <section class=\"learning__definitions\" ng-if=\"CardsLearningCtrl.current.showDefinitions\">\n" +
-    "        <ul class=\"definition__group-list\">\n" +
+    "        <div class=\"dictionary__mueller\" ng-if=\"!CardsLearningCtrl.profile.is_english_mode\" ng-bind-html=\"CardsLearningCtrl.current.word.mueller_definition | mueller\"></div>\n" +
+    "\n" +
+    "        <ul class=\"definition__group-list\" ng-if=\"CardsLearningCtrl.profile.is_english_mode\">\n" +
     "            <li class=\"definition__group-item\" ng-repeat=\"(groupName, definitionsGroup) in CardsLearningCtrl.current.word.definitionGroups\">\n" +
     "                <h1 class=\"definition__group-name\"><i class=\"fa fa-angle-right definition__group-name-icon\"></i>{{ groupName }}</h1>\n" +
     "                <ol class=\"definition__list\">\n" +
-    "                    <li class=\"definition__item\" ng-class=\"{ transparent: (definition.id !== CardsLearningCtrl.current.examples.random.definition) }\" ng-repeat=\"definition in definitionsGroup | orderBy:'weight'\">\n" +
-    "                        {{ definition.definition }}\n" +
+    "                    <li class=\"definition__item\" ng-class=\"{ transparent: ((CardsLearningCtrl.current.examples.length > 0) && (definition.id !== CardsLearningCtrl.current.examples.random.definition)) }\" ng-repeat=\"definition in definitionsGroup | orderBy:'weight'\">\n" +
+    "                        <span ng-if=\"CardsLearningCtrl.profile.is_english_mode\" ng-bind=\"definition.definition\"></span>\n" +
+    "                        <span ng-if=\"!CardsLearningCtrl.profile.is_english_mode\" ng-bind=\"definition.russian_definition\"></span>\n" +
     "                    </li>\n" +
     "                </ol>\n" +
     "            </li>\n" +
     "        </ul>\n" +
     "    </section>\n" +
-    "\n" +
-    "    <div class=\"learning__btn learning__btn_type_show\" ng-show=\"!(CardsLearningCtrl.current.showDefinitions)\" ng-click=\"CardsLearningCtrl.current.showDefinitions = true\">Показать определение</div>\n" +
     "\n" +
     "    <ul class=\"learning__answer-list\" ng-show=\"!!(CardsLearningCtrl.current.showDefinitions)\">\n" +
     "        <li ng-click=\"CardsLearningCtrl.switchCard('forget')\" class=\"learning__answer-list-item learning__btn learning__btn_type_forget\">\n" +
@@ -76,7 +79,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
 
   $templateCache.put('templates/base.dictionary.html',
     "<section class=\"dictionary\">\n" +
-    "    <form class=\"dictionary__search-form\" ng-submit=\"dict.search(word)\">\n" +
+    "    <form class=\"dictionary__search-form\" submit-on=\"submitForm\" ng-submit=\"dict.search(word); dict.word='';\">\n" +
     "        <input \n" +
     "            class=\"dictionary__search-input\" \n" +
     "            type=\"text\" \n" +
@@ -84,13 +87,14 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "            autocorrect=\"off\"\n" +
     "            autocomplete=\"off\" \n" +
     "            placeholder=\"Поиск слова\" \n" +
-    "            blur-on-submit ng-model=\"dict.word\" \n" +
+    "            blur-on-submit \n" +
+    "            ng-model=\"dict.word\" \n" +
     "            ng-focus=\"isFocusOnSearch=true\" \n" +
     "            blur-with-timeout=\"isFocusOnSearch=false\">\n" +
     "        <i class=\"fa fa-refresh fa-spin dictionary__search-input-spinner\" ng-show=\"dict.searching\"></i>\n" +
     "        <ul class=\"dictionary__search-dropdown\" ng-if=\"dict.word && isFocusOnSearch\">\n" +
     "            <li class=\"dictionary__search-dropdown-item\" ng-repeat=\"word in dict.dictionary | filter:dict.word:dict.startsWith | limitTo: 30\">\n" +
-    "                <a class=\"dictionary__search-dropdown-item-link\" ui-sref=\"base.dictionary.word({ word: word })\" ng-click=\"dict.word=''; event.stopPropagation()\">{{ word }}</a>\n" +
+    "                <span class=\"dictionary__search-dropdown-item-link\" ng-click=\"dict.word=word; dict.triggerSubmit(); event.stopPropagation(); \">{{ word }}</span>\n" +
     "            </li>\n" +
     "            <li class=\"dictionary__search-dropdown-item dictionary__search-dropdown-item_state_notfound\" ng-if=\"(dict.dictionary | filter:dict.word:dict.startsWith).length===0\">\n" +
     "                Слово не найдено\n" +
@@ -116,13 +120,15 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "        <i ng-if=\"WordCtrl.loading\" class=\"fa fa-cog fa-spin dictionary__word-loading-icon\"></i>\n" +
     "    </header>\n" +
     "    <transcription ng-if=\"WordCtrl.word.transcription\" transcription=\"WordCtrl.word.transcription\" audio-src=\"WordCtrl.word.audio_url\"></transcription>\n" +
-    "    <section class=\"dictionary__definitions\" ng-if=\"WordCtrl.word.definition_set\">\n" +
+    "\n" +
+    "    <section class=\"dictionary__definitions\" ng-if=\"WordCtrl.profile.is_english_mode || (!WordCtrl.profile.is_english_mode && WordCtrl.word.mueller_definition === '') && WordCtrl.word.definition_set\">\n" +
     "        <ul class=\"definition__group-list\">\n" +
     "            <li class=\"definition__group-item\" ng-repeat=\"(groupName, definitionsGroup) in WordCtrl.word.definitionGroups\">\n" +
     "                <h1 class=\"definition__group-name\"><i class=\"fa fa-angle-right definition__group-name-icon\"></i>{{ groupName }}</h1>\n" +
     "                <ol class=\"definition__list\">\n" +
     "                    <li class=\"definition__item\" ng-repeat=\"definition in definitionsGroup | orderBy:'weight'\">\n" +
-    "                        {{ definition.definition }}\n" +
+    "                        <span ng-if=\"WordCtrl.profile.is_english_mode\" ng-bind=\"definition.definition\"></span>\n" +
+    "                        <span ng-if=\"!WordCtrl.profile.is_english_mode\" ng-bind=\"definition.russian_definition\"></span>\n" +
     "                        <ul class=\"definition__examples-list\" ng-if=\"(WordCtrl.examples | filter: {definition: definition.id}).length\">\n" +
     "                            <li ng-repeat=\"example in WordCtrl.examples | filter: {definition: definition.id}\">\n" +
     "                                <div class=\"definition__example\" \n" +
@@ -134,7 +140,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "                                    <span ng-bind-html=\"example.text | markWord:WordCtrl.word.word\"></span>\n" +
     "                                    <i ng-if=\"example.illustration_url\" class=\"fa fa-picture-o definition__example-illustration-icon\" ng-class=\"{ 'hover': exampleHover }\"></i>\n" +
-    "                                    <span ng-if=\"example.russian_translation\">— {{ example.russian_translation }}</span>\n" +
+    "                                    <span ng-if=\"!WordCtrl.profile.is_english_mode && example.russian_translation\">— {{ example.russian_translation }}</span>\n" +
     "                                </div>\n" +
     "                                <div ng-if=\"example.illustration_url && example.showIllustration\" ng-click=\"example.showIllustration = false\" class=\"definition__example-with-illustration\">\n" +
     "                                    <img class=\"definition__illustration\" ng-src=\"{{ example.illustration_url }}\">\n" +
@@ -148,34 +154,53 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "            </li>\n" +
     "        </ul>\n" +
     "    </section>\n" +
+    "\n" +
+    "    <section ng-if=\"!WordCtrl.profile.is_english_mode && WordCtrl.word.mueller_definition\">\n" +
+    "        <div class=\"dictionary__mueller\" ng-bind-html=\"WordCtrl.word.mueller_definition | mueller\"></div>\n" +
+    "        <ul class=\"definition__examples-list\" ng-if=\"WordCtrl.examples.length\">\n" +
+    "            <li ng-repeat=\"example in WordCtrl.examples\">\n" +
+    "                <div class=\"definition__example\" \n" +
+    "                    ng-click=\"!!(example.illustration_url) && (example.showIllustration = true)\"  \n" +
+    "                    ng-hide=\"!!(example.showIllustration)\"\n" +
+    "                    ng-class=\"{ 'with-illustration': example.illustration_url }\" \n" +
+    "                    ng-mouseover=\"exampleHover = true\" \n" +
+    "                    ng-mouseleave=\"exampleHover = false\">\n" +
+    "\n" +
+    "                    <span ng-bind-html=\"example.text | markWord:WordCtrl.word.word\"></span>\n" +
+    "                    <i ng-if=\"example.illustration_url\" class=\"fa fa-picture-o definition__example-illustration-icon\" ng-class=\"{ 'hover': exampleHover }\"></i>\n" +
+    "                    <span ng-if=\"example.russian_translation\">— {{ example.russian_translation }}</span>\n" +
+    "                </div>\n" +
+    "                <div ng-if=\"example.illustration_url && example.showIllustration\" ng-click=\"example.showIllustration = false\" class=\"definition__example-with-illustration\">\n" +
+    "                    <img class=\"definition__illustration\" ng-src=\"{{ example.illustration_url }}\">\n" +
+    "                    <div class=\"definition__illustration-text\" ng-bind-html=\"example.text | markWord:WordCtrl.word.word\"></div>\n" +
+    "                </div>\n" +
+    "            </li>\n" +
+    "        </ul>\n" +
+    "    </section>\n" +
+    "\n" +
+    "\n" +
     "    <section ng-if=\"WordCtrl.wordNotFound\" class=\"dictionary__word-not-found\">\n" +
     "        Такое слово не найдено\n" +
     "    </section>\n" +
-    "    <form style=\"display: none;\">\n" +
-    "        <div>\n" +
-    "            <label for=\"example-definition\">Определение:</label>\n" +
-    "            <select if=\"example-definition\" ng-model=\"definition\" ng-options=\"def.definition group by def.part_of_speach for def in WordCtrl.word.definition_set\"></select>\n" +
-    "        </div>\n" +
-    "        <div>\n" +
-    "            <label for=\"example-text\">Пример:</label>\n" +
-    "            <textarea id=\"example-text\"></textarea>\n" +
-    "        </div>\n" +
-    "        <div>\n" +
-    "            <label for=\"example-russian-text\">Перевод:</label>\n" +
-    "            <textarea id=\"example-russian-text\"></textarea>\n" +
-    "        </div>\n" +
-    "        <div>\n" +
-    "            <label for=\"example-source\">Источник:</label>\n" +
-    "            <input id=\"example-source\">\n" +
-    "        </div>\n" +
-    "        <input type=\"button\" value=\"Отправить\">\n" +
-    "    </form>\n" +
     "</div>\n"
   );
 
 
   $templateCache.put('templates/base.home.html',
-    "<a class=\"link\" href=\"/accounts/logout/\">Выйти</a>\n"
+    "<h2 class=\"settings__title\">Мой профиль</h2>\n" +
+    "<div class=\"settings__login-as\">\n" +
+    "    Вы вошли как <span class=\"settings__username\" ng-bind=\"HomeCtrl.profile.username\"></span>\n" +
+    "    <a class=\"link\" href=\"/accounts/logout/\">Выйти</a><br>\n" +
+    "</div>\n" +
+    "<div class=\"settings__language-mode\">\n" +
+    "    Режим словаря:<br>\n" +
+    "    <input type=\"radio\" ng-model=\"HomeCtrl.profile.is_english_mode\" ng-value=\"true\" ng-change=\"HomeCtrl.saveProfile()\" id=\"is-english-mode\"> <label for=\"is-english-mode\">Английский</label><br>\n" +
+    "    <input type=\"radio\" ng-model=\"HomeCtrl.profile.is_english_mode\" ng-value=\"false\" ng-change=\"HomeCtrl.saveProfile()\" id=\"is-russian-mode\"> <label for=\"is-russian-mode\">Русский</label>\n" +
+    "</div>\n" +
+    "<div class=\"settings__paid-till\">\n" +
+    "    Период использования сервиса:\n" +
+    "    до&nbsp;<span class=\"settings__paid-till-date\" ng-bind=\"HomeCtrl.profile.paid_till | date:'dd.MM.yyyy'\"></span> <a href=\"#\" class=\"link settings__pay\">Продлить</a>\n" +
+    "</div>\n"
   );
 
 
@@ -194,7 +219,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "        </div>\n" +
     "    </li>\n" +
     "    <li class=\"topmenu__item\" ng-class=\"{ active: $state.includes('base.cards') }\">\n" +
-    "        <div class=\"topmenu__item-link\" ng-click=\"$state.go('base.cards', {}, { reload: true })\">\n" +
+    "        <div class=\"topmenu__item-link\" ng-click=\"$state.go('base.cards')\">\n" +
     "            <i class=\"fa fa-star-o topmenu__item-icon\"></i> \n" +
     "            <span class=\"topmenu__item-text\">Карточки</span>\n" +
     "        </div>\n" +

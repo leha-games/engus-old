@@ -13,15 +13,19 @@ angular.module('engusApp').controller('DictionaryCtrl',
         this.startsWith = function(expected, actual) {
             return expected.substr(0, actual.length).toLowerCase() == actual.toLowerCase();
         }
+        this.triggerSubmit = function() {
+            $scope.$broadcast('submitForm');
+        };
     }
 ]);
 
 angular.module('engusApp').controller('DictionaryWordCtrl',
-    ['$stateParams', 'Word', 'WordExamples', 'Cards', 'CardService',
-    function($stateParams, Word, WordExamples, Cards, CardService) {
+    ['$stateParams', 'Profile', 'Word', 'WordExamples', 'Cards', 'CardService',
+    function($stateParams, Profile, Word, WordExamples, Cards, CardService) {
         var self = this;
         this.rawWord = $stateParams.word;
         this.word = Word;
+        this.profile = Profile;
         this.loading = true;
         this.cardsLoading = true;
         this.wordNotFound = false;
@@ -68,11 +72,23 @@ angular.module('engusApp').controller('CardsCtrl',
     }
 ]);
 
+angular.module('engusApp').controller('HomeCtrl',
+    ['Profile', 
+    function(Profile) {
+        var self = this;
+        this.profile = Profile;
+        this.saveProfile = function() {
+            self.profile.$update();
+        };
+    }
+]);
+
 angular.module('engusApp').controller('CardsLearningCtrl',
-    ['Cards', '$filter', 'CardService', 'WordService', 'ExampleService',
-    function(Cards, $filter, CardService, WordService, ExampleService) {
+    ['Cards', 'Profile', '$filter', 'CardService', 'WordService', 'ExampleService',
+    function(Cards, Profile, $filter, CardService, WordService, ExampleService) {
         var self = this;
         this.loading = true;
+        this.profile = Profile;
 
         var getFullCard = function(card) {
             var word = WordService.get({ word: card.word }, function() {
@@ -158,7 +174,14 @@ angular.module('engusApp').factory('WordService',
 angular.module('engusApp').factory('ExampleService', 
     ['$resource',
     function($resource) {
-        return $resource('/dictionary/examples/:id', {word: '@id'});
+        return $resource('/dictionary/examples/:id', {id: '@id'});
+    }
+]);
+
+angular.module('engusApp').factory('ProfileService', 
+    ['$resource',
+    function($resource) {
+        return $resource('/accounts/profiles/:id', {id: '@id'}, {'update': {method: 'PUT'}});
     }
 ]);
 
@@ -196,6 +219,21 @@ angular.module('engusApp').filter('groupBy', function() {
     }
 });
 
+angular.module('engusApp').filter('mueller', ['$sce', function($sce) {
+    return function(input) {
+        var out;
+        out = input.replace(/(\S{1})>/g, 
+            '<span class="dictionary__mueller-numbers4">$1)</span>'); // fourth level. a> б> в>
+        out = out.replace(/(\d{1,3})\)(.*)/g, 
+            '<div class="dictionary__mueller-level3"><span class="dictionary__mueller-numbers3">$1)</span>$2</div>'); // third level. 1) 2) 3)
+        out = out.replace(/(\d{1,3}\.)(.*)\n/g, 
+            '<div class="dictionary__mueller-level2"><span class="dictionary__mueller-numbers2">$1</span>$2</div>'); // second level. 1. 2. 3.
+        out = out.replace(/(?=[IVX])(X{0,3}I{0,3}|X{0,2}VI{0,3}|X{0,2}I?[VX])\)/g, 
+            '<span class="dictionary__mueller-numbers1">$1.</span>'); // first level. I) II) III)
+        return $sce.trustAsHtml(out); 
+    }
+}]);
+
 angular.module('engusApp').directive('transcription', function() {
     return {
         restrict: 'A',
@@ -215,4 +253,14 @@ angular.module('engusApp').directive('transcription', function() {
             };
         }
     }
+});
+
+angular.module('engusApp').directive('submitOn', function() {
+    return function(scope, element, attrs) {
+        scope.$on(attrs.submitOn, function() {
+            setTimeout(function() {
+                element.triggerHandler('submit');
+            });
+        });
+    };
 });

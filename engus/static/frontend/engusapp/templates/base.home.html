@@ -1,1 +1,14 @@
-<a class="link" href="/accounts/logout/">Выйти</a>
+<h2 class="settings__title">Мой профиль</h2>
+<div class="settings__login-as">
+    Вы вошли как <span class="settings__username" ng-bind="HomeCtrl.profile.username"></span>
+    <a class="link" href="/accounts/logout/">Выйти</a><br>
+</div>
+<div class="settings__language-mode">
+    Режим словаря:<br>
+    <input type="radio" ng-model="HomeCtrl.profile.is_english_mode" ng-value="true" ng-change="HomeCtrl.saveProfile()" id="is-english-mode"> <label for="is-english-mode">Английский</label><br>
+    <input type="radio" ng-model="HomeCtrl.profile.is_english_mode" ng-value="false" ng-change="HomeCtrl.saveProfile()" id="is-russian-mode"> <label for="is-russian-mode">Русский</label>
+</div>
+<div class="settings__paid-till">
+    Период использования сервиса:
+    до&nbsp;<span class="settings__paid-till-date" ng-bind="HomeCtrl.profile.paid_till | date:'dd.MM.yyyy'"></span> <a href="#" class="link settings__pay">Продлить</a>
+</div>

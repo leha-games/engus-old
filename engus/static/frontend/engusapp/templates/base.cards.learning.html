@@ -8,20 +8,23 @@
     </header>
     <div class="learning__example" ng-bind="CardsLearningCtrl.current.examples.random.text"></div>
 
+    <div class="learning__btn learning__btn_type_show" ng-show="!(CardsLearningCtrl.current.showDefinitions)" ng-click="CardsLearningCtrl.current.showDefinitions = true">Показать определение</div>
+
     <section class="learning__definitions" ng-if="CardsLearningCtrl.current.showDefinitions">
-        <ul class="definition__group-list">
+        <div class="dictionary__mueller" ng-if="!CardsLearningCtrl.profile.is_english_mode" ng-bind-html="CardsLearningCtrl.current.word.mueller_definition | mueller"></div>
+
+        <ul class="definition__group-list" ng-if="CardsLearningCtrl.profile.is_english_mode">
             <li class="definition__group-item" ng-repeat="(groupName, definitionsGroup) in CardsLearningCtrl.current.word.definitionGroups">
                 <h1 class="definition__group-name"><i class="fa fa-angle-right definition__group-name-icon"></i>{{ groupName }}</h1>
                 <ol class="definition__list">
-                    <li class="definition__item" ng-class="{ transparent: (definition.id !== CardsLearningCtrl.current.examples.random.definition) }" ng-repeat="definition in definitionsGroup | orderBy:'weight'">
-                        {{ definition.definition }}
+                    <li class="definition__item" ng-class="{ transparent: ((CardsLearningCtrl.current.examples.length > 0) && (definition.id !== CardsLearningCtrl.current.examples.random.definition)) }" ng-repeat="definition in definitionsGroup | orderBy:'weight'">
+                        <span ng-if="CardsLearningCtrl.profile.is_english_mode" ng-bind="definition.definition"></span>
+                        <span ng-if="!CardsLearningCtrl.profile.is_english_mode" ng-bind="definition.russian_definition"></span>
                     </li>
                 </ol>
             </li>
         </ul>
     </section>
-
-    <div class="learning__btn learning__btn_type_show" ng-show="!(CardsLearningCtrl.current.showDefinitions)" ng-click="CardsLearningCtrl.current.showDefinitions = true">Показать определение</div>
 
     <ul class="learning__answer-list" ng-show="!!(CardsLearningCtrl.current.showDefinitions)">
         <li ng-click="CardsLearningCtrl.switchCard('forget')" class="learning__answer-list-item learning__btn learning__btn_type_forget">

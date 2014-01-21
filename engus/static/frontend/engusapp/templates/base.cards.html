@@ -1,9 +1,9 @@
 <div ui-view>
-    <div ng-click="$state.go('base.cards.learning')" class="cards__begin-btn">
+    <a ui-sref="base.cards.learning" class="cards__begin-btn">
         <span class="cards__begin-btn-text">
             Начать повторение
         </span>
-    </div>
+    </a>
     <h1 class="cards__table-title">
         Мои карточки 
         <span ng-if="!(CardsCtrl.loading)">(<span ng-bind="CardsCtrl.cards.length"></span>)</span>

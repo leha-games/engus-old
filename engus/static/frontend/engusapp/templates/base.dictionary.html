@@ -1,5 +1,5 @@
 <section class="dictionary">
-    <form class="dictionary__search-form" ng-submit="dict.search(word)">
+    <form class="dictionary__search-form" submit-on="submitForm" ng-submit="dict.search(word); dict.word='';">
         <input 
             class="dictionary__search-input" 
             type="text" 
@@ -7,13 +7,14 @@
             autocorrect="off"
             autocomplete="off" 
             placeholder="Поиск слова" 
-            blur-on-submit ng-model="dict.word" 
+            blur-on-submit 
+            ng-model="dict.word" 
             ng-focus="isFocusOnSearch=true" 
             blur-with-timeout="isFocusOnSearch=false">
         <i class="fa fa-refresh fa-spin dictionary__search-input-spinner" ng-show="dict.searching"></i>
         <ul class="dictionary__search-dropdown" ng-if="dict.word && isFocusOnSearch">
             <li class="dictionary__search-dropdown-item" ng-repeat="word in dict.dictionary | filter:dict.word:dict.startsWith | limitTo: 30">
-                <a class="dictionary__search-dropdown-item-link" ui-sref="base.dictionary.word({ word: word })" ng-click="dict.word=''; event.stopPropagation()">{{ word }}</a>
+                <span class="dictionary__search-dropdown-item-link" ng-click="dict.word=word; dict.triggerSubmit(); event.stopPropagation(); ">{{ word }}</span>
             </li>
             <li class="dictionary__search-dropdown-item dictionary__search-dropdown-item_state_notfound" ng-if="(dict.dictionary | filter:dict.word:dict.startsWith).length===0">
                 Слово не найдено

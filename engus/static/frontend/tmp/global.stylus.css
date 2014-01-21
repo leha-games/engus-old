@@ -520,6 +520,9 @@ button {
   font-size: 2rem;
   margin-bottom: 1.5rem;
 }
+.homepage__howto-title-bold {
+  font-weight: bold;
+}
 .homepage__howto-list {
   counter-reset: item;
 }
@@ -705,6 +708,29 @@ button {
 .dictionary__word-list-item-link {
   display: block;
   padding: 0.5rem 0;
+}
+.dictionary__mueller {
+  margin: 1rem 0 1.5rem;
+}
+.dictionary__mueller-level2 {
+  display: block;
+  margin: 0.5rem 0 0.2rem;
+}
+.dictionary__mueller-level3 {
+  display: block;
+  margin: 0.2rem 0;
+  margin-left: 0.5rem;
+}
+.dictionary__mueller-numbers1 {
+  color: #500000;
+  font-weight: bold;
+}
+.dictionary__mueller-numbers2 {
+  color: #007800;
+  font-weight: bold;
+}
+.dictionary__mueller-numbers3 {
+  color: #000096;
 }
 .definition__list {
   counter-reset: item;
@@ -1048,4 +1074,23 @@ button {
 }
 .learning__answer-list-item:last-child {
   border-left-color: rgba(0,0,0,0.1) !important;
+}
+.settings__title {
+  font-size: 1.5rem;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 1rem;
+  padding: 0.2rem 0;
+}
+.settings__login-as {
+  margin: 1rem 0;
+}
+.settings__username {
+  font-weight: bold;
+  margin-right: 1rem;
+}
+.settings__language-mode {
+  margin: 1.5rem 0;
+}
+.settings__paid-till-date {
+  margin-right: 1rem;
 }

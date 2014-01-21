@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet
+from rest_framework import viewsets 
 from .models import Word, Example
 from .serializers import WordSerializer, ExampleSerializer
 
@@ -20,11 +20,10 @@ class WordDetailView(RetrieveAPIView):
     lookup_field = "word"
 
 
-class ExampleViewSet(ModelViewSet):
+class ExampleViewSet(viewsets.ReadOnlyModelViewSet):
     model = Example
     serializer_class = ExampleSerializer
     filter_fields = ('definition', 'definition__word', )
 
     def get_queryset(self):
-        user = self.request.user
         return Example.objects.all()

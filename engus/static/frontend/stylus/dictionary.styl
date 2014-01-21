@@ -117,6 +117,9 @@
         padding: 0.3rem 0.5rem;
         color: #000;
         text-decoration: none;
+        cursor: pointer;
+        background-color: #fff;
+        border: none;
 
         &:hover, &:focus {
             background-color: yellow;
@@ -132,6 +135,35 @@
                 display: block;
                 padding: 0.5rem 0;
             }
+        }
+    }
+
+    &__mueller {
+        margin: 1rem 0 1.5rem;
+
+        &-level2 {
+            display: block;
+            margin: 0.5rem 0 0.2rem;
+        }
+
+        &-level3 {
+            display: block;
+            margin: 0.2rem 0;
+            margin-left: 0.5rem;
+        }
+
+        &-numbers1 {
+            color: rgba(80,0,0,1);
+            font-weight: bold;
+        }
+
+        &-numbers2 {
+            color: rgba(0,120,0,1);
+            font-weight: bold;
+        }
+
+        &-numbers3 {
+            color: rgba(0,0,150,1);
         }
     }
 }

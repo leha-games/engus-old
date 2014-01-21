@@ -5,13 +5,15 @@
         <i ng-if="WordCtrl.loading" class="fa fa-cog fa-spin dictionary__word-loading-icon"></i>
     </header>
     <transcription ng-if="WordCtrl.word.transcription" transcription="WordCtrl.word.transcription" audio-src="WordCtrl.word.audio_url"></transcription>
-    <section class="dictionary__definitions" ng-if="WordCtrl.word.definition_set">
+
+    <section class="dictionary__definitions" ng-if="WordCtrl.profile.is_english_mode || (!WordCtrl.profile.is_english_mode && WordCtrl.word.mueller_definition === '') && WordCtrl.word.definition_set">
         <ul class="definition__group-list">
             <li class="definition__group-item" ng-repeat="(groupName, definitionsGroup) in WordCtrl.word.definitionGroups">
                 <h1 class="definition__group-name"><i class="fa fa-angle-right definition__group-name-icon"></i>{{ groupName }}</h1>
                 <ol class="definition__list">
                     <li class="definition__item" ng-repeat="definition in definitionsGroup | orderBy:'weight'">
-                        {{ definition.definition }}
+                        <span ng-if="WordCtrl.profile.is_english_mode" ng-bind="definition.definition"></span>
+                        <span ng-if="!WordCtrl.profile.is_english_mode" ng-bind="definition.russian_definition"></span>
                         <ul class="definition__examples-list" ng-if="(WordCtrl.examples | filter: {definition: definition.id}).length">
                             <li ng-repeat="example in WordCtrl.examples | filter: {definition: definition.id}">
                                 <div class="definition__example" 
@@ -23,7 +25,7 @@
 
                                     <span ng-bind-html="example.text | markWord:WordCtrl.word.word"></span>
                                     <i ng-if="example.illustration_url" class="fa fa-picture-o definition__example-illustration-icon" ng-class="{ 'hover': exampleHover }"></i>
-                                    <span ng-if="example.russian_translation">— {{ example.russian_translation }}</span>
+                                    <span ng-if="!WordCtrl.profile.is_english_mode && example.russian_translation">— {{ example.russian_translation }}</span>
                                 </div>
                                 <div ng-if="example.illustration_url && example.showIllustration" ng-click="example.showIllustration = false" class="definition__example-with-illustration">
                                     <img class="definition__illustration" ng-src="{{ example.illustration_url }}">
@@ -37,26 +39,32 @@
             </li>
         </ul>
     </section>
+
+    <section ng-if="!WordCtrl.profile.is_english_mode && WordCtrl.word.mueller_definition">
+        <div class="dictionary__mueller" ng-bind-html="WordCtrl.word.mueller_definition | mueller"></div>
+        <ul class="definition__examples-list" ng-if="WordCtrl.examples.length">
+            <li ng-repeat="example in WordCtrl.examples">
+                <div class="definition__example" 
+                    ng-click="!!(example.illustration_url) && (example.showIllustration = true)"  
+                    ng-hide="!!(example.showIllustration)"
+                    ng-class="{ 'with-illustration': example.illustration_url }" 
+                    ng-mouseover="exampleHover = true" 
+                    ng-mouseleave="exampleHover = false">
+
+                    <span ng-bind-html="example.text | markWord:WordCtrl.word.word"></span>
+                    <i ng-if="example.illustration_url" class="fa fa-picture-o definition__example-illustration-icon" ng-class="{ 'hover': exampleHover }"></i>
+                    <span ng-if="example.russian_translation">— {{ example.russian_translation }}</span>
+                </div>
+                <div ng-if="example.illustration_url && example.showIllustration" ng-click="example.showIllustration = false" class="definition__example-with-illustration">
+                    <img class="definition__illustration" ng-src="{{ example.illustration_url }}">
+                    <div class="definition__illustration-text" ng-bind-html="example.text | markWord:WordCtrl.word.word"></div>
+                </div>
+            </li>
+        </ul>
+    </section>
+
+
     <section ng-if="WordCtrl.wordNotFound" class="dictionary__word-not-found">
         Такое слово не найдено
     </section>
-    <form style="display: none;">
-        <div>
-            <label for="example-definition">Определение:</label>
-            <select if="example-definition" ng-model="definition" ng-options="def.definition group by def.part_of_speach for def in WordCtrl.word.definition_set"></select>
-        </div>
-        <div>
-            <label for="example-text">Пример:</label>
-            <textarea id="example-text"></textarea>
-        </div>
-        <div>
-            <label for="example-russian-text">Перевод:</label>
-            <textarea id="example-russian-text"></textarea>
-        </div>
-        <div>
-            <label for="example-source">Источник:</label>
-            <input id="example-source">
-        </div>
-        <input type="button" value="Отправить">
-    </form>
 </div>

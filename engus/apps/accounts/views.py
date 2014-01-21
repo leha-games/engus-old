@@ -1,9 +1,15 @@
-from django.shortcuts import render_to_response
-from django.template import RequestContext
+from rest_framework import generics, viewsets
+from .models import Profile
+from .serializers import ProfileSerializer
+from .permissions import IsOwner
 
-def home(request):
-    if request.user.is_authenticated():
-        template_name = 'app.html'
-    else:
-        template_name = 'home.html'
-    return render_to_response(template_name, context_instance=RequestContext(request))
+
+class ProfileViewSet(viewsets.ModelViewSet):
+    serializer_class = ProfileSerializer
+    permission_classes = [IsOwner, ]
+    model = Profile
+
+    def get_queryset(self):
+        user = self.request.user
+        Profile.objects.get_or_create(user=user)
+        return Profile.objects.filter(user=user)

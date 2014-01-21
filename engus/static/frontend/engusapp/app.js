@@ -16,11 +16,12 @@ angular.module('engusApp', ['ngResource', 'ui.router', 'ngTouch'])
                     WordFlatList: ['$http', function($http) {
                         return $http.get('/dictionary/words/flat/');
                     }], 
-                    Account: [function() {
-                        return {
-                            is_eng_mode: true,
-                            paid_till: 0
-                        };
+                    Profile: ['ProfileService', function(ProfileService) {
+                        return ProfileService.query().$promise.then(function(profiles) {
+                            var profile = profiles[0];
+                            profile.paid_till = new Date(profile.paid_till);
+                            return profile;
+                        });
                     }]
                 }
             })
@@ -30,7 +31,7 @@ angular.module('engusApp', ['ngResource', 'ui.router', 'ngTouch'])
                 controller: 'DictionaryCtrl as dict'
             })
             .state('base.dictionary.word', {
-                url: ':word/',
+                url: '{word:[^/]+}/',
                 templateUrl: 'templates/base.dictionary.word.html',
                 controller: 'DictionaryWordCtrl as WordCtrl',
                 resolve: {
@@ -47,7 +48,8 @@ angular.module('engusApp', ['ngResource', 'ui.router', 'ngTouch'])
             })
             .state('base.home', {
                 url: 'home/',
-                templateUrl: 'templates/base.home.html'
+                templateUrl: 'templates/base.home.html',
+                controller: 'HomeCtrl as HomeCtrl'
             })
             .state('base.cards', {
                 url: 'cards/',
