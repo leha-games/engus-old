@@ -142,6 +142,7 @@ button {
 .link {
   color: #00f;
   text-decoration: none;
+  cursor: pointer;
 }
 .link:hover,
 .link.hover {
@@ -265,6 +266,7 @@ button {
 }
 .page__title-link {
   color: rgba(255,255,255,0.85);
+  color: #dadce0;
   text-decoration: none;
   -webkit-transition: all 0.25s;
   -moz-transition: all 0.25s;
@@ -274,6 +276,7 @@ button {
   text-shadow: 0 0 0.5rem rgba(0,0,30,0.7);
 }
 .page__title-link:hover {
+  color: #fff;
   color: #fff;
   text-shadow: 0 0 0.5rem rgba(170,170,200,0.5);
 }
@@ -1093,4 +1096,22 @@ button {
 }
 .settings__paid-till-date {
   margin-right: 1rem;
+}
+.settings__pay {
+  margin: 1.5rem 0;
+}
+.settings__pay-title {
+  padding: 0.2rem 0;
+  margin: 1rem 0;
+  font-size: 1.2rem;
+  border-bottom: 1px solid #ddd;
+}
+.settings__pay-input {
+  width: 2rem;
+  text-align: center;
+  margin: 0 0.5rem;
+}
+.settings__pay-method-title {
+  font-size: 1.1rem;
+  margin: 0.7rem 0 0.3rem;
 }
