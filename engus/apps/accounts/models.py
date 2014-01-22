@@ -2,12 +2,10 @@ import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
-TRIAL_DAYS = 14
 
 class Profile(models.Model):
     user = models.OneToOneField(User)
     is_english_mode = models.BooleanField(default=False)
-    paid_till = models.DateField(default=lambda: datetime.datetime.now() + datetime.timedelta(days=TRIAL_DAYS))
     
     def __unicode__(self):
         return self.user.username

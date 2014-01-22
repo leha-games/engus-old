@@ -19,7 +19,6 @@ angular.module('engusApp', ['ngResource', 'ui.router', 'ngTouch'])
                     Profile: ['ProfileService', function(ProfileService) {
                         return ProfileService.query().$promise.then(function(profiles) {
                             var profile = profiles[0];
-                            profile.paid_till = new Date(profile.paid_till);
                             return profile;
                         });
                     }]
