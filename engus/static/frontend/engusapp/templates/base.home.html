@@ -8,19 +8,4 @@
     <input type="radio" ng-model="HomeCtrl.profile.is_english_mode" ng-value="true" ng-change="HomeCtrl.saveProfile()" id="is-english-mode"> <label for="is-english-mode">Английский</label><br>
     <input type="radio" ng-model="HomeCtrl.profile.is_english_mode" ng-value="false" ng-change="HomeCtrl.saveProfile()" id="is-russian-mode"> <label for="is-russian-mode">Русский</label>
 </div>
-<div ng-init="HomeCtrl.showPaying = false" class="settings__paid-till">
-    Период использования сервиса:
-    до&nbsp;<span class="settings__paid-till-date" ng-bind="HomeCtrl.profile.paid_till | date:'dd.MM.yyyy'"></span> 
-    <span ng-if="!HomeCtrl.showPaying" ng-click="HomeCtrl.showPaying = !HomeCtrl.showPaying" class="link">Продлить</span>
-
-    <div ng-if="HomeCtrl.showPaying" class="settings__pay">
-        <h3 class="settings__pay-title">Продлить</h3>
-        На <input class="settings__pay-input" ng-init="month = 1" ng-model="month" type="text"> 
-        <span ng-bind="(month || 0) | declOfNum:['месяц', 'месяца', 'месяцев']"></span> 
-        = <span ng-bind="(month || 0) * 300"></span> руб.
-        <br>+ 1 месяц изучения в подарок (акция до 30.01.2014)
-        <h4 class="settings__pay-method-title">Оплата на QIWI кошелек</h4>
-        Номер QIWI кошелька для оплаты +79101942238. В комментарии к платежу укажите ваш логин ({{ HomeCtrl.profile.username }}).<br>
-    </div>
-</div>
 

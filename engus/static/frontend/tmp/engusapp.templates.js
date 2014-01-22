@@ -197,21 +197,6 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "    <input type=\"radio\" ng-model=\"HomeCtrl.profile.is_english_mode\" ng-value=\"true\" ng-change=\"HomeCtrl.saveProfile()\" id=\"is-english-mode\"> <label for=\"is-english-mode\">Английский</label><br>\n" +
     "    <input type=\"radio\" ng-model=\"HomeCtrl.profile.is_english_mode\" ng-value=\"false\" ng-change=\"HomeCtrl.saveProfile()\" id=\"is-russian-mode\"> <label for=\"is-russian-mode\">Русский</label>\n" +
     "</div>\n" +
-    "<div ng-init=\"HomeCtrl.showPaying = false\" class=\"settings__paid-till\">\n" +
-    "    Период использования сервиса:\n" +
-    "    до&nbsp;<span class=\"settings__paid-till-date\" ng-bind=\"HomeCtrl.profile.paid_till | date:'dd.MM.yyyy'\"></span> \n" +
-    "    <span ng-if=\"!HomeCtrl.showPaying\" ng-click=\"HomeCtrl.showPaying = !HomeCtrl.showPaying\" class=\"link\">Продлить</span>\n" +
-    "\n" +
-    "    <div ng-if=\"HomeCtrl.showPaying\" class=\"settings__pay\">\n" +
-    "        <h3 class=\"settings__pay-title\">Продлить</h3>\n" +
-    "        На <input class=\"settings__pay-input\" ng-init=\"month = 1\" ng-model=\"month\" type=\"text\"> \n" +
-    "        <span ng-bind=\"(month || 0) | declOfNum:['месяц', 'месяца', 'месяцев']\"></span> \n" +
-    "        = <span ng-bind=\"(month || 0) * 300\"></span> руб.\n" +
-    "        <br>+ 1 месяц изучения в подарок (акция до 30.01.2014)\n" +
-    "        <h4 class=\"settings__pay-method-title\">Оплата на QIWI кошелек</h4>\n" +
-    "        Номер QIWI кошелька для оплаты +79101942238. В комментарии к платежу укажите ваш логин ({{ HomeCtrl.profile.username }}).<br>\n" +
-    "    </div>\n" +
-    "</div>\n" +
     "\n"
   );
 

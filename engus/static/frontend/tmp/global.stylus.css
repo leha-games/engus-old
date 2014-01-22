@@ -268,17 +268,17 @@ button {
   color: rgba(255,255,255,0.85);
   color: #dadce0;
   text-decoration: none;
-  -webkit-transition: all 0.25s;
-  -moz-transition: all 0.25s;
-  -o-transition: all 0.25s;
-  -ms-transition: all 0.25s;
-  transition: all 0.25s;
+  -webkit-transition: all linear 0.15s;
+  -moz-transition: all linear 0.15s;
+  -o-transition: all linear 0.15s;
+  -ms-transition: all linear 0.15s;
+  transition: all linear 0.15s;
   text-shadow: 0 0 0.5rem rgba(0,0,30,0.7);
 }
 .page__title-link:hover {
   color: #fff;
   color: #fff;
-  text-shadow: 0 0 0.5rem rgba(170,170,200,0.5);
+  text-shadow: 0 0 0.6rem rgba(170,170,200,0.5);
 }
 .page__header {
   background: -webkit-linear-gradient(rgba(50,110,160,0.6), #326ea0);
