@@ -2,37 +2,39 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
   'use strict';
 
   $templateCache.put('templates/base.cards.html',
-    "<div ui-view>\n" +
-    "    <a ui-sref=\"base.cards.learning\" class=\"cards__begin-btn\">\n" +
-    "        <span class=\"cards__begin-btn-text\">\n" +
-    "            Начать повторение\n" +
-    "        </span>\n" +
-    "    </a>\n" +
-    "    <h1 class=\"cards__table-title\">\n" +
-    "        Мои карточки \n" +
-    "        <span ng-if=\"!(CardsCtrl.loading)\">(<span ng-bind=\"CardsCtrl.cards.length\"></span>)</span>\n" +
-    "        <i ng-if=\"CardsCtrl.loading\" class=\"fa fa-cog fa-spin cards__loading-icon\"></i>\n" +
-    "    </h1>\n" +
-    "    <table class=\"cards__table\">\n" +
-    "        <colgroup>\n" +
-    "            <col class=\"cards__table-col-word\">\n" +
-    "            <col class=\"cards__table-col-level\">\n" +
-    "        <thead>\n" +
-    "            <tr>\n" +
-    "                <th class=\"cards__table-th\">Слово</th>\n" +
-    "                <th class=\"cards__table-th cards__table-level\">Уровень</th>\n" +
-    "            </tr>\n" +
-    "        </thead>\n" +
-    "        <tbody>\n" +
-    "            <tr class=\"cards__table-row\" ng-repeat=\"card in CardsCtrl.cards | orderBy:['level', '-created']\">\n" +
-    "                <td class=\"cards__table-td\">\n" +
-    "                    <a class=\"link\" ui-sref=\"base.dictionary.word({ word: card.word })\" ng-bind=\"card.word\"></a>\n" +
-    "                </td>\n" +
-    "                <td class=\"cards__table-td cards__table-level\" ng-bind=\"card.level\"></td>\n" +
-    "            </tr>\n" +
-    "        </tbody>\n" +
-    "    </table>\n" +
-    "</div>\n"
+    "<a ng-click=\"$state.go('base.cards.learning', {status: CardsCtrl.statusFilter})\" class=\"cards__begin-btn\">\n" +
+    "    Начать повторение\n" +
+    "</a>\n" +
+    "<h1 class=\"cards__table-title\">\n" +
+    "    Мои карточки \n" +
+    "    <i ng-if=\"CardsCtrl.loading\" class=\"fa fa-cog fa-spin cards__loading-icon\"></i>\n" +
+    "    <select ng-model=\"CardsCtrl.statusFilter\" ng-options=\"key for (key, value) in {'Новые': 0, 'Позже': 1, 'Выученные': 2}\"></select>\n" +
+    "    <span ng-if=\"!(CardsCtrl.loading)\">(<span ng-bind=\"(CardsCtrl.cards | filter:{status: CardsCtrl.statusFilter}).length\"></span>)</span>\n" +
+    "</h1>\n" +
+    "<table class=\"cards__table\">\n" +
+    "    <colgroup>\n" +
+    "        <col class=\"cards__table-col-word\">\n" +
+    "        <col class=\"cards__table-col-status\">\n" +
+    "        <col class=\"cards__table-col-level\">\n" +
+    "    <thead>\n" +
+    "        <tr>\n" +
+    "            <th class=\"cards__table-th\">Слово</th>\n" +
+    "            <th class=\"cards__table-th cards__table-status\">Статус</th>\n" +
+    "            <th class=\"cards__table-th cards__table-level\">Уровень</th>\n" +
+    "        </tr>\n" +
+    "    </thead>\n" +
+    "    <tbody>\n" +
+    "        <tr class=\"cards__table-row\" ng-repeat=\"card in CardsCtrl.cards | filter:{status: CardsCtrl.statusFilter} | orderBy:['level', '-created']\">\n" +
+    "            <td class=\"cards__table-td\">\n" +
+    "                <a class=\"link\" ui-sref=\"base.dictionary.word({ word: card.word })\" ng-bind=\"card.word\"></a>\n" +
+    "            </td>\n" +
+    "            <td class=\"cards__table-td cards__table-status\">\n" +
+    "                <select ng-model=\"card.status\" ng-change=\"CardsCtrl.saveCard(card)\" ng-options=\"key for (key, status) in {'новая': 0, 'позже': 1,'выучил': 2}\"></select>\n" +
+    "            </td>\n" +
+    "            <td class=\"cards__table-td cards__table-level\" ng-bind=\"card.level\"></td>\n" +
+    "        </tr>\n" +
+    "    </tbody>\n" +
+    "</table>\n"
   );
 
 

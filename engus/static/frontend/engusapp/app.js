@@ -61,9 +61,13 @@ angular.module('engusApp', ['ngResource', 'ui.router', 'ngTouch'])
                 }
             })
             .state('base.cards.learning', {
-                url: 'learning/',
-                templateUrl: 'templates/base.cards.learning.html',
-                controller: 'CardsLearningCtrl as CardsLearningCtrl'
+                url: 'learning/:status/',
+                views: {
+                    '@base': {
+                        templateUrl: 'templates/base.cards.learning.html',
+                        controller: 'CardsLearningCtrl as CardsLearningCtrl'
+                    }
+                }
             });
     }
 ])

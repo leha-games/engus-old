@@ -62,13 +62,20 @@ angular.module('engusApp').controller('DictionaryWordCtrl',
 
 angular.module('engusApp').controller('CardsCtrl',
     ['Cards', 
-    function(Cards) {
+    function(Cards, $location) {
         var self = this;
         this.loading = true;
         this.cards = Cards;
+        this.statusFilter = 0;
         Cards.$promise.then(function() {
             self.loading = false;
         });
+        this.saveCard =  function(card) {
+            card.$update();
+        };
+        this.changeStatusFilter = function(newStatus) {
+            $location.search({'status': newStatus});
+        };
     }
 ]);
 
@@ -84,11 +91,12 @@ angular.module('engusApp').controller('HomeCtrl',
 ]);
 
 angular.module('engusApp').controller('CardsLearningCtrl',
-    ['Cards', 'Profile', '$filter', 'CardService', 'WordService', 'ExampleService',
-    function(Cards, Profile, $filter, CardService, WordService, ExampleService) {
+    ['Cards', 'Profile', '$filter', '$stateParams', 'CardService', 'WordService', 'ExampleService',
+    function(Cards, Profile, $filter, $stateParams, CardService, WordService, ExampleService) {
         var self = this;
         this.loading = true;
         this.profile = Profile;
+        this.statusFilter = $stateParams.status;
 
         var getFullCard = function(card) {
             var word = WordService.get({ word: card.word }, function() {
@@ -128,7 +136,8 @@ angular.module('engusApp').controller('CardsLearningCtrl',
         Cards.$promise.then(
             function(cards) {
                 self.loading = false;
-                self.orderedCards = $filter('orderBy')(Cards, ['level', '-created']);
+                var filteredCards = $filter('filter')(Cards, {'status': self.statusFilter});
+                self.orderedCards = $filter('orderBy')(filteredCards, ['level', '-created']);
                 var firstCard = self.orderedCards[0];
                 self.current = getFullCard(firstCard);
                 self.next = getFullCard(getNextCard(firstCard));

@@ -22,6 +22,10 @@
 
         &-col {
 
+            &-status {
+                width: 5rem;
+            }
+
             &-level {
                 width: 5rem;
             }
@@ -35,13 +39,17 @@
         &-level {
             text-align: center;
         }
+
+        &-status {
+            text-align: center;
+        }
     }
 
     &__begin-btn {
         position: relative;
         max-width: 420px;
         margin: 3rem auto;
-        padding: 0;
+        padding: 0.6rem 2rem;
         box-sizing: content-box;
         background: rgba(30,170,30,1);
         color: #fff;
@@ -60,12 +68,6 @@
 //            box-shadow: 0px 1px 0px rgba(30,130,30,1);
 //            top: 4px;
 //        }
-
-        &-text {
-            position: relative;
-            display: block;
-            padding: 0.6rem 2rem;
-        }
 
         &-spinner {
             position: absolute;

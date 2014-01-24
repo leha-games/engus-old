@@ -836,6 +836,9 @@ button {
   padding-bottom: 0.5rem;
   font-size: 0.8rem;
 }
+.cards__table-col-status {
+  width: 5rem;
+}
 .cards__table-col-level {
   width: 5rem;
 }
@@ -846,11 +849,14 @@ button {
 .cards__table-level {
   text-align: center;
 }
+.cards__table-status {
+  text-align: center;
+}
 .cards__begin-btn {
   position: relative;
   max-width: 420px;
   margin: 3rem auto;
-  padding: 0;
+  padding: 0.6rem 2rem;
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
@@ -871,11 +877,6 @@ button {
   -o-transition: all 0.1s;
   -ms-transition: all 0.1s;
   transition: all 0.1s;
-}
-.cards__begin-btn-text {
-  position: relative;
-  display: block;
-  padding: 0.6rem 2rem;
 }
 .cards__begin-btn-spinner {
   position: absolute;
