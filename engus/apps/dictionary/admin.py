@@ -14,7 +14,7 @@ class ExampleInline(admin.StackedInline):
 
 class DefinitionAdmin(admin.ModelAdmin):
     list_display = ('__unicode__', 'word', 'part_of_speach', 'definition', 'weight', )
-    search_fields = ['word', ]
+    search_fields = ['word__word', ]
     inlines = [
         ExampleInline,
     ]
@@ -22,6 +22,7 @@ class DefinitionAdmin(admin.ModelAdmin):
         models.CharField: {'widget': TextInput(attrs={'size':'150'})},
     }
     list_filter = ('part_of_speach', )
+    readonly_fields = ('word', )
 
 
 class DefinitionInline(admin.StackedInline):
