@@ -138,14 +138,17 @@ angular.module('engusApp').controller('CardsLearningCtrl',
                 self.loading = false;
                 var filteredCards = $filter('filter')(Cards, {'status': self.statusFilter});
                 self.orderedCards = $filter('orderBy')(filteredCards, ['level', '-created']);
-                var firstCard = self.orderedCards[0];
-                self.current = getFullCard(firstCard);
-                self.next = getFullCard(getNextCard(firstCard));
+                self.start();
             },
             function() {
 
             }
         );
+        this.start = function() {
+            var firstCard = self.orderedCards[0];
+            self.current = getFullCard(firstCard);
+            self.next = getFullCard(getNextCard(firstCard));
+        }
         this.switchCard = function(state) {
             switch (state) {
                 case 'good':

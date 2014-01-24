@@ -823,6 +823,9 @@ button {
   color: #326ea0;
   margin-left: 0.5rem;
 }
+.cards__status-filter-select {
+  font-size: 1rem;
+}
 .cards__table {
   width: 100%;
 }
@@ -851,6 +854,9 @@ button {
 }
 .cards__table-status {
   text-align: center;
+}
+.cards__table-status-select {
+  font-size: 0.8rem;
 }
 .cards__begin-btn {
   position: relative;
@@ -974,6 +980,11 @@ button {
 }
 .learning__card-number-current {
   color: #555;
+}
+.learning__card-number-reload {
+  cursor: pointer;
+  color: #326ea0;
+  margin-left: 0.3rem;
 }
 .learning__headword {
   font-size: 2.7rem;

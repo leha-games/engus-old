@@ -8,7 +8,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "<h1 class=\"cards__table-title\">\n" +
     "    Мои карточки \n" +
     "    <i ng-if=\"CardsCtrl.loading\" class=\"fa fa-cog fa-spin cards__loading-icon\"></i>\n" +
-    "    <select ng-model=\"CardsCtrl.statusFilter\" ng-options=\"key for (key, value) in {'Новые': 0, 'Позже': 1, 'Выученные': 2}\"></select>\n" +
+    "    <select class=\"cards__status-filter-select\" ng-model=\"CardsCtrl.statusFilter\" ng-options=\"key for (key, value) in {'Новые': 0, 'Позже': 1, 'Выученные': 2}\"></select>\n" +
     "    <span ng-if=\"!(CardsCtrl.loading)\">(<span ng-bind=\"(CardsCtrl.cards | filter:{status: CardsCtrl.statusFilter}).length\"></span>)</span>\n" +
     "</h1>\n" +
     "<table class=\"cards__table\">\n" +
@@ -29,7 +29,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "                <a class=\"link\" ui-sref=\"base.dictionary.word({ word: card.word })\" ng-bind=\"card.word\"></a>\n" +
     "            </td>\n" +
     "            <td class=\"cards__table-td cards__table-status\">\n" +
-    "                <select ng-model=\"card.status\" ng-change=\"CardsCtrl.saveCard(card)\" ng-options=\"key for (key, status) in {'новая': 0, 'позже': 1,'выучил': 2}\"></select>\n" +
+    "                <select class=\"cards__table-status-select\" ng-model=\"card.status\" ng-change=\"CardsCtrl.saveCard(card)\" ng-options=\"key for (key, status) in {'новая': 0, 'позже': 1,'выучил': 2}\"></select>\n" +
     "            </td>\n" +
     "            <td class=\"cards__table-td cards__table-level\" ng-bind=\"card.level\"></td>\n" +
     "        </tr>\n" +
@@ -45,6 +45,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "        <transcription ng-if=\"CardsLearningCtrl.current.word.transcription\" transcription=\"CardsLearningCtrl.current.word.transcription\" audio-src=\"CardsLearningCtrl.current.word.audio_url\"></transcription>\n" +
     "        <div class=\"learning__card-number\">\n" +
     "            <span class=\"learning__card-number-current\" ng-bind=\"CardsLearningCtrl.orderedCards.indexOf(CardsLearningCtrl.current.card) + 1\"></span>/<span ng-bind=\"CardsLearningCtrl.orderedCards.length\"></span>\n" +
+    "            <i ng-click=\"CardsLearningCtrl.start()\" class=\"fa fa-refresh learning__card-number-reload\"></i>\n" +
     "        </div>\n" +
     "    </header>\n" +
     "    <div class=\"learning__example\" ng-bind=\"CardsLearningCtrl.current.examples.random.text\"></div>\n" +

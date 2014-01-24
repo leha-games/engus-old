@@ -4,6 +4,7 @@
         <transcription ng-if="CardsLearningCtrl.current.word.transcription" transcription="CardsLearningCtrl.current.word.transcription" audio-src="CardsLearningCtrl.current.word.audio_url"></transcription>
         <div class="learning__card-number">
             <span class="learning__card-number-current" ng-bind="CardsLearningCtrl.orderedCards.indexOf(CardsLearningCtrl.current.card) + 1"></span>/<span ng-bind="CardsLearningCtrl.orderedCards.length"></span>
+            <i ng-click="CardsLearningCtrl.start()" class="fa fa-refresh learning__card-number-reload"></i>
         </div>
     </header>
     <div class="learning__example" ng-bind="CardsLearningCtrl.current.examples.random.text"></div>

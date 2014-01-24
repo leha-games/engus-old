@@ -4,7 +4,7 @@
 <h1 class="cards__table-title">
     Мои карточки 
     <i ng-if="CardsCtrl.loading" class="fa fa-cog fa-spin cards__loading-icon"></i>
-    <select ng-model="CardsCtrl.statusFilter" ng-options="key for (key, value) in {'Новые': 0, 'Позже': 1, 'Выученные': 2}"></select>
+    <select class="cards__status-filter-select" ng-model="CardsCtrl.statusFilter" ng-options="key for (key, value) in {'Новые': 0, 'Позже': 1, 'Выученные': 2}"></select>
     <span ng-if="!(CardsCtrl.loading)">(<span ng-bind="(CardsCtrl.cards | filter:{status: CardsCtrl.statusFilter}).length"></span>)</span>
 </h1>
 <table class="cards__table">
@@ -25,7 +25,7 @@
                 <a class="link" ui-sref="base.dictionary.word({ word: card.word })" ng-bind="card.word"></a>
             </td>
             <td class="cards__table-td cards__table-status">
-                <select ng-model="card.status" ng-change="CardsCtrl.saveCard(card)" ng-options="key for (key, status) in {'новая': 0, 'позже': 1,'выучил': 2}"></select>
+                <select class="cards__table-status-select" ng-model="card.status" ng-change="CardsCtrl.saveCard(card)" ng-options="key for (key, status) in {'новая': 0, 'позже': 1,'выучил': 2}"></select>
             </td>
             <td class="cards__table-td cards__table-level" ng-bind="card.level"></td>
         </tr>
