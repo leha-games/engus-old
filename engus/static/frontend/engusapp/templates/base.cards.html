@@ -1,33 +1,71 @@
 <a ng-click="$state.go('base.cards.learning', {status: CardsCtrl.statusFilter})" class="cards__begin-btn">
-    Начать повторение
+    <i class="fa fa-play cards__begin-btn-playbtn"></i> Начать повторение
 </a>
 <h1 class="cards__table-title">
     Мои карточки 
+    <span class="link" ng-click="CardsCtrl.isFilterLearned = !CardsCtrl.isFilterLearned; CardsCtrl.selectedCard = undefined;">
+        <span ng-if="!CardsCtrl.isFilterLearned">к&nbsp;изучению</span>
+        <span ng-if="CardsCtrl.isFilterLearned">изученные</span>
+        <span ng-if="!(CardsCtrl.loading)">(<span ng-bind="(CardsCtrl.cards | filter: {learned: CardsCtrl.isFilterLearned}).length"></span>)</span>
+    </span>
     <i ng-if="CardsCtrl.loading" class="fa fa-cog fa-spin cards__loading-icon"></i>
-    <select class="cards__status-filter-select" ng-model="CardsCtrl.statusFilter" ng-options="key for (key, value) in {'Новые': 0, 'Позже': 1, 'Выученные': 2}"></select>
-    <span ng-if="!(CardsCtrl.loading)">(<span ng-bind="(CardsCtrl.cards | filter:{status: CardsCtrl.statusFilter}).length"></span>)</span>
 </h1>
 <table class="cards__table">
     <colgroup>
         <col class="cards__table-col-word">
-        <col class="cards__table-col-status">
-        <col class="cards__table-col-level">
+        <col ng-if="!CardsCtrl.isFilterLearned" class="cards__table-col-level">
+        <col ng-if="CardsCtrl.isFilterLearned" class="cards__table-col-when-learned">
     <thead>
         <tr>
-            <th class="cards__table-th">Слово</th>
-            <th class="cards__table-th cards__table-status">Статус</th>
-            <th class="cards__table-th cards__table-level">Уровень</th>
+            <th class="cards__table-th">
+                Карточка
+                <i ng-if="!CardsCtrl.isFilterLearned" class="fa fa-crosshairs cards__menu-icon cards__menu-icon_type_in-learned" ng-click="CardsCtrl.inLearnedSelected()" ng-class="{ inactive: !CardsCtrl.selectedCard }" title="Перенести в изученные"></i>
+                <i ng-if="CardsCtrl.isFilterLearned" class="fa fa-reply cards__menu-icon cards__menu-icon_type_in-learned" ng-click="CardsCtrl.inLearningSelected()" ng-class="{ inactive: !CardsCtrl.selectedCard }" title="Перенести в изучаемые"></i>
+                <i class="fa fa-times-circle cards__menu-icon cards__menu-icon_type_remove" ng-click="CardsCtrl.removeSelected()" ng-class="{ inactive: !CardsCtrl.selectedCard }" title="Удалить из карточек"></i>
+            </th>
+            <th ng-if="!CardsCtrl.isFilterLearned" class="cards__table-th cards__table-level">Повторений</th>
+            <th ng-if="CardsCtrl.isFilterLearned" class="cards__table-th cards__table-when-learned">Изучена</th>
         </tr>
     </thead>
     <tbody>
-        <tr class="cards__table-row" ng-repeat="card in CardsCtrl.cards | filter:{status: CardsCtrl.statusFilter} | orderBy:['level', '-created']">
-            <td class="cards__table-td">
+
+        <tr class="cards__table-row" 
+        ng-if="!CardsCtrl.isFilterLearned"
+        ng-repeat="card in CardsCtrl.cards | filter: {learned: CardsCtrl.isFilterLearned} | orderBy:['created'] | limitTo:CardsCtrl.profile.learn_by | orderBy:'-level'" 
+        ng-click="CardsCtrl.selectedCard = card" 
+        ng-class="{ selected: CardsCtrl.selectedCard === card}">
+            <td class="cards__table-td cards__table-word">
                 <a class="link" ui-sref="base.dictionary.word({ word: card.word })" ng-bind="card.word"></a>
             </td>
-            <td class="cards__table-td cards__table-status">
-                <select class="cards__table-status-select" ng-model="card.status" ng-change="CardsCtrl.saveCard(card)" ng-options="key for (key, status) in {'новая': 0, 'позже': 1,'выучил': 2}"></select>
+            <td ng-if="!CardsCtrl.isFilterLearned" class="cards__table-td cards__table-level" ng-bind="card.level"></td>
+            <td ng-if="CardsCtrl.isFilterLearned" class="cards__table-td cards__table-when-learned" ng-bind="card.when_learned | date:'dd.MM.yyyy'"></td>
+        </tr>
+        <tr class="cards__table-row" ng-if="!CardsCtrl.isFilterLearned && ((CardsCtrl.cards | filter: {learned: false}).length > CardsCtrl.profile.learn_by)">
+            <td class="cards__table-td cards__table-after" colspan="2">Позже:</td>
+        </tr>
+        <tr class="cards__table-row" 
+        ng-if="!CardsCtrl.isFilterLearned"
+        ng-repeat="card in CardsCtrl.cards | filter: {learned: false} | orderBy:['created'] | startFrom:CardsCtrl.profile.learn_by | orderBy:'-level'" 
+        ng-click="CardsCtrl.selectedCard = card" 
+        ng-class="{ selected: CardsCtrl.selectedCard === card}">
+            <td class="cards__table-td cards__table-word">
+                <a class="link" ui-sref="base.dictionary.word({ word: card.word })" ng-bind="card.word"></a>
             </td>
-            <td class="cards__table-td cards__table-level" ng-bind="card.level"></td>
+            <td ng-if="!CardsCtrl.isFilterLearned" class="cards__table-td cards__table-level" ng-bind="card.level"></td>
+            <td ng-if="CardsCtrl.isFilterLearned" class="cards__table-td cards__table-when-learned" ng-bind="card.when_learned | date:'dd.MM.yyyy'"></td>
+        </tr>
+
+
+        <tr class="cards__table-row" 
+        ng-if="CardsCtrl.isFilterLearned"
+        ng-repeat="card in CardsCtrl.cards | filter: {learned: true} | orderBy:'-when_learned'" 
+        ng-click="CardsCtrl.selectedCard = card" 
+        ng-class="{ selected: CardsCtrl.selectedCard === card}">
+            <td class="cards__table-td cards__table-word">
+                <a class="link" ui-sref="base.dictionary.word({ word: card.word })" ng-bind="card.word"></a>
+            </td>
+            <td ng-if="!CardsCtrl.isFilterLearned" class="cards__table-td cards__table-level" ng-bind="card.level"></td>
+            <td ng-if="CardsCtrl.isFilterLearned" class="cards__table-td cards__table-when-learned" ng-bind="card.when_learned | date:'dd.MM.yyyy'"></td>
         </tr>
     </tbody>
 </table>

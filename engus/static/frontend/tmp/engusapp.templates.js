@@ -3,35 +3,73 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
 
   $templateCache.put('templates/base.cards.html',
     "<a ng-click=\"$state.go('base.cards.learning', {status: CardsCtrl.statusFilter})\" class=\"cards__begin-btn\">\n" +
-    "    Начать повторение\n" +
+    "    <i class=\"fa fa-play cards__begin-btn-playbtn\"></i> Начать повторение\n" +
     "</a>\n" +
     "<h1 class=\"cards__table-title\">\n" +
     "    Мои карточки \n" +
+    "    <span class=\"link\" ng-click=\"CardsCtrl.isFilterLearned = !CardsCtrl.isFilterLearned; CardsCtrl.selectedCard = undefined;\">\n" +
+    "        <span ng-if=\"!CardsCtrl.isFilterLearned\">к&nbsp;изучению</span>\n" +
+    "        <span ng-if=\"CardsCtrl.isFilterLearned\">изученные</span>\n" +
+    "        <span ng-if=\"!(CardsCtrl.loading)\">(<span ng-bind=\"(CardsCtrl.cards | filter: {learned: CardsCtrl.isFilterLearned}).length\"></span>)</span>\n" +
+    "    </span>\n" +
     "    <i ng-if=\"CardsCtrl.loading\" class=\"fa fa-cog fa-spin cards__loading-icon\"></i>\n" +
-    "    <select class=\"cards__status-filter-select\" ng-model=\"CardsCtrl.statusFilter\" ng-options=\"key for (key, value) in {'Новые': 0, 'Позже': 1, 'Выученные': 2}\"></select>\n" +
-    "    <span ng-if=\"!(CardsCtrl.loading)\">(<span ng-bind=\"(CardsCtrl.cards | filter:{status: CardsCtrl.statusFilter}).length\"></span>)</span>\n" +
     "</h1>\n" +
     "<table class=\"cards__table\">\n" +
     "    <colgroup>\n" +
     "        <col class=\"cards__table-col-word\">\n" +
-    "        <col class=\"cards__table-col-status\">\n" +
-    "        <col class=\"cards__table-col-level\">\n" +
+    "        <col ng-if=\"!CardsCtrl.isFilterLearned\" class=\"cards__table-col-level\">\n" +
+    "        <col ng-if=\"CardsCtrl.isFilterLearned\" class=\"cards__table-col-when-learned\">\n" +
     "    <thead>\n" +
     "        <tr>\n" +
-    "            <th class=\"cards__table-th\">Слово</th>\n" +
-    "            <th class=\"cards__table-th cards__table-status\">Статус</th>\n" +
-    "            <th class=\"cards__table-th cards__table-level\">Уровень</th>\n" +
+    "            <th class=\"cards__table-th\">\n" +
+    "                Карточка\n" +
+    "                <i ng-if=\"!CardsCtrl.isFilterLearned\" class=\"fa fa-crosshairs cards__menu-icon cards__menu-icon_type_in-learned\" ng-click=\"CardsCtrl.inLearnedSelected()\" ng-class=\"{ inactive: !CardsCtrl.selectedCard }\" title=\"Перенести в изученные\"></i>\n" +
+    "                <i ng-if=\"CardsCtrl.isFilterLearned\" class=\"fa fa-reply cards__menu-icon cards__menu-icon_type_in-learned\" ng-click=\"CardsCtrl.inLearningSelected()\" ng-class=\"{ inactive: !CardsCtrl.selectedCard }\" title=\"Перенести в изучаемые\"></i>\n" +
+    "                <i class=\"fa fa-times-circle cards__menu-icon cards__menu-icon_type_remove\" ng-click=\"CardsCtrl.removeSelected()\" ng-class=\"{ inactive: !CardsCtrl.selectedCard }\" title=\"Удалить из карточек\"></i>\n" +
+    "            </th>\n" +
+    "            <th ng-if=\"!CardsCtrl.isFilterLearned\" class=\"cards__table-th cards__table-level\">Повторений</th>\n" +
+    "            <th ng-if=\"CardsCtrl.isFilterLearned\" class=\"cards__table-th cards__table-when-learned\">Изучена</th>\n" +
     "        </tr>\n" +
     "    </thead>\n" +
     "    <tbody>\n" +
-    "        <tr class=\"cards__table-row\" ng-repeat=\"card in CardsCtrl.cards | filter:{status: CardsCtrl.statusFilter} | orderBy:['level', '-created']\">\n" +
-    "            <td class=\"cards__table-td\">\n" +
+    "\n" +
+    "        <tr class=\"cards__table-row\" \n" +
+    "        ng-if=\"!CardsCtrl.isFilterLearned\"\n" +
+    "        ng-repeat=\"card in CardsCtrl.cards | filter: {learned: CardsCtrl.isFilterLearned} | orderBy:['created'] | limitTo:CardsCtrl.profile.learn_by | orderBy:'-level'\" \n" +
+    "        ng-click=\"CardsCtrl.selectedCard = card\" \n" +
+    "        ng-class=\"{ selected: CardsCtrl.selectedCard === card}\">\n" +
+    "            <td class=\"cards__table-td cards__table-word\">\n" +
     "                <a class=\"link\" ui-sref=\"base.dictionary.word({ word: card.word })\" ng-bind=\"card.word\"></a>\n" +
     "            </td>\n" +
-    "            <td class=\"cards__table-td cards__table-status\">\n" +
-    "                <select class=\"cards__table-status-select\" ng-model=\"card.status\" ng-change=\"CardsCtrl.saveCard(card)\" ng-options=\"key for (key, status) in {'новая': 0, 'позже': 1,'выучил': 2}\"></select>\n" +
+    "            <td ng-if=\"!CardsCtrl.isFilterLearned\" class=\"cards__table-td cards__table-level\" ng-bind=\"card.level\"></td>\n" +
+    "            <td ng-if=\"CardsCtrl.isFilterLearned\" class=\"cards__table-td cards__table-when-learned\" ng-bind=\"card.when_learned | date:'dd.MM.yyyy'\"></td>\n" +
+    "        </tr>\n" +
+    "        <tr class=\"cards__table-row\" ng-if=\"!CardsCtrl.isFilterLearned && ((CardsCtrl.cards | filter: {learned: false}).length > CardsCtrl.profile.learn_by)\">\n" +
+    "            <td class=\"cards__table-td cards__table-after\" colspan=\"2\">Позже:</td>\n" +
+    "        </tr>\n" +
+    "        <tr class=\"cards__table-row\" \n" +
+    "        ng-if=\"!CardsCtrl.isFilterLearned\"\n" +
+    "        ng-repeat=\"card in CardsCtrl.cards | filter: {learned: false} | orderBy:['created'] | startFrom:CardsCtrl.profile.learn_by | orderBy:'-level'\" \n" +
+    "        ng-click=\"CardsCtrl.selectedCard = card\" \n" +
+    "        ng-class=\"{ selected: CardsCtrl.selectedCard === card}\">\n" +
+    "            <td class=\"cards__table-td cards__table-word\">\n" +
+    "                <a class=\"link\" ui-sref=\"base.dictionary.word({ word: card.word })\" ng-bind=\"card.word\"></a>\n" +
     "            </td>\n" +
-    "            <td class=\"cards__table-td cards__table-level\" ng-bind=\"card.level\"></td>\n" +
+    "            <td ng-if=\"!CardsCtrl.isFilterLearned\" class=\"cards__table-td cards__table-level\" ng-bind=\"card.level\"></td>\n" +
+    "            <td ng-if=\"CardsCtrl.isFilterLearned\" class=\"cards__table-td cards__table-when-learned\" ng-bind=\"card.when_learned | date:'dd.MM.yyyy'\"></td>\n" +
+    "        </tr>\n" +
+    "\n" +
+    "\n" +
+    "        <tr class=\"cards__table-row\" \n" +
+    "        ng-if=\"CardsCtrl.isFilterLearned\"\n" +
+    "        ng-repeat=\"card in CardsCtrl.cards | filter: {learned: true} | orderBy:'-when_learned'\" \n" +
+    "        ng-click=\"CardsCtrl.selectedCard = card\" \n" +
+    "        ng-class=\"{ selected: CardsCtrl.selectedCard === card}\">\n" +
+    "            <td class=\"cards__table-td cards__table-word\">\n" +
+    "                <a class=\"link\" ui-sref=\"base.dictionary.word({ word: card.word })\" ng-bind=\"card.word\"></a>\n" +
+    "            </td>\n" +
+    "            <td ng-if=\"!CardsCtrl.isFilterLearned\" class=\"cards__table-td cards__table-level\" ng-bind=\"card.level\"></td>\n" +
+    "            <td ng-if=\"CardsCtrl.isFilterLearned\" class=\"cards__table-td cards__table-when-learned\" ng-bind=\"card.when_learned | date:'dd.MM.yyyy'\"></td>\n" +
     "        </tr>\n" +
     "    </tbody>\n" +
     "</table>\n"
@@ -44,8 +82,8 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "        <h1 class=\"learning__headword\" ng-bind=\"CardsLearningCtrl.current.card.word\"></h1>\n" +
     "        <transcription ng-if=\"CardsLearningCtrl.current.word.transcription\" transcription=\"CardsLearningCtrl.current.word.transcription\" audio-src=\"CardsLearningCtrl.current.word.audio_url\"></transcription>\n" +
     "        <div class=\"learning__card-number\">\n" +
-    "            <span class=\"learning__card-number-current\" ng-bind=\"CardsLearningCtrl.orderedCards.indexOf(CardsLearningCtrl.current.card) + 1\"></span>/<span ng-bind=\"CardsLearningCtrl.orderedCards.length\"></span>\n" +
-    "            <i ng-click=\"CardsLearningCtrl.start()\" class=\"fa fa-refresh learning__card-number-reload\"></i>\n" +
+    "            <span class=\"learning__card-number-current\" ng-bind=\"CardsLearningCtrl.cardsToLearn.indexOf(CardsLearningCtrl.current.card) + 1\"></span>/<span ng-bind=\"CardsLearningCtrl.cardsToLearn.length\"></span>\n" +
+    "            <i ng-click=\"CardsLearningCtrl.start()\" class=\"fa fa-repeat learning__card-number-reload\"></i>\n" +
     "        </div>\n" +
     "    </header>\n" +
     "    <div class=\"learning__example\" ng-bind=\"CardsLearningCtrl.current.examples.random.text\"></div>\n" +
@@ -69,11 +107,11 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "    </section>\n" +
     "\n" +
     "    <ul class=\"learning__answer-list\" ng-show=\"!!(CardsLearningCtrl.current.showDefinitions)\">\n" +
-    "        <li ng-click=\"CardsLearningCtrl.switchCard('forget')\" class=\"learning__answer-list-item learning__btn learning__btn_type_forget\">\n" +
-    "            Забыл\n" +
+    "        <li ng-click=\"CardsLearningCtrl.switchCard('get')\" class=\"learning__answer-list-item learning__btn learning__btn_type_get\">\n" +
+    "            Выучил\n" +
     "        </li>\n" +
     "        <li ng-click=\"CardsLearningCtrl.switchCard('good')\" class=\"learning__answer-list-item learning__btn learning__btn_type_good\">\n" +
-    "            Вспомнил\n" +
+    "            Далее\n" +
     "        </li>\n" +
     "    </ul>\n" +
     "</div>\n"
@@ -200,7 +238,10 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "    <input type=\"radio\" ng-model=\"HomeCtrl.profile.is_english_mode\" ng-value=\"true\" ng-change=\"HomeCtrl.saveProfile()\" id=\"is-english-mode\"> <label for=\"is-english-mode\">Английский</label><br>\n" +
     "    <input type=\"radio\" ng-model=\"HomeCtrl.profile.is_english_mode\" ng-value=\"false\" ng-change=\"HomeCtrl.saveProfile()\" id=\"is-russian-mode\"> <label for=\"is-russian-mode\">Русский</label>\n" +
     "</div>\n" +
-    "\n"
+    "<div class=\"settings__learn-by\">\n" +
+    "    Учить по <input class=\"settings__learn-by-input\" ng-model=\"HomeCtrl.profile.learn_by\" ng-change=\"HomeCtrl.saveProfile()\"> <span ng-bind=\"HomeCtrl.profile.learn_by | declOfNum:['слову', 'слова', 'слов' ]\"></span>\n" +
+    "    <p class=\"settings__learn-by-info\">(Краткосрочная память может удерживать 7 объектов одновременно)</p>\n" +
+    "</div>\n"
   );
 
 

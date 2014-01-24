@@ -8,4 +8,7 @@
     <input type="radio" ng-model="HomeCtrl.profile.is_english_mode" ng-value="true" ng-change="HomeCtrl.saveProfile()" id="is-english-mode"> <label for="is-english-mode">Английский</label><br>
     <input type="radio" ng-model="HomeCtrl.profile.is_english_mode" ng-value="false" ng-change="HomeCtrl.saveProfile()" id="is-russian-mode"> <label for="is-russian-mode">Русский</label>
 </div>
-
+<div class="settings__learn-by">
+    Учить по <input class="settings__learn-by-input" ng-model="HomeCtrl.profile.learn_by" ng-change="HomeCtrl.saveProfile()"> <span ng-bind="HomeCtrl.profile.learn_by | declOfNum:['слову', 'слова', 'слов' ]"></span>
+    <p class="settings__learn-by-info">(Краткосрочная память может удерживать 7 объектов одновременно)</p>
+</div>

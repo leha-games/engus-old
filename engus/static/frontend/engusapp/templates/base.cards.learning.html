@@ -3,8 +3,8 @@
         <h1 class="learning__headword" ng-bind="CardsLearningCtrl.current.card.word"></h1>
         <transcription ng-if="CardsLearningCtrl.current.word.transcription" transcription="CardsLearningCtrl.current.word.transcription" audio-src="CardsLearningCtrl.current.word.audio_url"></transcription>
         <div class="learning__card-number">
-            <span class="learning__card-number-current" ng-bind="CardsLearningCtrl.orderedCards.indexOf(CardsLearningCtrl.current.card) + 1"></span>/<span ng-bind="CardsLearningCtrl.orderedCards.length"></span>
-            <i ng-click="CardsLearningCtrl.start()" class="fa fa-refresh learning__card-number-reload"></i>
+            <span class="learning__card-number-current" ng-bind="CardsLearningCtrl.cardsToLearn.indexOf(CardsLearningCtrl.current.card) + 1"></span>/<span ng-bind="CardsLearningCtrl.cardsToLearn.length"></span>
+            <i ng-click="CardsLearningCtrl.start()" class="fa fa-repeat learning__card-number-reload"></i>
         </div>
     </header>
     <div class="learning__example" ng-bind="CardsLearningCtrl.current.examples.random.text"></div>
@@ -28,11 +28,11 @@
     </section>
 
     <ul class="learning__answer-list" ng-show="!!(CardsLearningCtrl.current.showDefinitions)">
-        <li ng-click="CardsLearningCtrl.switchCard('forget')" class="learning__answer-list-item learning__btn learning__btn_type_forget">
-            Забыл
+        <li ng-click="CardsLearningCtrl.switchCard('get')" class="learning__answer-list-item learning__btn learning__btn_type_get">
+            Выучил
         </li>
         <li ng-click="CardsLearningCtrl.switchCard('good')" class="learning__answer-list-item learning__btn learning__btn_type_good">
-            Вспомнил
+            Далее
         </li>
     </ul>
 </div>

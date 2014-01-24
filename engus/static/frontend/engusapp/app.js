@@ -61,7 +61,7 @@ angular.module('engusApp', ['ngResource', 'ui.router', 'ngTouch'])
                 }
             })
             .state('base.cards.learning', {
-                url: 'learning/:status/',
+                url: 'learning/',
                 views: {
                     '@base': {
                         templateUrl: 'templates/base.cards.learning.html',

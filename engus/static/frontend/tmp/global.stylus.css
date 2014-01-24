@@ -823,9 +823,6 @@ button {
   color: #326ea0;
   margin-left: 0.5rem;
 }
-.cards__status-filter-select {
-  font-size: 1rem;
-}
 .cards__table {
   width: 100%;
 }
@@ -834,20 +831,31 @@ button {
   margin: 1.5rem 0 0.9rem;
 }
 .cards__table-th {
-  color: #777;
+  color: #777 !important;
   border-bottom: 1px solid #eee;
   padding-bottom: 0.5rem;
-  font-size: 0.8rem;
-}
-.cards__table-col-status {
-  width: 5rem;
+  font-size: 0.8rem !important;
 }
 .cards__table-col-level {
-  width: 5rem;
+  width: 7rem;
+}
+.cards__table-col-when-learned {
+  width: 7rem;
 }
 .cards__table-td {
   padding: 0.5rem 0;
   border-bottom: 1px solid #eee;
+}
+.cards__table-row:hover {
+  background-color: #fcfcfc;
+  cursor: pointer;
+}
+.cards__table-row.selected,
+.cards__table-row:active {
+  background-color: #fcfcf0;
+}
+.cards__table-after {
+  padding-top: 1.3rem;
 }
 .cards__table-level {
   text-align: center;
@@ -855,14 +863,33 @@ button {
 .cards__table-status {
   text-align: center;
 }
-.cards__table-status-select {
-  font-size: 0.8rem;
+.cards__table-when-learned {
+  text-align: center;
+  color: #333;
+  font-size: 0.9rem;
+}
+.cards__menu-icon {
+  margin-left: 1.5rem;
+  color: #00f;
+  cursor: pointer;
+}
+.cards__menu-icon_type_remove {
+  color: #f00;
+}
+.cards__menu-icon_type_in-learned {
+  color: #00f;
+}
+.cards__menu-icon_type_start {
+  color: #1eaa1e;
+}
+.cards__menu-icon.inactive {
+  color: #ccc;
 }
 .cards__begin-btn {
   position: relative;
   max-width: 420px;
   margin: 3rem auto;
-  padding: 0.6rem 2rem;
+  padding: 0.6rem 0.4rem;
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
@@ -890,6 +917,9 @@ button {
   margin-top: -0.5rem;
   font-size: 1rem;
   right: 1.3rem;
+}
+.cards__begin-btn-playbtn {
+  margin-right: 0.7rem;
 }
 .topmenu {
   display: -webkit-box;
@@ -1056,6 +1086,17 @@ button {
   background-color: #008000;
   border-color: #008000;
 }
+.learning__btn_type_get {
+  color: #00f;
+  border-color: rgba(0,0,255,0.2);
+}
+.learning__btn_type_get:hover {
+  border-color: rgba(0,0,255,0.6);
+}
+.learning__btn_type_get:active {
+  background-color: #00f;
+  border-color: #00f;
+}
 .learning__answer-list {
   display: -webkit-box;
   display: -moz-box;
@@ -1106,24 +1147,14 @@ button {
 .settings__language-mode {
   margin: 1.5rem 0;
 }
-.settings__paid-till-date {
-  margin-right: 1rem;
-}
-.settings__pay {
-  margin: 1.5rem 0;
-}
-.settings__pay-title {
-  padding: 0.2rem 0;
-  margin: 1rem 0;
-  font-size: 1.2rem;
-  border-bottom: 1px solid #ddd;
-}
-.settings__pay-input {
-  width: 2rem;
+.settings__learn-by-input {
   text-align: center;
-  margin: 0 0.5rem;
+  width: 2rem;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 0;
+  border-radius: 0;
 }
-.settings__pay-method-title {
-  font-size: 1.1rem;
-  margin: 0.7rem 0 0.3rem;
+.settings__learn-by-info {
+  font-size: 0.85rem;
+  color: #999;
 }

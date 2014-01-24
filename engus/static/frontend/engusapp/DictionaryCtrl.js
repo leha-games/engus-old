@@ -61,21 +61,40 @@ angular.module('engusApp').controller('DictionaryWordCtrl',
 ]);
 
 angular.module('engusApp').controller('CardsCtrl',
-    ['Cards', 
-    function(Cards, $location) {
+    ['Cards', 'Profile',
+    function(Cards, Profile) {
         var self = this;
         this.loading = true;
         this.cards = Cards;
-        this.statusFilter = 0;
+        this.profile = Profile;
+        this.isFilterLearned = false;
         Cards.$promise.then(function() {
             self.loading = false;
         });
-        this.saveCard =  function(card) {
+        this.saveCard = function(card) {
             card.$update();
         };
-        this.changeStatusFilter = function(newStatus) {
-            $location.search({'status': newStatus});
+        this.removeSelected = function() {
+            if (this.selectedCard) {
+                this.selectedCard.$remove();
+                this.cards.splice(this.cards.indexOf(this.selectedCard), 1);
+                this.selectedCard = undefined;
+            }
         };
+        this.inLearnedSelected = function() {
+            if (this.selectedCard) {
+                this.selectedCard.learned = true;
+                this.selectedCard.$update();
+                this.selectedCard = undefined;
+            }
+        }
+        this.inLearningSelected = function() {
+            if (this.selectedCard) {
+                this.selectedCard.learned = false;
+                this.selectedCard.$update();
+                this.selectedCard = undefined;
+            }
+        }
     }
 ]);
 
@@ -96,7 +115,9 @@ angular.module('engusApp').controller('CardsLearningCtrl',
         var self = this;
         this.loading = true;
         this.profile = Profile;
-        this.statusFilter = $stateParams.status;
+        var $filterFilter = $filter('filter'),
+            $filterOrderBy = $filter('orderBy'),
+            $filterLimitTo = $filter('limitTo');
 
         var getFullCard = function(card) {
             var word = WordService.get({ word: card.word }, function() {
@@ -114,7 +135,7 @@ angular.module('engusApp').controller('CardsLearningCtrl',
         };
 
         var getNextCard = function(card) {
-            return getNextElement(self.orderedCards, card);
+            return getNextElement(self.cardsToLearn, card);
         };
 
         var getNextElement = function(array, element) {
@@ -136,8 +157,10 @@ angular.module('engusApp').controller('CardsLearningCtrl',
         Cards.$promise.then(
             function(cards) {
                 self.loading = false;
-                var filteredCards = $filter('filter')(Cards, {'status': self.statusFilter});
-                self.orderedCards = $filter('orderBy')(filteredCards, ['level', '-created']);
+                var filteredCards = $filterFilter(Cards, {learned: false}),
+                    orderedCards = $filterOrderBy(filteredCards, 'created'),
+                    limitedCards = $filterLimitTo(orderedCards, self.profile.learn_by);
+                self.cardsToLearn = $filterOrderBy(limitedCards, '-level');
                 self.start();
             },
             function() {
@@ -145,7 +168,7 @@ angular.module('engusApp').controller('CardsLearningCtrl',
             }
         );
         this.start = function() {
-            var firstCard = self.orderedCards[0];
+            var firstCard = self.cardsToLearn[0];
             self.current = getFullCard(firstCard);
             self.next = getFullCard(getNextCard(firstCard));
         }
@@ -155,9 +178,10 @@ angular.module('engusApp').controller('CardsLearningCtrl',
                     this.current.card.level += 1;
                     this.current.card.$update();
                     break;
-                case 'forget':
-                    this.current.card.level = 0;
+                case 'get':
+                    this.current.card.learned = true;
                     this.current.card.$update();
+                    this.cardsToLearn.splice(this.cardsToLearn.indexOf(this.current.card), 1);
                     break;
             }
             this.current = this.next;
@@ -235,6 +259,13 @@ angular.module('engusApp').filter('declOfNum', function() {
     return function(number, titles) {
         var cases = [2, 0, 1, 1, 1, 2];
         return titles[ (number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5] ];
+    }
+});
+
+angular.module('engusApp').filter('startFrom', function() {
+    return function(input, start) {
+        start = +start; // parse to int
+        return input.slice(start);
     }
 });
 
