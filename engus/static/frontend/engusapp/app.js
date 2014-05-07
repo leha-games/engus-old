@@ -20,6 +20,9 @@ angular.module('engusApp', ['ngResource', 'ui.router', 'ngTouch'])
                         return ProfileService.query().$promise.then(function(profiles) {
                             return profiles[0];
                         });
+                    }],
+                    Cards: ['CardService', function(CardService) {
+                        return CardService.resource.query();
                     }]
                 }
             })
@@ -39,7 +42,7 @@ angular.module('engusApp', ['ngResource', 'ui.router', 'ngTouch'])
                     WordExamples: ['$stateParams', 'ExampleService', function($stateParams, ExampleService) {
                         return ExampleService.query({ 'definition__word': $stateParams.word });
                     }],
-                    Cards: ['$stateParams', 'CardService', function($stateParams, CardService) {
+                    Card: ['$stateParams', 'CardService', function($stateParams, CardService) {
                         return CardService.resource.query({ 'word': $stateParams.word });
                     }]
                 }
@@ -52,23 +55,13 @@ angular.module('engusApp', ['ngResource', 'ui.router', 'ngTouch'])
             .state('base.profile.statistics', {
                 url: 'statistics/',
                 templateUrl: 'templates/base.profile.statistics.html',
-                controller: 'ProfileStatisticsCtrl as ProfileStatisticsCtrl',
-                resolve: {
-                    Cards: ['CardService', function(CardService) {
-                        return CardService.resource.query();
-                    }]
-                }
+                controller: 'ProfileStatisticsCtrl as ProfileStatisticsCtrl'
             })
             .state('base.cards', {
                 url: 'cards/',
                 abstract: true,
                 templateUrl: 'templates/base.cards.html',
-                controller: 'CardsCtrl as CardsCtrl',
-                resolve: {
-                    Cards: ['CardService', function(CardService) {
-                        return CardService.resource.query();
-                    }]
-                }
+                controller: 'CardsCtrl as CardsCtrl'
             })
             .state('base.cards.new', {
                 url: 'new/',

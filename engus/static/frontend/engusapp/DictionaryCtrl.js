@@ -24,36 +24,36 @@ angular.module('engusApp').controller('DictionaryWordCtrl',
     function($stateParams, Profile, Word, WordExamples, Cards, CardService) {
         var self = this;
         this.rawWord = $stateParams.word;
-        this.word = Word;
+        var word = this.word = Word;
         this.profile = Profile;
-        this.loading = true;
-        this.cardsLoading = true;
         this.wordNotFound = false;
         this.examples = WordExamples;
-        this.card = undefined;
-        Cards.$promise.then(function(cards) {
-            self.cardsLoading = false;
-            if (cards.length > 0) {
-                self.card = cards[0];
+        var cards = Cards;
+        var getWordCard = function () {
+            var wordCard = undefined;
+            for (var i = 0; i < cards.length; i++) {
+                if (cards[i].word === word.word) {
+                    wordCard = cards[i];
+                }
             }
-        });
+            return wordCard;
+        };
+        this.isWordInCards = function() {
+            return !!(getWordCard());
+        };
         Word.$promise.then(
             function(word) {
-                self.loading = false;
                 self.word.definitionGroups = _.groupBy(word.definition_set, 'part_of_speach');
             },
             function() {
-                self.loading = false;
                 self.wordNotFound = true;
             }
         );
         this.switchCard = function() {
-            if (this.card === undefined) {
-                this.card = new CardService.resource({ word: self.word.word });
-                this.card.$save();
+            if (this.isWordInCards()) {
+                CardService.removeCard(cards, getWordCard());
             } else {
-                this.card.$remove();
-                this.card = undefined;
+                CardService.addCard(cards, self.word.word );
             }
         };
                 
@@ -90,7 +90,7 @@ angular.module('engusApp').controller('CardsCtrl',
     function(Cards, Profile, $filter, CardService) {
         var self = this;
         this.loading = true;
-        this.cards = Cards;
+        var cards = this.cards = Cards;
         this.profile = Profile;
         this.isFilterLearned = false;
         Cards.$promise.then(function() {
@@ -100,8 +100,7 @@ angular.module('engusApp').controller('CardsCtrl',
             card.$update();
         };
         this.removeCard = function(card) {
-            card.$remove();
-            this.cards.splice(this.cards.indexOf(card), 1);
+            CardService.removeCard(cards, card)
         };
         this.moveInLearned = function(card) {
             card.learned = true;
@@ -242,6 +241,18 @@ angular.module('engusApp').factory('CardService',
             }
         };
 
+        Card.removeCard = function(cards, card) {
+            card.$remove(function() {
+                cards.splice(cards.indexOf(card), 1);
+            })
+        };
+
+        Card.addCard = function(cards, word) {
+            var newCard = new Card.resource({ word: word });
+            newCard.$save(function(savedCard) {
+                cards.push(savedCard);
+            });
+        };
 
         Card.getFullCard = function(card) {
             var word = WordService.get({ word: card.word }, function() {
