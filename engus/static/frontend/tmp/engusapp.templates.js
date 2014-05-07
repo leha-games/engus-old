@@ -6,7 +6,6 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "    <a ng-click=\"$state.go('base.cards.done.repeat')\" class=\"cards__begin-btn\">\n" +
     "        <i class=\"fa fa-play cards__begin-btn-playbtn\"></i> Начать повторение\n" +
     "    </a>\n" +
-    "    <i ng-if=\"CardsCtrl.loading\" class=\"fa fa-cog fa-spin cards__loading-icon\"></i>\n" +
     "\n" +
     "    <ul class=\"cards__list\">\n" +
     "        <li class=\"cards__list-item\"\n" +
@@ -86,7 +85,6 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "    <a ng-click=\"$state.go('base.cards.new.learn')\" class=\"cards__begin-btn\">\n" +
     "        <i class=\"fa fa-play cards__begin-btn-playbtn\"></i> Начать изучение\n" +
     "    </a>\n" +
-    "    <i ng-if=\"CardsCtrl.loading\" class=\"fa fa-cog fa-spin cards__loading-icon\"></i>\n" +
     "\n" +
     "    <ul class=\"cards__list\">\n" +
     "        <li class=\"cards__list-item\"\n" +
