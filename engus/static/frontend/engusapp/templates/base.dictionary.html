@@ -1,31 +1,33 @@
-<section class="dictionary">
-    <form class="dictionary__search-form" submit-on="submitForm" ng-submit="dict.search(word); dict.word='';">
-        <input 
-            class="dictionary__search-input" 
-            type="text" 
-            autocapitalize="none" 
-            autocorrect="off"
-            autocomplete="off" 
-            placeholder="Поиск слова" 
-            blur-on-submit 
-            ng-model="dict.word" 
-            ng-focus="isFocusOnSearch=true" 
-            blur-with-timeout="isFocusOnSearch=false">
-        <i class="fa fa-refresh fa-spin dictionary__search-input-spinner" ng-show="dict.searching"></i>
-        <ul class="dictionary__search-dropdown" ng-if="dict.word && isFocusOnSearch">
-            <li class="dictionary__search-dropdown-item" ng-repeat="word in dict.dictionary | filter:dict.word:dict.startsWith | limitTo: 30">
-                <span class="dictionary__search-dropdown-item-link" ng-click="dict.word=word; dict.triggerSubmit(); event.stopPropagation(); ">{{ word }}</span>
-            </li>
-            <li class="dictionary__search-dropdown-item dictionary__search-dropdown-item_state_notfound" ng-if="(dict.dictionary | filter:dict.word:dict.startsWith).length===0">
-                Слово не найдено
-            </li>
-        </ul>
-    </form>
-    <div ui-view>
-        <ul class="dictionary__word-list">
-            <li class="dictionary__word-list-item" ng-repeat="word in dict.dictionary | limitTo:50">
-                <a class="link link_type_block dictionary__word-list-item-link" ng-class="{ last: $last }" href ui-sref="base.dictionary.word({ word: word })">{{ word }}</a>
-            </li>
-        </ul>
-    </div>
-</section>
+<div class="content">
+    <section class="dictionary">
+        <form class="dictionary__search-form" submit-on="submitForm" ng-submit="dict.search(word); dict.word='';">
+            <input 
+                class="dictionary__search-input" 
+                type="text" 
+                autocapitalize="none" 
+                autocorrect="off"
+                autocomplete="off" 
+                placeholder="Поиск слова" 
+                blur-on-submit 
+                ng-model="dict.word" 
+                ng-focus="isFocusOnSearch=true" 
+                blur-with-timeout="isFocusOnSearch=false">
+            <i class="fa fa-refresh fa-spin dictionary__search-input-spinner" ng-show="dict.searching"></i>
+            <ul class="dictionary__search-dropdown" ng-if="dict.word && isFocusOnSearch">
+                <li class="dictionary__search-dropdown-item" ng-repeat="word in dict.dictionary | filter:dict.word:dict.startsWith | limitTo: 30">
+                    <span class="dictionary__search-dropdown-item-link" ng-click="dict.word=word; dict.triggerSubmit(); event.stopPropagation(); ">{{ word }}</span>
+                </li>
+                <li class="dictionary__search-dropdown-item dictionary__search-dropdown-item_state_notfound" ng-if="(dict.dictionary | filter:dict.word:dict.startsWith).length===0">
+                    Слово не найдено
+                </li>
+            </ul>
+        </form>
+        <div ui-view>
+            <ul class="dictionary__word-list">
+                <li class="dictionary__word-list-item" ng-repeat="word in dict.dictionary | limitTo:50">
+                    <a class="link link_type_block dictionary__word-list-item-link" ng-class="{ last: $last }" href ui-sref="base.dictionary.word({ word: word })">{{ word }}</a>
+                </li>
+            </ul>
+        </div>
+    </section>
+</div>

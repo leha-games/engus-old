@@ -6,12 +6,7 @@
   sudo: True
 
   tasks:
-  - name: Update server packages.
-    apt: update_cache=yes cache_valid_time=3600
-
-  - name: Upgrade server packages.
-    apt: upgrade=full
-
+  
   - name: Pull sources from repository.
     git: repo="{{ project_repo }}" dest="{{ project_root }}/code/" version="{{ branch }}"
     sudo_user: "{{ project_name }}"

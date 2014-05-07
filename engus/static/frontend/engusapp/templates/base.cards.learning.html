@@ -1,24 +1,25 @@
-<div>
+<div class="content">
     <header class="learning__word">
-        <h1 class="learning__headword" ng-bind="CardsLearningCtrl.current.card.word"></h1>
-        <transcription ng-if="CardsLearningCtrl.current.word.transcription" transcription="CardsLearningCtrl.current.word.transcription" audio-src="CardsLearningCtrl.current.word.audio_url"></transcription>
+        <h1 class="learning__headword" ng-bind="CardsLearningCtrl.current().card.word"></h1>
+        <transcription ng-if="CardsLearningCtrl.current().word.transcription" transcription="CardsLearningCtrl.current().word.transcription" audio-src="CardsLearningCtrl.current().word.audio_url"></transcription>
         <div class="learning__card-number">
-            <span class="learning__card-number-current" ng-bind="CardsLearningCtrl.cardsToLearn.indexOf(CardsLearningCtrl.current.card) + 1"></span>/<span ng-bind="CardsLearningCtrl.cardsToLearn.length"></span>
+            <span class="learning__card-number-current" ng-bind="CardsLearningCtrl.cardsToLearn().indexOf(CardsLearningCtrl.current().card) + 1"></span>/<span ng-bind="CardsLearningCtrl.cardsToLearn().length"></span>
             <i ng-click="CardsLearningCtrl.start()" class="fa fa-repeat learning__card-number-reload"></i>
         </div>
     </header>
-    <div class="learning__example" ng-bind="CardsLearningCtrl.current.examples.random.text"></div>
+    <div class="learning__example" ng-bind="CardsLearningCtrl.current().examples.random.text"></div>
 
-    <div class="learning__btn learning__btn_type_show" ng-show="!(CardsLearningCtrl.current.showDefinitions)" ng-click="CardsLearningCtrl.current.showDefinitions = true">Показать определение</div>
+    <div class="learning__btn learning__btn_type_show" ng-show="!(CardsLearningCtrl.current().showDefinitions)" ng-click="CardsLearningCtrl.current().showDefinitions = true">Показать определение</div>
 
-    <section class="learning__definitions" ng-if="CardsLearningCtrl.current.showDefinitions">
-        <div class="dictionary__mueller" ng-if="!CardsLearningCtrl.profile.is_english_mode" ng-bind-html="CardsLearningCtrl.current.word.mueller_definition | mueller"></div>
+    <section class="learning__definitions" ng-if="CardsLearningCtrl.current().showDefinitions">
+        <div class="dictionary__mueller" ng-if="!CardsLearningCtrl.profile.is_english_mode && !CardsLearningCtrl.current().word.short_definition" ng-bind-html="CardsLearningCtrl.current().word.mueller_definition | mueller"></div>
+        <div class="dictionary__short-def" ng-if="!CardsLearningCtrl.profile.is_english_mode && CardsLearningCtrl.current().word.short_definition" ng-bind="CardsLearningCtrl.current().word.short_definition"></div>
 
-        <ul class="definition__group-list" ng-if="CardsLearningCtrl.profile.is_english_mode || !CardsLearningCtrl.current.word.mueller_definition">
-            <li class="definition__group-item" ng-repeat="(groupName, definitionsGroup) in CardsLearningCtrl.current.word.definitionGroups">
+        <ul class="definition__group-list" ng-if="CardsLearningCtrl.profile.is_english_mode || !CardsLearningCtrl.current().word.mueller_definition">
+            <li class="definition__group-item" ng-repeat="(groupName, definitionsGroup) in CardsLearningCtrl.current().word.definitionGroups">
                 <h1 class="definition__group-name"><i class="fa fa-angle-right definition__group-name-icon"></i>{{ groupName }}</h1>
                 <ol class="definition__list">
-                    <li class="definition__item" ng-class="{ transparent: ((CardsLearningCtrl.current.examples.length > 0) && (definition.id !== CardsLearningCtrl.current.examples.random.definition)) }" ng-repeat="definition in definitionsGroup | orderBy:'weight'">
+                    <li class="definition__item" ng-class="{ transparent: ((CardsLearningCtrl.current().examples.length > 0) && (definition.id !== CardsLearningCtrl.current().examples.random.definition)) }" ng-repeat="definition in definitionsGroup | orderBy:'weight'">
                         <span ng-if="CardsLearningCtrl.profile.is_english_mode" ng-bind="definition.definition"></span>
                         <span ng-if="!CardsLearningCtrl.profile.is_english_mode" ng-bind="definition.russian_definition"></span>
                     </li>
@@ -27,11 +28,14 @@
         </ul>
     </section>
 
-    <ul class="learning__answer-list" ng-show="!!(CardsLearningCtrl.current.showDefinitions)">
-        <li ng-click="CardsLearningCtrl.switchCard('get')" class="learning__answer-list-item learning__btn learning__btn_type_get">
+    <ul class="learning__answer-list" ng-show="!!(CardsLearningCtrl.current().showDefinitions)">
+        <li ng-if="!CardsLearningCtrl.current().card.learned" ng-click="CardsLearningCtrl.updateCard(CardsLearningCtrl.current().card, 'get'); CardsLearningCtrl.switchCard();" class="learning__answer-list-item learning__btn learning__btn_type_get">
             Выучил
         </li>
-        <li ng-click="CardsLearningCtrl.switchCard('good')" class="learning__answer-list-item learning__btn learning__btn_type_good">
+        <li ng-if="CardsLearningCtrl.current().card.learned" ng-click="CardsLearningCtrl.updateCard(CardsLearningCtrl.current().card, 'forget'); CardsLearningCtrl.switchCard();" class="learning__answer-list-item learning__btn learning__btn_type_get">
+            Забыл
+        </li>
+        <li ng-click="CardsLearningCtrl.updateCard(CardsLearningCtrl.current().card, 'good'); CardsLearningCtrl.switchCard();" class="learning__answer-list-item learning__btn learning__btn_type_good">
             Далее
         </li>
     </ul>

@@ -1,21 +1,23 @@
-<ul class="topmenu">
-    <li class="topmenu__item" ng-class="{ active: $state.includes('base.home') }">
-        <div class="topmenu__item-link" ng-click="$state.go('base.home')">
-            <i class="fa fa-home topmenu__item-icon"></i> 
-            <span class="topmenu__item-text">Моя страница</span>
-        </div>
-    </li>
-    <li class="topmenu__item" ng-class="{ active: $state.includes('base.dictionary') }">
-        <div class="topmenu__item-link" ng-click="$state.go('base.dictionary')">
-            <i class="fa fa-book topmenu__item-icon"></i> 
-            <span class="topmenu__item-text">Словарь</span>
-        </div>
-    </li>
-    <li class="topmenu__item" ng-class="{ active: $state.includes('base.cards') }">
-        <div class="topmenu__item-link" ng-click="$state.go('base.cards')">
-            <i class="fa fa-star-o topmenu__item-icon"></i> 
-            <span class="topmenu__item-text">Карточки</span>
-        </div>
-    </li>
-</ul>
-<div class="content" ui-view></div>
+<div class="topmenu">
+    <ul class="topmenu__items">
+        <li class="topmenu__item" ng-class="{ active: $state.includes('base.dictionary') }">
+            <div class="topmenu__item-link" ng-click="$state.go('base.dictionary')">
+                <i class="fa fa-book topmenu__item-icon"></i> 
+                <span class="topmenu__item-text">Словарь</span>
+            </div>
+        </li>
+        <li class="topmenu__item" ng-class="{ active: $state.includes('base.cards') }">
+            <div class="topmenu__item-link" ng-click="$state.go('base.cards.new')">
+                <i class="fa topmenu__item-icon" ng-class="{ 'fa-star': $state.includes('base.cards'), 'fa-star-o': !$state.includes('base.cards') }"></i> 
+                <span class="topmenu__item-text">Карточки</span>
+            </div>
+        </li>
+        <li class="topmenu__item" ng-class="{ active: $state.includes('base.home') }">
+            <div class="topmenu__item-link" ng-click="$state.go('base.home')">
+                <i class="fa fa-user topmenu__item-icon"></i> 
+                <span class="topmenu__item-text">Профиль</span>
+            </div>
+        </li>
+    </ul>
+</div>
+<div ui-view></div>

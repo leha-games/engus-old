@@ -18,8 +18,7 @@ angular.module('engusApp', ['ngResource', 'ui.router', 'ngTouch'])
                     }], 
                     Profile: ['ProfileService', function(ProfileService) {
                         return ProfileService.query().$promise.then(function(profiles) {
-                            var profile = profiles[0];
-                            return profile;
+                            return profiles[0];
                         });
                     }]
                 }
@@ -41,7 +40,7 @@ angular.module('engusApp', ['ngResource', 'ui.router', 'ngTouch'])
                         return ExampleService.query({ 'definition__word': $stateParams.word });
                     }],
                     Cards: ['$stateParams', 'CardService', function($stateParams, CardService) {
-                        return CardService.query({ 'word': $stateParams.word });
+                        return CardService.resource.query({ 'word': $stateParams.word });
                     }]
                 }
             })
@@ -52,20 +51,38 @@ angular.module('engusApp', ['ngResource', 'ui.router', 'ngTouch'])
             })
             .state('base.cards', {
                 url: 'cards/',
+                abstract: true,
                 templateUrl: 'templates/base.cards.html',
                 controller: 'CardsCtrl as CardsCtrl',
                 resolve: {
                     Cards: ['CardService', function(CardService) {
-                        return CardService.query();
+                        return CardService.resource.query();
                     }]
                 }
             })
-            .state('base.cards.learning', {
-                url: 'learning/',
+            .state('base.cards.new', {
+                url: 'new/',
+                templateUrl: 'templates/base.cards.new.html',
+            })
+            .state('base.cards.done', {
+                url: 'done/',
+                templateUrl: 'templates/base.cards.done.html'
+            })
+            .state('base.cards.new.learn', {
+                url: 'learn/',
                 views: {
                     '@base': {
                         templateUrl: 'templates/base.cards.learning.html',
-                        controller: 'CardsLearningCtrl as CardsLearningCtrl'
+                        controller: 'LearningNewCardsCtrl as CardsLearningCtrl'
+                    }
+                }
+            })
+            .state('base.cards.done.repeat', {
+                url: 'repeat/',
+                views: {
+                    '@base': {
+                        templateUrl: 'templates/base.cards.learning.html',
+                        controller: 'RepeatDoneCardsCtrl as CardsLearningCtrl'
                     }
                 }
             });

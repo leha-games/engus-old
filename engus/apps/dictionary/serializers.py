@@ -32,4 +32,4 @@ class WordSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Word
-        fields = ('word', 'transcription', 'audio_url', 'mueller_definition', 'definition_set', )
+        fields = ('word', 'transcription', 'short_definition', 'audio_url', 'mueller_definition', 'definition_set', )

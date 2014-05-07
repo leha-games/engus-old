@@ -17,6 +17,7 @@ class Word(models.Model):
     modified = models.DateTimeField(auto_now=True)
     audio = models.FileField(upload_to='word', null=True, blank=True)
     is_oxford_3000 = models.BooleanField(default=False)
+    short_definition = models.CharField(max_length=64, blank=True)
     mueller_definition = models.TextField(blank=True)
 
     class Meta:

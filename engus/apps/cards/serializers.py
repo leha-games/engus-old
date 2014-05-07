@@ -3,7 +3,9 @@ from .models import Card
 
 
 class CardSerializer(serializers.ModelSerializer):
+    word_short_def = serializers.Field(source='word.short_definition')
+
     class Meta:
         model = Card
-        fields = ('id', 'word', 'learned', 'when_learned', 'level', 'created', )
+        fields = ('id', 'word', 'word_short_def', 'learned', 'when_learned', 'level', 'created', )
         read_only_fields = ('created', )

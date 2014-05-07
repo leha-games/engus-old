@@ -1,103 +1,63 @@
 angular.module('engusApp').run(['$templateCache', function($templateCache) {
   'use strict';
 
-  $templateCache.put('templates/base.cards.html',
-    "<a ng-click=\"$state.go('base.cards.learning', {status: CardsCtrl.statusFilter})\" class=\"cards__begin-btn\">\n" +
-    "    <i class=\"fa fa-play cards__begin-btn-playbtn\"></i> Начать повторение\n" +
-    "</a>\n" +
-    "<h1 class=\"cards__table-title\">\n" +
-    "    Мои карточки \n" +
-    "    <span class=\"link\" ng-click=\"CardsCtrl.isFilterLearned = !CardsCtrl.isFilterLearned; CardsCtrl.selectedCard = undefined;\">\n" +
-    "        <span ng-if=\"!CardsCtrl.isFilterLearned\">к&nbsp;изучению</span>\n" +
-    "        <span ng-if=\"CardsCtrl.isFilterLearned\">изученные</span>\n" +
-    "        <span ng-if=\"!(CardsCtrl.loading)\">(<span ng-bind=\"(CardsCtrl.cards | filter: {learned: CardsCtrl.isFilterLearned}).length\"></span>)</span>\n" +
-    "    </span>\n" +
+  $templateCache.put('templates/base.cards.done.html',
+    "<div class=\"content\">\n" +
+    "    <a ng-click=\"$state.go('base.cards.done.repeat')\" class=\"cards__begin-btn\">\n" +
+    "        <i class=\"fa fa-play cards__begin-btn-playbtn\"></i> Начать повторение\n" +
+    "    </a>\n" +
     "    <i ng-if=\"CardsCtrl.loading\" class=\"fa fa-cog fa-spin cards__loading-icon\"></i>\n" +
-    "</h1>\n" +
-    "<table class=\"cards__table\">\n" +
-    "    <colgroup>\n" +
-    "        <col class=\"cards__table-col-word\">\n" +
-    "        <col ng-if=\"!CardsCtrl.isFilterLearned\" class=\"cards__table-col-level\">\n" +
-    "        <col ng-if=\"CardsCtrl.isFilterLearned\" class=\"cards__table-col-when-learned\">\n" +
-    "    <thead>\n" +
-    "        <tr>\n" +
-    "            <th class=\"cards__table-th\">\n" +
-    "                Карточка\n" +
-    "                <i ng-if=\"!CardsCtrl.isFilterLearned\" class=\"fa fa-crosshairs cards__menu-icon cards__menu-icon_type_in-learned\" ng-click=\"CardsCtrl.inLearnedSelected()\" ng-class=\"{ inactive: !CardsCtrl.selectedCard }\" title=\"Перенести в изученные\"></i>\n" +
-    "                <i ng-if=\"CardsCtrl.isFilterLearned\" class=\"fa fa-reply cards__menu-icon cards__menu-icon_type_in-learned\" ng-click=\"CardsCtrl.inLearningSelected()\" ng-class=\"{ inactive: !CardsCtrl.selectedCard }\" title=\"Перенести в изучаемые\"></i>\n" +
-    "                <i class=\"fa fa-times-circle cards__menu-icon cards__menu-icon_type_remove\" ng-click=\"CardsCtrl.removeSelected()\" ng-class=\"{ inactive: !CardsCtrl.selectedCard }\" title=\"Удалить из карточек\"></i>\n" +
-    "            </th>\n" +
-    "            <th ng-if=\"!CardsCtrl.isFilterLearned\" class=\"cards__table-th cards__table-level\">Повторений</th>\n" +
-    "            <th ng-if=\"CardsCtrl.isFilterLearned\" class=\"cards__table-th cards__table-when-learned\">Изучена</th>\n" +
-    "        </tr>\n" +
-    "    </thead>\n" +
-    "    <tbody>\n" +
     "\n" +
-    "        <tr class=\"cards__table-row\" \n" +
-    "        ng-if=\"!CardsCtrl.isFilterLearned\"\n" +
-    "        ng-repeat=\"card in CardsCtrl.cards | filter: {learned: CardsCtrl.isFilterLearned} | orderBy:['created'] | limitTo:CardsCtrl.profile.learn_by | orderBy:'-level'\" \n" +
-    "        ng-click=\"CardsCtrl.selectedCard = card\" \n" +
-    "        ng-class=\"{ selected: CardsCtrl.selectedCard === card}\">\n" +
-    "            <td class=\"cards__table-td cards__table-word\">\n" +
-    "                <a class=\"link\" ui-sref=\"base.dictionary.word({ word: card.word })\" ng-bind=\"card.word\"></a>\n" +
-    "            </td>\n" +
-    "            <td ng-if=\"!CardsCtrl.isFilterLearned\" class=\"cards__table-td cards__table-level\" ng-bind=\"card.level\"></td>\n" +
-    "            <td ng-if=\"CardsCtrl.isFilterLearned\" class=\"cards__table-td cards__table-when-learned\" ng-bind=\"card.when_learned | date:'dd.MM.yyyy'\"></td>\n" +
-    "        </tr>\n" +
-    "        <tr class=\"cards__table-row\" ng-if=\"!CardsCtrl.isFilterLearned && ((CardsCtrl.cards | filter: {learned: false}).length > CardsCtrl.profile.learn_by)\">\n" +
-    "            <td class=\"cards__table-td cards__table-after\" colspan=\"2\">Позже:</td>\n" +
-    "        </tr>\n" +
-    "        <tr class=\"cards__table-row\" \n" +
-    "        ng-if=\"!CardsCtrl.isFilterLearned\"\n" +
-    "        ng-repeat=\"card in CardsCtrl.cards | filter: {learned: false} | orderBy:['created'] | startFrom:CardsCtrl.profile.learn_by | orderBy:'-level'\" \n" +
-    "        ng-click=\"CardsCtrl.selectedCard = card\" \n" +
-    "        ng-class=\"{ selected: CardsCtrl.selectedCard === card}\">\n" +
-    "            <td class=\"cards__table-td cards__table-word\">\n" +
-    "                <a class=\"link\" ui-sref=\"base.dictionary.word({ word: card.word })\" ng-bind=\"card.word\"></a>\n" +
-    "            </td>\n" +
-    "            <td ng-if=\"!CardsCtrl.isFilterLearned\" class=\"cards__table-td cards__table-level\" ng-bind=\"card.level\"></td>\n" +
-    "            <td ng-if=\"CardsCtrl.isFilterLearned\" class=\"cards__table-td cards__table-when-learned\" ng-bind=\"card.when_learned | date:'dd.MM.yyyy'\"></td>\n" +
-    "        </tr>\n" +
+    "    <ul class=\"cards__list\">\n" +
+    "        <li class=\"cards__list-item\"\n" +
+    "        ng-repeat=\"card in CardsCtrl.getLearned(CardsCtrl.cards)\">\n" +
     "\n" +
-    "\n" +
-    "        <tr class=\"cards__table-row\" \n" +
-    "        ng-if=\"CardsCtrl.isFilterLearned\"\n" +
-    "        ng-repeat=\"card in CardsCtrl.cards | filter: {learned: true} | orderBy:'-when_learned'\" \n" +
-    "        ng-click=\"CardsCtrl.selectedCard = card\" \n" +
-    "        ng-class=\"{ selected: CardsCtrl.selectedCard === card}\">\n" +
-    "            <td class=\"cards__table-td cards__table-word\">\n" +
-    "                <a class=\"link\" ui-sref=\"base.dictionary.word({ word: card.word })\" ng-bind=\"card.word\"></a>\n" +
-    "            </td>\n" +
-    "            <td ng-if=\"!CardsCtrl.isFilterLearned\" class=\"cards__table-td cards__table-level\" ng-bind=\"card.level\"></td>\n" +
-    "            <td ng-if=\"CardsCtrl.isFilterLearned\" class=\"cards__table-td cards__table-when-learned\" ng-bind=\"card.when_learned | date:'dd.MM.yyyy'\"></td>\n" +
-    "        </tr>\n" +
-    "    </tbody>\n" +
-    "</table>\n"
+    "            <div class=\"cards__list-item-word\"><a class=\"link\" ui-sref=\"base.dictionary.word({ word: card.word })\" ng-bind=\"card.word\"></a></div>\n" +
+    "            <div class=\"cards__list-item-buttons\">\n" +
+    "                <div class=\"cards__list-item-button cards__list-item-button_type_move\" ng-click=\"CardsCtrl.moveInNew(card)\">В новые</div>\n" +
+    "                <div class=\"cards__list-item-button cards__list-item-button_type_remove\" ng-click=\"CardsCtrl.removeCard(card)\">Удалить</div>\n" +
+    "            </div>\n" +
+    "        </li>\n" +
+    "    </ul>\n" +
+    "</div>\n"
+  );
+
+
+  $templateCache.put('templates/base.cards.html',
+    "<div class=\"cards__types-wrapper\">\n" +
+    "    <ul class=\"cards__types\">\n" +
+    "        <li class=\"cards__type\" ng-class=\"{ active: $state.includes('base.cards.new') }\" ng-click=\"$state.go('base.cards.new')\"><i class=\"fa fa-fw cards__type-icon\" ng-class=\"{ 'fa-square': $state.includes('base.cards.new'), 'fa-square-o': !$state.includes('base.cards.new') }\"></i> Новые</li>\n" +
+    "        <li class=\"cards__type\" ng-class=\"{ active: $state.includes('base.cards.done') }\" ng-click=\"$state.go('base.cards.done')\"><i class=\"fa fa-fw cards__type-icon\" ng-class=\"{ 'fa-check-square': $state.includes('base.cards.done'), 'fa-check-square-o': !$state.includes('base.cards.done') }\"></i> Изученные</li>\n" +
+    "    </ul>\n" +
+    "</div>\n" +
+    "<div ui-view>\n" +
+    "</div>\n"
   );
 
 
   $templateCache.put('templates/base.cards.learning.html',
-    "<div>\n" +
+    "<div class=\"content\">\n" +
     "    <header class=\"learning__word\">\n" +
-    "        <h1 class=\"learning__headword\" ng-bind=\"CardsLearningCtrl.current.card.word\"></h1>\n" +
-    "        <transcription ng-if=\"CardsLearningCtrl.current.word.transcription\" transcription=\"CardsLearningCtrl.current.word.transcription\" audio-src=\"CardsLearningCtrl.current.word.audio_url\"></transcription>\n" +
+    "        <h1 class=\"learning__headword\" ng-bind=\"CardsLearningCtrl.current().card.word\"></h1>\n" +
+    "        <transcription ng-if=\"CardsLearningCtrl.current().word.transcription\" transcription=\"CardsLearningCtrl.current().word.transcription\" audio-src=\"CardsLearningCtrl.current().word.audio_url\"></transcription>\n" +
     "        <div class=\"learning__card-number\">\n" +
-    "            <span class=\"learning__card-number-current\" ng-bind=\"CardsLearningCtrl.cardsToLearn.indexOf(CardsLearningCtrl.current.card) + 1\"></span>/<span ng-bind=\"CardsLearningCtrl.cardsToLearn.length\"></span>\n" +
+    "            <span class=\"learning__card-number-current\" ng-bind=\"CardsLearningCtrl.cardsToLearn().indexOf(CardsLearningCtrl.current().card) + 1\"></span>/<span ng-bind=\"CardsLearningCtrl.cardsToLearn().length\"></span>\n" +
     "            <i ng-click=\"CardsLearningCtrl.start()\" class=\"fa fa-repeat learning__card-number-reload\"></i>\n" +
     "        </div>\n" +
     "    </header>\n" +
-    "    <div class=\"learning__example\" ng-bind=\"CardsLearningCtrl.current.examples.random.text\"></div>\n" +
+    "    <div class=\"learning__example\" ng-bind=\"CardsLearningCtrl.current().examples.random.text\"></div>\n" +
     "\n" +
-    "    <div class=\"learning__btn learning__btn_type_show\" ng-show=\"!(CardsLearningCtrl.current.showDefinitions)\" ng-click=\"CardsLearningCtrl.current.showDefinitions = true\">Показать определение</div>\n" +
+    "    <div class=\"learning__btn learning__btn_type_show\" ng-show=\"!(CardsLearningCtrl.current().showDefinitions)\" ng-click=\"CardsLearningCtrl.current().showDefinitions = true\">Показать определение</div>\n" +
     "\n" +
-    "    <section class=\"learning__definitions\" ng-if=\"CardsLearningCtrl.current.showDefinitions\">\n" +
-    "        <div class=\"dictionary__mueller\" ng-if=\"!CardsLearningCtrl.profile.is_english_mode\" ng-bind-html=\"CardsLearningCtrl.current.word.mueller_definition | mueller\"></div>\n" +
+    "    <section class=\"learning__definitions\" ng-if=\"CardsLearningCtrl.current().showDefinitions\">\n" +
+    "        <div class=\"dictionary__mueller\" ng-if=\"!CardsLearningCtrl.profile.is_english_mode && !CardsLearningCtrl.current().word.short_definition\" ng-bind-html=\"CardsLearningCtrl.current().word.mueller_definition | mueller\"></div>\n" +
+    "        <div class=\"dictionary__short-def\" ng-if=\"!CardsLearningCtrl.profile.is_english_mode && CardsLearningCtrl.current().word.short_definition\" ng-bind=\"CardsLearningCtrl.current().word.short_definition\"></div>\n" +
     "\n" +
-    "        <ul class=\"definition__group-list\" ng-if=\"CardsLearningCtrl.profile.is_english_mode || !CardsLearningCtrl.current.word.mueller_definition\">\n" +
-    "            <li class=\"definition__group-item\" ng-repeat=\"(groupName, definitionsGroup) in CardsLearningCtrl.current.word.definitionGroups\">\n" +
+    "        <ul class=\"definition__group-list\" ng-if=\"CardsLearningCtrl.profile.is_english_mode || !CardsLearningCtrl.current().word.mueller_definition\">\n" +
+    "            <li class=\"definition__group-item\" ng-repeat=\"(groupName, definitionsGroup) in CardsLearningCtrl.current().word.definitionGroups\">\n" +
     "                <h1 class=\"definition__group-name\"><i class=\"fa fa-angle-right definition__group-name-icon\"></i>{{ groupName }}</h1>\n" +
     "                <ol class=\"definition__list\">\n" +
-    "                    <li class=\"definition__item\" ng-class=\"{ transparent: ((CardsLearningCtrl.current.examples.length > 0) && (definition.id !== CardsLearningCtrl.current.examples.random.definition)) }\" ng-repeat=\"definition in definitionsGroup | orderBy:'weight'\">\n" +
+    "                    <li class=\"definition__item\" ng-class=\"{ transparent: ((CardsLearningCtrl.current().examples.length > 0) && (definition.id !== CardsLearningCtrl.current().examples.random.definition)) }\" ng-repeat=\"definition in definitionsGroup | orderBy:'weight'\">\n" +
     "                        <span ng-if=\"CardsLearningCtrl.profile.is_english_mode\" ng-bind=\"definition.definition\"></span>\n" +
     "                        <span ng-if=\"!CardsLearningCtrl.profile.is_english_mode\" ng-bind=\"definition.russian_definition\"></span>\n" +
     "                    </li>\n" +
@@ -106,11 +66,14 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "        </ul>\n" +
     "    </section>\n" +
     "\n" +
-    "    <ul class=\"learning__answer-list\" ng-show=\"!!(CardsLearningCtrl.current.showDefinitions)\">\n" +
-    "        <li ng-click=\"CardsLearningCtrl.switchCard('get')\" class=\"learning__answer-list-item learning__btn learning__btn_type_get\">\n" +
+    "    <ul class=\"learning__answer-list\" ng-show=\"!!(CardsLearningCtrl.current().showDefinitions)\">\n" +
+    "        <li ng-if=\"!CardsLearningCtrl.current().card.learned\" ng-click=\"CardsLearningCtrl.updateCard(CardsLearningCtrl.current().card, 'get'); CardsLearningCtrl.switchCard();\" class=\"learning__answer-list-item learning__btn learning__btn_type_get\">\n" +
     "            Выучил\n" +
     "        </li>\n" +
-    "        <li ng-click=\"CardsLearningCtrl.switchCard('good')\" class=\"learning__answer-list-item learning__btn learning__btn_type_good\">\n" +
+    "        <li ng-if=\"CardsLearningCtrl.current().card.learned\" ng-click=\"CardsLearningCtrl.updateCard(CardsLearningCtrl.current().card, 'forget'); CardsLearningCtrl.switchCard();\" class=\"learning__answer-list-item learning__btn learning__btn_type_get\">\n" +
+    "            Забыл\n" +
+    "        </li>\n" +
+    "        <li ng-click=\"CardsLearningCtrl.updateCard(CardsLearningCtrl.current().card, 'good'); CardsLearningCtrl.switchCard();\" class=\"learning__answer-list-item learning__btn learning__btn_type_good\">\n" +
     "            Далее\n" +
     "        </li>\n" +
     "    </ul>\n" +
@@ -118,38 +81,74 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
   );
 
 
+  $templateCache.put('templates/base.cards.new.html',
+    "<div class=\"content\" ui-view>\n" +
+    "    <a ng-click=\"$state.go('base.cards.new.learn')\" class=\"cards__begin-btn\">\n" +
+    "        <i class=\"fa fa-play cards__begin-btn-playbtn\"></i> Начать изучение\n" +
+    "    </a>\n" +
+    "    <i ng-if=\"CardsCtrl.loading\" class=\"fa fa-cog fa-spin cards__loading-icon\"></i>\n" +
+    "\n" +
+    "    <ul class=\"cards__list\">\n" +
+    "        <li class=\"cards__list-item\"\n" +
+    "        ng-repeat=\"card in CardsCtrl.getToLearnNow(CardsCtrl.cards, CardsCtrl.profile)\">\n" +
+    "\n" +
+    "            <div class=\"cards__list-item-word\"><a class=\"link\" ui-sref=\"base.dictionary.word({ word: card.word })\" ng-bind=\"card.word\"></a></div>\n" +
+    "            <div class=\"cards__list-item-buttons\">\n" +
+    "                <div class=\"cards__list-item-button cards__list-item-button_type_move\" ng-click=\"CardsCtrl.moveInLearned(card)\">В изученные</div>\n" +
+    "                <div class=\"cards__list-item-button cards__list-item-button_type_remove\" ng-click=\"CardsCtrl.removeCard(card)\">Удалить</div>\n" +
+    "            </div>\n" +
+    "        </li>\n" +
+    "\n" +
+    "        <li class=\"cards__list-item-after\" ng-if=\"(CardsCtrl.cards | filter: {learned: false}).length > CardsCtrl.profile.learn_by\">Позже</li>\n" +
+    "\n" +
+    "        <li class=\"cards__list-item\"\n" +
+    "        ng-repeat=\"card in CardsCtrl.getToLearnLater(CardsCtrl.cards, CardsCtrl.profile)\">\n" +
+    "\n" +
+    "            <div class=\"cards__list-item-word\"><a class=\"link\" ui-sref=\"base.dictionary.word({ word: card.word })\" ng-bind=\"card.word\"></a></div>\n" +
+    "            <div class=\"cards__list-item-buttons\">\n" +
+    "                <div class=\"cards__list-item-button cards__list-item-button_type_move\" ng-click=\"CardsCtrl.moveInLearned(card)\">В изученные</div>\n" +
+    "                <div class=\"cards__list-item-button cards__list-item-button_type_remove\" ng-click=\"CardsCtrl.removeCard(card)\">Удалить</div>\n" +
+    "            </div>\n" +
+    "        </li>\n" +
+    "    </ul>\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('templates/base.dictionary.html',
-    "<section class=\"dictionary\">\n" +
-    "    <form class=\"dictionary__search-form\" submit-on=\"submitForm\" ng-submit=\"dict.search(word); dict.word='';\">\n" +
-    "        <input \n" +
-    "            class=\"dictionary__search-input\" \n" +
-    "            type=\"text\" \n" +
-    "            autocapitalize=\"none\" \n" +
-    "            autocorrect=\"off\"\n" +
-    "            autocomplete=\"off\" \n" +
-    "            placeholder=\"Поиск слова\" \n" +
-    "            blur-on-submit \n" +
-    "            ng-model=\"dict.word\" \n" +
-    "            ng-focus=\"isFocusOnSearch=true\" \n" +
-    "            blur-with-timeout=\"isFocusOnSearch=false\">\n" +
-    "        <i class=\"fa fa-refresh fa-spin dictionary__search-input-spinner\" ng-show=\"dict.searching\"></i>\n" +
-    "        <ul class=\"dictionary__search-dropdown\" ng-if=\"dict.word && isFocusOnSearch\">\n" +
-    "            <li class=\"dictionary__search-dropdown-item\" ng-repeat=\"word in dict.dictionary | filter:dict.word:dict.startsWith | limitTo: 30\">\n" +
-    "                <span class=\"dictionary__search-dropdown-item-link\" ng-click=\"dict.word=word; dict.triggerSubmit(); event.stopPropagation(); \">{{ word }}</span>\n" +
-    "            </li>\n" +
-    "            <li class=\"dictionary__search-dropdown-item dictionary__search-dropdown-item_state_notfound\" ng-if=\"(dict.dictionary | filter:dict.word:dict.startsWith).length===0\">\n" +
-    "                Слово не найдено\n" +
-    "            </li>\n" +
-    "        </ul>\n" +
-    "    </form>\n" +
-    "    <div ui-view>\n" +
-    "        <ul class=\"dictionary__word-list\">\n" +
-    "            <li class=\"dictionary__word-list-item\" ng-repeat=\"word in dict.dictionary | limitTo:50\">\n" +
-    "                <a class=\"link link_type_block dictionary__word-list-item-link\" ng-class=\"{ last: $last }\" href ui-sref=\"base.dictionary.word({ word: word })\">{{ word }}</a>\n" +
-    "            </li>\n" +
-    "        </ul>\n" +
-    "    </div>\n" +
-    "</section>\n"
+    "<div class=\"content\">\n" +
+    "    <section class=\"dictionary\">\n" +
+    "        <form class=\"dictionary__search-form\" submit-on=\"submitForm\" ng-submit=\"dict.search(word); dict.word='';\">\n" +
+    "            <input \n" +
+    "                class=\"dictionary__search-input\" \n" +
+    "                type=\"text\" \n" +
+    "                autocapitalize=\"none\" \n" +
+    "                autocorrect=\"off\"\n" +
+    "                autocomplete=\"off\" \n" +
+    "                placeholder=\"Поиск слова\" \n" +
+    "                blur-on-submit \n" +
+    "                ng-model=\"dict.word\" \n" +
+    "                ng-focus=\"isFocusOnSearch=true\" \n" +
+    "                blur-with-timeout=\"isFocusOnSearch=false\">\n" +
+    "            <i class=\"fa fa-refresh fa-spin dictionary__search-input-spinner\" ng-show=\"dict.searching\"></i>\n" +
+    "            <ul class=\"dictionary__search-dropdown\" ng-if=\"dict.word && isFocusOnSearch\">\n" +
+    "                <li class=\"dictionary__search-dropdown-item\" ng-repeat=\"word in dict.dictionary | filter:dict.word:dict.startsWith | limitTo: 30\">\n" +
+    "                    <span class=\"dictionary__search-dropdown-item-link\" ng-click=\"dict.word=word; dict.triggerSubmit(); event.stopPropagation(); \">{{ word }}</span>\n" +
+    "                </li>\n" +
+    "                <li class=\"dictionary__search-dropdown-item dictionary__search-dropdown-item_state_notfound\" ng-if=\"(dict.dictionary | filter:dict.word:dict.startsWith).length===0\">\n" +
+    "                    Слово не найдено\n" +
+    "                </li>\n" +
+    "            </ul>\n" +
+    "        </form>\n" +
+    "        <div ui-view>\n" +
+    "            <ul class=\"dictionary__word-list\">\n" +
+    "                <li class=\"dictionary__word-list-item\" ng-repeat=\"word in dict.dictionary | limitTo:50\">\n" +
+    "                    <a class=\"link link_type_block dictionary__word-list-item-link\" ng-class=\"{ last: $last }\" href ui-sref=\"base.dictionary.word({ word: word })\">{{ word }}</a>\n" +
+    "                </li>\n" +
+    "            </ul>\n" +
+    "        </div>\n" +
+    "    </section>\n" +
+    "</div>\n"
   );
 
 
@@ -228,45 +227,48 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('templates/base.home.html',
-    "<h2 class=\"settings__title\">Мой профиль</h2>\n" +
-    "<div class=\"settings__login-as\">\n" +
-    "    Вы вошли как <span class=\"settings__username\" ng-bind=\"HomeCtrl.profile.username\"></span>\n" +
-    "    <a class=\"link\" href=\"/accounts/logout/\">Выйти</a><br>\n" +
-    "</div>\n" +
-    "<div class=\"settings__language-mode\">\n" +
-    "    Режим словаря:<br>\n" +
-    "    <input type=\"radio\" ng-model=\"HomeCtrl.profile.is_english_mode\" ng-value=\"true\" ng-change=\"HomeCtrl.saveProfile()\" id=\"is-english-mode\"> <label for=\"is-english-mode\">Английский</label><br>\n" +
-    "    <input type=\"radio\" ng-model=\"HomeCtrl.profile.is_english_mode\" ng-value=\"false\" ng-change=\"HomeCtrl.saveProfile()\" id=\"is-russian-mode\"> <label for=\"is-russian-mode\">Русский</label>\n" +
-    "</div>\n" +
-    "<div class=\"settings__learn-by\">\n" +
-    "    Учить по <input class=\"settings__learn-by-input\" ng-model=\"HomeCtrl.profile.learn_by\" ng-change=\"HomeCtrl.saveProfile()\"> <span ng-bind=\"HomeCtrl.profile.learn_by | declOfNum:['слову', 'слова', 'слов' ]\"></span>\n" +
-    "    <p class=\"settings__learn-by-info\">(Краткосрочная память может удерживать 7 объектов одновременно)</p>\n" +
+    "<div class=\"content\">\n" +
+    "    <div class=\"settings__login-as\">\n" +
+    "        Вы вошли как <span class=\"settings__username\" ng-bind=\"HomeCtrl.profile.username\"></span>\n" +
+    "        <a class=\"link\" href=\"/accounts/logout/\">Выйти</a><br>\n" +
+    "    </div>\n" +
+    "    <div class=\"settings__language-mode\">\n" +
+    "        Режим словаря:<br>\n" +
+    "        <input type=\"radio\" ng-model=\"HomeCtrl.profile.is_english_mode\" ng-value=\"true\" ng-change=\"HomeCtrl.saveProfile()\" id=\"is-english-mode\"> <label for=\"is-english-mode\">Английский</label><br>\n" +
+    "        <input type=\"radio\" ng-model=\"HomeCtrl.profile.is_english_mode\" ng-value=\"false\" ng-change=\"HomeCtrl.saveProfile()\" id=\"is-russian-mode\"> <label for=\"is-russian-mode\">Русский</label>\n" +
+    "    </div>\n" +
+    "    <div class=\"settings__learn-by\">\n" +
+    "        Учить по <input class=\"settings__learn-by-input\" ng-model=\"HomeCtrl.profile.learn_by\" ng-change=\"HomeCtrl.saveProfile()\"> <span ng-bind=\"HomeCtrl.profile.learn_by | declOfNum:['слову', 'слова', 'слов' ]\"></span>\n" +
+    "        <p class=\"settings__learn-by-info\">(Краткосрочная память может удерживать 7 объектов одновременно)</p>\n" +
+    "    </div>\n" +
     "</div>\n"
   );
 
 
   $templateCache.put('templates/base.html',
-    "<ul class=\"topmenu\">\n" +
-    "    <li class=\"topmenu__item\" ng-class=\"{ active: $state.includes('base.home') }\">\n" +
-    "        <div class=\"topmenu__item-link\" ng-click=\"$state.go('base.home')\">\n" +
-    "            <i class=\"fa fa-home topmenu__item-icon\"></i> \n" +
-    "            <span class=\"topmenu__item-text\">Моя страница</span>\n" +
-    "        </div>\n" +
-    "    </li>\n" +
-    "    <li class=\"topmenu__item\" ng-class=\"{ active: $state.includes('base.dictionary') }\">\n" +
-    "        <div class=\"topmenu__item-link\" ng-click=\"$state.go('base.dictionary')\">\n" +
-    "            <i class=\"fa fa-book topmenu__item-icon\"></i> \n" +
-    "            <span class=\"topmenu__item-text\">Словарь</span>\n" +
-    "        </div>\n" +
-    "    </li>\n" +
-    "    <li class=\"topmenu__item\" ng-class=\"{ active: $state.includes('base.cards') }\">\n" +
-    "        <div class=\"topmenu__item-link\" ng-click=\"$state.go('base.cards')\">\n" +
-    "            <i class=\"fa fa-star-o topmenu__item-icon\"></i> \n" +
-    "            <span class=\"topmenu__item-text\">Карточки</span>\n" +
-    "        </div>\n" +
-    "    </li>\n" +
-    "</ul>\n" +
-    "<div class=\"content\" ui-view></div>\n"
+    "<div class=\"topmenu\">\n" +
+    "    <ul class=\"topmenu__items\">\n" +
+    "        <li class=\"topmenu__item\" ng-class=\"{ active: $state.includes('base.dictionary') }\">\n" +
+    "            <div class=\"topmenu__item-link\" ng-click=\"$state.go('base.dictionary')\">\n" +
+    "                <i class=\"fa fa-book topmenu__item-icon\"></i> \n" +
+    "                <span class=\"topmenu__item-text\">Словарь</span>\n" +
+    "            </div>\n" +
+    "        </li>\n" +
+    "        <li class=\"topmenu__item\" ng-class=\"{ active: $state.includes('base.cards') }\">\n" +
+    "            <div class=\"topmenu__item-link\" ng-click=\"$state.go('base.cards.new')\">\n" +
+    "                <i class=\"fa topmenu__item-icon\" ng-class=\"{ 'fa-star': $state.includes('base.cards'), 'fa-star-o': !$state.includes('base.cards') }\"></i> \n" +
+    "                <span class=\"topmenu__item-text\">Карточки</span>\n" +
+    "            </div>\n" +
+    "        </li>\n" +
+    "        <li class=\"topmenu__item\" ng-class=\"{ active: $state.includes('base.home') }\">\n" +
+    "            <div class=\"topmenu__item-link\" ng-click=\"$state.go('base.home')\">\n" +
+    "                <i class=\"fa fa-user topmenu__item-icon\"></i> \n" +
+    "                <span class=\"topmenu__item-text\">Профиль</span>\n" +
+    "            </div>\n" +
+    "        </li>\n" +
+    "    </ul>\n" +
+    "</div>\n" +
+    "<div ui-view></div>\n"
   );
 
 

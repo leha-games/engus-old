@@ -11,8 +11,8 @@ angular.module('engusApp').controller('DictionaryCtrl',
             });
         };
         this.startsWith = function(expected, actual) {
-            return expected.substr(0, actual.length).toLowerCase() == actual.toLowerCase();
-        }
+            return expected.substr(0, actual.length).toLowerCase() === actual.toLowerCase();
+        };
         this.triggerSubmit = function() {
             $scope.$broadcast('submitForm');
         };
@@ -35,7 +35,7 @@ angular.module('engusApp').controller('DictionaryWordCtrl',
             self.cardsLoading = false;
             if (cards.length > 0) {
                 self.card = cards[0];
-            };
+            }
         });
         Word.$promise.then(
             function(word) {
@@ -49,20 +49,31 @@ angular.module('engusApp').controller('DictionaryWordCtrl',
         );
         this.switchCard = function() {
             if (this.card === undefined) {
-                this.card = new CardService({ word: self.word.word });
+                this.card = new CardService.resource({ word: self.word.word });
                 this.card.$save();
             } else {
                 this.card.$remove();
                 this.card = undefined;
-            };
+            }
         };
                 
     }
 ]);
 
+angular.module('engusApp').controller('HomeCtrl',
+    ['Profile',
+    function(Profile) {
+        var self = this;
+        this.profile = Profile;
+        this.saveProfile = function() {
+            self.profile.$update();
+        };
+    }
+]);
+
 angular.module('engusApp').controller('CardsCtrl',
-    ['Cards', 'Profile',
-    function(Cards, Profile) {
+    ['Cards', 'Profile', '$filter', 'CardService',
+    function(Cards, Profile, $filter, CardService) {
         var self = this;
         this.loading = true;
         this.cards = Cards;
@@ -74,69 +85,112 @@ angular.module('engusApp').controller('CardsCtrl',
         this.saveCard = function(card) {
             card.$update();
         };
-        this.removeSelected = function() {
-            if (this.selectedCard) {
-                this.selectedCard.$remove();
-                this.cards.splice(this.cards.indexOf(this.selectedCard), 1);
-                this.selectedCard = undefined;
-            }
+        this.removeCard = function(card) {
+            card.$remove();
+            this.cards.splice(this.cards.indexOf(card), 1);
         };
-        this.inLearnedSelected = function() {
-            if (this.selectedCard) {
-                this.selectedCard.learned = true;
-                this.selectedCard.$update();
-                this.selectedCard = undefined;
-            }
-        }
-        this.inLearningSelected = function() {
-            if (this.selectedCard) {
-                this.selectedCard.learned = false;
-                this.selectedCard.$update();
-                this.selectedCard = undefined;
-            }
-        }
+        this.moveInLearned = function(card) {
+            card.learned = true;
+            card.$update();
+        };
+        this.moveInNew = function(card) {
+            card.learned = false;
+            card.$update();
+        };
+        this.getToLearnLater = CardService.getToLearnLater;
+        this.getToLearnNow = CardService.getToLearnNow;
+        this.getLearned = CardService.getLearned;
+
+        this.cardsToLearn = function() {
+            CardService.getToLearnNow(Cards, Profile);
+        };
+
+        this.cardsToLearnLater = function() {
+            CardService.getToLearnLater(Cards, Profile);
+        };
+
     }
 ]);
 
-angular.module('engusApp').controller('HomeCtrl',
-    ['Profile', 
-    function(Profile) {
+angular.module('engusApp').controller('LearningNewCardsCtrl',
+    ['Cards', 'CardService', 'Profile', '$scope',
+    function(Cards, CardService, Profile, $scope) {
+
         var self = this;
+        var cardsToLearn = undefined;
+        var next = undefined;
+        var current = undefined;
+
+        Cards.$promise.then(function(cards) {
+            cardsToLearn = CardService.getToLearnNow(Cards, Profile);
+            current = CardService.getFullCard(cardsToLearn[0]);
+            next = CardService.getFullCard(CardService.getNextCard(cardsToLearn, current.card));
+        });
+
+        this.updateCard = CardService.updateCard;
         this.profile = Profile;
-        this.saveProfile = function() {
-            self.profile.$update();
+
+        this.cardsToLearn = function() {
+            return CardService.getToLearnNow(cardsToLearn, Profile);
+        };
+
+        this.current = function() {
+            return current;
+        };
+
+        this.switchCard = function() {
+            var cardsToLearn = this.cardsToLearn();
+            if (next) {
+                current = next;
+            } else {
+                current = CardService.getFullCard(cardsToLearn[0]);
+            }
+            next = CardService.getFullCard(CardService.getNextCard(cardsToLearn, current.card));
         };
     }
 ]);
 
-angular.module('engusApp').controller('CardsLearningCtrl',
-    ['Cards', 'Profile', '$filter', '$stateParams', 'CardService', 'WordService', 'ExampleService',
-    function(Cards, Profile, $filter, $stateParams, CardService, WordService, ExampleService) {
+angular.module('engusApp').controller('RepeatDoneCardsCtrl',
+    ['Cards', 'CardService', 'Profile', '$scope',
+    function(Cards, CardService, Profile, $scope) {
+
         var self = this;
-        this.loading = true;
+        var cardsToLearn = undefined;
+        var next = undefined;
+        var current = undefined;
+
+        Cards.$promise.then(function(cards) {
+            cardsToLearn = CardService.getLearned(Cards, Profile);
+            current = CardService.getFullCard(cardsToLearn[0]);
+            next = CardService.getFullCard(CardService.getNextCard(cardsToLearn, current.card));
+        });
+
+        this.updateCard = CardService.updateCard;
         this.profile = Profile;
-        var $filterFilter = $filter('filter'),
-            $filterOrderBy = $filter('orderBy'),
-            $filterLimitTo = $filter('limitTo');
 
-        var getFullCard = function(card) {
-            var word = WordService.get({ word: card.word }, function() {
-                    word.definitionGroups = _.groupBy(word.definition_set, 'part_of_speach');
-                }),
-                examples = ExampleService.query({ 'definition__word': card.word }, function() {
-                    examples.random = getRandomElement(examples);
-                });
-            return {
-                card: card,
-                word: word,
-                examples: examples,
-                showDefinitions: false,
-            };
+        this.cardsToLearn = function() {
+            return CardService.getLearned(cardsToLearn, Profile);
         };
 
-        var getNextCard = function(card) {
-            return getNextElement(self.cardsToLearn, card);
+        this.current = function() {
+            return current;
         };
+
+        this.switchCard = function() {
+            var cardsToLearn = this.cardsToLearn();
+            if (next) {
+                current = next;
+            } else {
+                current = CardService.getFullCard(cardsToLearn[0]);
+            }
+            next = CardService.getFullCard(CardService.getNextCard(cardsToLearn, current.card));
+        };
+    }
+]);
+
+angular.module('engusApp').factory('CardService', 
+    ['$resource', '$filter', 'WordService', 'ExampleService',
+    function($resource, $filter, WordService, ExampleService) {
 
         var getNextElement = function(array, element) {
             var indexOfElement = array.indexOf(element),
@@ -153,50 +207,70 @@ angular.module('engusApp').controller('CardsLearningCtrl',
             return array[Math.floor(Math.random() * array.length)];
         };
 
+        var Card = {};
 
-        Cards.$promise.then(
-            function(cards) {
-                self.loading = false;
-                var filteredCards = $filterFilter(Cards, {learned: false}),
-                    orderedCards = $filterOrderBy(filteredCards, 'created'),
-                    limitedCards = $filterLimitTo(orderedCards, self.profile.learn_by);
-                self.cardsToLearn = $filterOrderBy(limitedCards, '-level');
-                self.start();
-            },
-            function() {
+        Card.resource = $resource('/cards/cards/:id', {id: '@id'}, { 'update': { method: 'PUT' } });
 
-            }
-        );
-        this.start = function() {
-            var firstCard = self.cardsToLearn[0];
-            self.current = getFullCard(firstCard);
-            self.next = getFullCard(getNextCard(firstCard));
-        }
-        this.switchCard = function(state) {
-            switch (state) {
+        Card.updateCard = function(card, mode) {
+            switch (mode) {
                 case 'good':
-                    this.current.card.level += 1;
-                    this.current.card.$update();
+                    card.level += 1;
+                    card.$update();
                     break;
                 case 'get':
-                    this.current.card.learned = true;
-                    this.current.card.$update();
-                    this.cardsToLearn.splice(this.cardsToLearn.indexOf(this.current.card), 1);
+                    card.learned = true;
+                    card.$update();
+                    break;
+                case 'forget':
+                    card.learned = false;
+                    card.$update();
                     break;
             }
-            this.current = this.next;
-            this.next = getFullCard(getNextCard(this.current.card));
         };
-    }
-]);
 
-angular.module('engusApp').factory('CardService', 
-    ['$resource',
-    function($resource) {
-        return $resource('/cards/cards/:id', {id: '@id'}, 
-            {
-                'update': { method: 'PUT' }
-            });
+
+        Card.getFullCard = function(card) {
+            var word = WordService.get({ word: card.word }, function() {
+                    word.definitionGroups = _.groupBy(word.definition_set, 'part_of_speach');
+                }),
+                examples = ExampleService.query({ 'definition__word': card.word }, function() {
+                    examples.random = getRandomElement(examples);
+                });
+            return {
+                card: card,
+                word: word,
+                examples: examples,
+                showDefinitions: false
+            };
+        };
+
+        Card.getNextCard = function(cards, card) {
+            return getNextElement(cards, card);
+        };
+
+        Card.getLearned = function(cards) {
+            var learnedCards = $filter('filter')(cards, {learned: true});
+            learnedCards = $filter('orderBy')(learnedCards, '-when_learned');
+            return learnedCards;
+        };
+
+        Card.getToLearnNow = function(cards, profile) {
+            var cardsToLearn = $filter('filter')(cards, {learned: false});
+            cardsToLearn = $filter('orderBy')(cardsToLearn, 'created');
+            cardsToLearn = $filter('limitTo')(cardsToLearn, profile.learn_by);
+            cardsToLearn = $filter('orderBy')(cardsToLearn, '-level');
+            return cardsToLearn;
+        };
+
+        Card.getToLearnLater = function(cards, profile) {
+            var cardsToLearnLater = $filter('filter')(cards, {learned: false});
+            cardsToLearnLater = $filter('orderBy')(cardsToLearnLater, 'created');
+            cardsToLearnLater = $filter('startFrom')(cardsToLearnLater, profile.learn_by);
+            cardsToLearnLater = $filter('orderBy')(cardsToLearnLater, '-level');
+            return cardsToLearnLater;
+        };
+
+        return Card;
     }
 ]);
 
@@ -299,7 +373,7 @@ angular.module('engusApp').directive('transcription', function() {
             scope.playTranscription = function() {
                 if (scope.audiosrc) {
                     element.find('audio')[0].play();
-                };
+                }
             };
         }
     }
