@@ -1,0 +1,23 @@
+<div class="submenu__wrapper">
+    <ul class="submenu">
+        <li class="submenu__item" ng-class="{ active: $state.is('base.profile.statistics') }" ng-click="$state.go('base.profile.statistics')"><i class="fa fa-fw fa-bar-chart-o submenu__item-icon"></i> Статистика</li>
+        <li class="submenu__item" ng-class="{ active: $state.is('base.profile') }" ng-click="$state.go('base.profile')"><i class="fa fa-fw fa-cog submenu__item-icon"></i> Настройки</li>
+    </ul>
+</div>
+<div ui-view>
+    <div class="content">
+        <div class="settings__login-as">
+            Вы вошли как <span class="settings__username" ng-bind="ProfileCtrl.profile.username"></span>
+            <a class="link" href="/accounts/logout/">Выйти</a><br>
+        </div>
+        <div class="settings__language-mode">
+            Режим словаря:<br>
+            <input type="radio" ng-model="ProfileCtrl.profile.is_english_mode" ng-value="true" ng-change="ProfileCtrl.saveProfile()" id="is-english-mode"> <label for="is-english-mode">Английский</label><br>
+            <input type="radio" ng-model="ProfileCtrl.profile.is_english_mode" ng-value="false" ng-change="ProfileCtrl.saveProfile()" id="is-russian-mode"> <label for="is-russian-mode">Русский</label>
+        </div>
+        <div class="settings__learn-by">
+            Учить по <input class="settings__learn-by-input" ng-model="ProfileCtrl.profile.learn_by" ng-change="ProfileCtrl.saveProfile()"> <span ng-bind="ProfileCtrl.profile.learn_by | declOfNum:['слову', 'слова', 'слов' ]"></span>
+        </div>
+    </div>
+</div>
+

@@ -23,10 +23,10 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('templates/base.cards.html',
-    "<div class=\"cards__types-wrapper\">\n" +
-    "    <ul class=\"cards__types\">\n" +
-    "        <li class=\"cards__type\" ng-class=\"{ active: $state.includes('base.cards.new') }\" ng-click=\"$state.go('base.cards.new')\"><i class=\"fa fa-fw cards__type-icon\" ng-class=\"{ 'fa-square': $state.includes('base.cards.new'), 'fa-square-o': !$state.includes('base.cards.new') }\"></i> Новые</li>\n" +
-    "        <li class=\"cards__type\" ng-class=\"{ active: $state.includes('base.cards.done') }\" ng-click=\"$state.go('base.cards.done')\"><i class=\"fa fa-fw cards__type-icon\" ng-class=\"{ 'fa-check-square': $state.includes('base.cards.done'), 'fa-check-square-o': !$state.includes('base.cards.done') }\"></i> Изученные</li>\n" +
+    "<div class=\"submenu__wrapper\">\n" +
+    "    <ul class=\"submenu\">\n" +
+    "        <li class=\"submenu__item\" ng-class=\"{ active: $state.includes('base.cards.new') }\" ng-click=\"$state.go('base.cards.new')\"><i class=\"fa fa-fw submenu__item-icon\" ng-class=\"{ 'fa-square': $state.includes('base.cards.new'), 'fa-square-o': !$state.includes('base.cards.new') }\"></i> Новые</li>\n" +
+    "        <li class=\"submenu__item\" ng-class=\"{ active: $state.includes('base.cards.done') }\" ng-click=\"$state.go('base.cards.done')\"><i class=\"fa fa-fw submenu__item-icon\" ng-class=\"{ 'fa-check-square': $state.includes('base.cards.done'), 'fa-check-square-o': !$state.includes('base.cards.done') }\"></i> Изученные</li>\n" +
     "    </ul>\n" +
     "</div>\n" +
     "<div ui-view>\n" +
@@ -224,25 +224,6 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('templates/base.home.html',
-    "<div class=\"content\">\n" +
-    "    <div class=\"settings__login-as\">\n" +
-    "        Вы вошли как <span class=\"settings__username\" ng-bind=\"HomeCtrl.profile.username\"></span>\n" +
-    "        <a class=\"link\" href=\"/accounts/logout/\">Выйти</a><br>\n" +
-    "    </div>\n" +
-    "    <div class=\"settings__language-mode\">\n" +
-    "        Режим словаря:<br>\n" +
-    "        <input type=\"radio\" ng-model=\"HomeCtrl.profile.is_english_mode\" ng-value=\"true\" ng-change=\"HomeCtrl.saveProfile()\" id=\"is-english-mode\"> <label for=\"is-english-mode\">Английский</label><br>\n" +
-    "        <input type=\"radio\" ng-model=\"HomeCtrl.profile.is_english_mode\" ng-value=\"false\" ng-change=\"HomeCtrl.saveProfile()\" id=\"is-russian-mode\"> <label for=\"is-russian-mode\">Русский</label>\n" +
-    "    </div>\n" +
-    "    <div class=\"settings__learn-by\">\n" +
-    "        Учить по <input class=\"settings__learn-by-input\" ng-model=\"HomeCtrl.profile.learn_by\" ng-change=\"HomeCtrl.saveProfile()\"> <span ng-bind=\"HomeCtrl.profile.learn_by | declOfNum:['слову', 'слова', 'слов' ]\"></span>\n" +
-    "        <p class=\"settings__learn-by-info\">(Краткосрочная память может удерживать 7 объектов одновременно)</p>\n" +
-    "    </div>\n" +
-    "</div>\n"
-  );
-
-
   $templateCache.put('templates/base.html',
     "<div class=\"topmenu\">\n" +
     "    <ul class=\"topmenu__items\">\n" +
@@ -258,8 +239,8 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "                <span class=\"topmenu__item-text\">Карточки</span>\n" +
     "            </div>\n" +
     "        </li>\n" +
-    "        <li class=\"topmenu__item\" ng-class=\"{ active: $state.includes('base.home') }\">\n" +
-    "            <div class=\"topmenu__item-link\" ng-click=\"$state.go('base.home')\">\n" +
+    "        <li class=\"topmenu__item\" ng-class=\"{ active: $state.includes('base.profile') }\">\n" +
+    "            <div class=\"topmenu__item-link\" ng-click=\"$state.go('base.profile')\">\n" +
     "                <i class=\"fa fa-user topmenu__item-icon\"></i> \n" +
     "                <span class=\"topmenu__item-text\">Профиль</span>\n" +
     "            </div>\n" +
@@ -267,6 +248,41 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "    </ul>\n" +
     "</div>\n" +
     "<div ui-view></div>\n"
+  );
+
+
+  $templateCache.put('templates/base.profile.html',
+    "<div class=\"submenu__wrapper\">\n" +
+    "    <ul class=\"submenu\">\n" +
+    "        <li class=\"submenu__item\" ng-class=\"{ active: $state.is('base.profile.statistics') }\" ng-click=\"$state.go('base.profile.statistics')\"><i class=\"fa fa-fw fa-bar-chart-o submenu__item-icon\"></i> Статистика</li>\n" +
+    "        <li class=\"submenu__item\" ng-class=\"{ active: $state.is('base.profile') }\" ng-click=\"$state.go('base.profile')\"><i class=\"fa fa-fw fa-cog submenu__item-icon\"></i> Настройки</li>\n" +
+    "    </ul>\n" +
+    "</div>\n" +
+    "<div ui-view>\n" +
+    "    <div class=\"content\">\n" +
+    "        <div class=\"settings__login-as\">\n" +
+    "            Вы вошли как <span class=\"settings__username\" ng-bind=\"ProfileCtrl.profile.username\"></span>\n" +
+    "            <a class=\"link\" href=\"/accounts/logout/\">Выйти</a><br>\n" +
+    "        </div>\n" +
+    "        <div class=\"settings__language-mode\">\n" +
+    "            Режим словаря:<br>\n" +
+    "            <input type=\"radio\" ng-model=\"ProfileCtrl.profile.is_english_mode\" ng-value=\"true\" ng-change=\"ProfileCtrl.saveProfile()\" id=\"is-english-mode\"> <label for=\"is-english-mode\">Английский</label><br>\n" +
+    "            <input type=\"radio\" ng-model=\"ProfileCtrl.profile.is_english_mode\" ng-value=\"false\" ng-change=\"ProfileCtrl.saveProfile()\" id=\"is-russian-mode\"> <label for=\"is-russian-mode\">Русский</label>\n" +
+    "        </div>\n" +
+    "        <div class=\"settings__learn-by\">\n" +
+    "            Учить по <input class=\"settings__learn-by-input\" ng-model=\"ProfileCtrl.profile.learn_by\" ng-change=\"ProfileCtrl.saveProfile()\"> <span ng-bind=\"ProfileCtrl.profile.learn_by | declOfNum:['слову', 'слова', 'слов' ]\"></span>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "\n"
+  );
+
+
+  $templateCache.put('templates/base.profile.statistics.html',
+    "<div class=\"content\">\n" +
+    "    Изучено слов: {{ ProfileStatisticsCtrl.getLearnedCardsCount() }}<br>\n" +
+    "    К изучению: {{ ProfileStatisticsCtrl.getNewCardsCount() }}\n" +
+    "</div>"
   );
 
 

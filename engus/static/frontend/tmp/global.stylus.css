@@ -432,6 +432,45 @@ button {
 .page__form input[type="submit"]:hover {
   background: rgba(255,255,255,0.15);
 }
+.submenu {
+  max-width: 650px;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  font-family: Helvetica, sans-serif;
+  font-size: 0.9rem;
+}
+.submenu__wrapper {
+  border-bottom: 1px solid #ddd;
+}
+.submenu__item {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -o-box-flex: 1;
+  -ms-box-flex: 1;
+  box-flex: 1;
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+  -webkit-flex-basis: 1%;
+  flex-basis: 1%;
+  text-align: center;
+  padding: 0.6rem 0;
+  color: #aaa;
+  cursor: pointer;
+}
+.submenu__item:hover {
+  color: #326ea0;
+}
+.submenu__item.active {
+  color: #326ea0;
+}
+.submenu__item-icon {
+  margin-right: 0.3rem;
+}
 .homepage__regbutton {
   color: #fff;
   background-color: rgba(0,0,0,0.6);

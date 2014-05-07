@@ -1,7 +1,7 @@
-<div class="cards__types-wrapper">
-    <ul class="cards__types">
-        <li class="cards__type" ng-class="{ active: $state.includes('base.cards.new') }" ng-click="$state.go('base.cards.new')"><i class="fa fa-fw cards__type-icon" ng-class="{ 'fa-square': $state.includes('base.cards.new'), 'fa-square-o': !$state.includes('base.cards.new') }"></i> Новые</li>
-        <li class="cards__type" ng-class="{ active: $state.includes('base.cards.done') }" ng-click="$state.go('base.cards.done')"><i class="fa fa-fw cards__type-icon" ng-class="{ 'fa-check-square': $state.includes('base.cards.done'), 'fa-check-square-o': !$state.includes('base.cards.done') }"></i> Изученные</li>
+<div class="submenu__wrapper">
+    <ul class="submenu">
+        <li class="submenu__item" ng-class="{ active: $state.includes('base.cards.new') }" ng-click="$state.go('base.cards.new')"><i class="fa fa-fw submenu__item-icon" ng-class="{ 'fa-square': $state.includes('base.cards.new'), 'fa-square-o': !$state.includes('base.cards.new') }"></i> Новые</li>
+        <li class="submenu__item" ng-class="{ active: $state.includes('base.cards.done') }" ng-click="$state.go('base.cards.done')"><i class="fa fa-fw submenu__item-icon" ng-class="{ 'fa-check-square': $state.includes('base.cards.done'), 'fa-check-square-o': !$state.includes('base.cards.done') }"></i> Изученные</li>
     </ul>
 </div>
 <div ui-view>

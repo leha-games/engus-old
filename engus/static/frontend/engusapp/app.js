@@ -44,10 +44,20 @@ angular.module('engusApp', ['ngResource', 'ui.router', 'ngTouch'])
                     }]
                 }
             })
-            .state('base.home', {
-                url: 'home/',
-                templateUrl: 'templates/base.home.html',
-                controller: 'HomeCtrl as HomeCtrl'
+            .state('base.profile', {
+                url: 'profile/',
+                templateUrl: 'templates/base.profile.html',
+                controller: 'ProfileCtrl as ProfileCtrl'
+            })
+            .state('base.profile.statistics', {
+                url: 'statistics/',
+                templateUrl: 'templates/base.profile.statistics.html',
+                controller: 'ProfileStatisticsCtrl as ProfileStatisticsCtrl',
+                resolve: {
+                    Cards: ['CardService', function(CardService) {
+                        return CardService.resource.query();
+                    }]
+                }
             })
             .state('base.cards', {
                 url: 'cards/',

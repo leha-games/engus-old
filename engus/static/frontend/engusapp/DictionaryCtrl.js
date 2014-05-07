@@ -60,7 +60,7 @@ angular.module('engusApp').controller('DictionaryWordCtrl',
     }
 ]);
 
-angular.module('engusApp').controller('HomeCtrl',
+angular.module('engusApp').controller('ProfileCtrl',
     ['Profile',
     function(Profile) {
         var self = this;
@@ -68,6 +68,20 @@ angular.module('engusApp').controller('HomeCtrl',
         this.saveProfile = function() {
             self.profile.$update();
         };
+    }
+]);
+
+angular.module('engusApp').controller('ProfileStatisticsCtrl',
+    ['Cards', 'CardService',
+    function(Cards, CardService) {
+        var self = this;
+        this.profile = Cards;
+        this.getLearnedCardsCount = function() {
+            return CardService.getLearned(Cards).length
+        };
+        this.getNewCardsCount = function() {
+            return CardService.getToLearn(Cards).length
+        }
     }
 ]);
 
@@ -254,17 +268,21 @@ angular.module('engusApp').factory('CardService',
             return learnedCards;
         };
 
-        Card.getToLearnNow = function(cards, profile) {
+        Card.getToLearn = function(cards) {
             var cardsToLearn = $filter('filter')(cards, {learned: false});
             cardsToLearn = $filter('orderBy')(cardsToLearn, 'created');
-            cardsToLearn = $filter('limitTo')(cardsToLearn, profile.learn_by);
-            cardsToLearn = $filter('orderBy')(cardsToLearn, '-level');
             return cardsToLearn;
         };
 
+        Card.getToLearnNow = function(cards, profile) {
+            var cardsToLearnNow = Card.getToLearn(cards);
+            cardsToLearnNow = $filter('limitTo')(cardsToLearnNow, profile.learn_by);
+            cardsToLearnNow = $filter('orderBy')(cardsToLearnNow, '-level');
+            return cardsToLearnNow;
+        };
+
         Card.getToLearnLater = function(cards, profile) {
-            var cardsToLearnLater = $filter('filter')(cards, {learned: false});
-            cardsToLearnLater = $filter('orderBy')(cardsToLearnLater, 'created');
+            var cardsToLearnLater = Card.getToLearn(cards);
             cardsToLearnLater = $filter('startFrom')(cardsToLearnLater, profile.learn_by);
             cardsToLearnLater = $filter('orderBy')(cardsToLearnLater, '-level');
             return cardsToLearnLater;

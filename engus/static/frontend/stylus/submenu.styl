@@ -1,0 +1,36 @@
+.submenu {
+    max-width: 650px;
+    margin: 0 auto;
+    display: flex;
+    font-family: Helvetica, sans-serif;
+    font-size: 0.9rem;
+
+    &__wrapper {
+        border-bottom: 1px solid #ddd;
+    }
+
+
+    &__item {
+        flex-grow: 1;
+        flex-basis: 1%;
+        text-align: center;
+        padding: 0.6rem 0;
+        color: #aaa;
+        cursor: pointer;
+
+        &:hover {
+            color: rgba(50,110,160,1);
+            //background: rgba(0,170,200,0.05);
+        }
+
+        &.active {
+            color: rgba(50,110,160,1);
+            //background: linear-gradient(rgba(0,170,2000,0.6), rgba(0,170,200,1));
+            //color: #fff;
+        }
+    }
+
+    &__item-icon {
+        margin-right: 0.3rem;
+    }
+}
