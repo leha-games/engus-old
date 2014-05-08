@@ -96,12 +96,12 @@ angular.module('engusApp', ['ngResource', 'ui.router', 'ngTouch'])
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
 
-        var yaCounter23664607 = yaCounter23664607 || undefined;
-        if (yaCounter23664607) {
-            $rootScope.$on('$locationChangeSuccess', function() {
-                yaCounter23664607($location.$$absUrl);
-            });
-        }
-
+        // Yandex.Metrica hit on location change success
+        $rootScope.$on('$locationChangeSuccess', function() {
+            var yaCounter23664607 = window.yaCounter23664607 || undefined;
+            if (yaCounter23664607) {
+                yaCounter23664607.hit($location.$$absUrl);
+            }
+        });
     }
 ]);

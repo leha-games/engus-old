@@ -8,18 +8,6 @@
     <link rel="shortcut icon" href="{% static "img/favicon.ico" %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static "css/global.min.css" %}"/>
     <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-    {% if debug %}
-    <script src="{% static "frontend/bower_components/lodash/dist/lodash.compat.js" %}"></script>
-    <script src="{% static "frontend/bower_components/angular/angular.js" %}"></script>
-    <script src="{% static "frontend/bower_components/angular-resource/angular-resource.js" %}"></script>
-    <script src="{% static "frontend/bower_components/angular-ui-router/release/angular-ui-router.js" %}"></script>
-    <script src="{% static "frontend/bower_components/angular-touch/angular-touch.js" %}"></script>
-    <script src="{% static "frontend/engusapp/app.js" %}"></script>
-    <script src="{% static "frontend/engusapp/DictionaryCtrl.js" %}"></script>
-    <script src="{% static "frontend/tmp/engusapp.templates.js" %}"></script>
-    {% else %}
-    <script src="{% static "js/engusapp.min.js" %}"></script>
-    {% endif %}
 </head>
 <body class="app">
     <div ui-view>
@@ -56,7 +44,19 @@
         </script>
         <noscript><div><img src="//mc.yandex.ru/watch/23664607" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
         <!-- /Yandex.Metrika counter -->
+    {% endif %}
 
+    {% if debug %}
+    <script src="{% static "frontend/bower_components/lodash/dist/lodash.compat.js" %}"></script>
+    <script src="{% static "frontend/bower_components/angular/angular.js" %}"></script>
+    <script src="{% static "frontend/bower_components/angular-resource/angular-resource.js" %}"></script>
+    <script src="{% static "frontend/bower_components/angular-ui-router/release/angular-ui-router.js" %}"></script>
+    <script src="{% static "frontend/bower_components/angular-touch/angular-touch.js" %}"></script>
+    <script src="{% static "frontend/engusapp/app.js" %}"></script>
+    <script src="{% static "frontend/engusapp/DictionaryCtrl.js" %}"></script>
+    <script src="{% static "frontend/tmp/engusapp.templates.js" %}"></script>
+    {% else %}
+    <script src="{% static "js/engusapp.min.js" %}"></script>
     {% endif %}
 </body>
 </html>
