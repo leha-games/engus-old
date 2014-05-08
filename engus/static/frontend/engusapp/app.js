@@ -91,9 +91,17 @@ angular.module('engusApp', ['ngResource', 'ui.router', 'ngTouch'])
             });
     }
 ])
-.run(['$rootScope', '$state', '$stateParams',
-    function($rootScope, $state, $stateParams) {
+.run(['$rootScope', '$state', '$stateParams', '$location',
+    function($rootScope, $state, $stateParams, $location) {
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
+
+        var yaCounter23664607 = yaCounter23664607 || undefined;
+        if (yaCounter23664607) {
+            $rootScope.$on('$locationChangeSuccess', function() {
+                yaCounter23664607($location.$$absUrl);
+            });
+        }
+
     }
 ]);
