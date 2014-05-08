@@ -1,4 +1,5 @@
-<div class="topmenu">
+<header class="topmenu">
+    <h1 class="topmenu__title">Engus</h1>
     <ul class="topmenu__items">
         <li class="topmenu__item" ng-class="{ active: $state.includes('base.dictionary') }">
             <div class="topmenu__item-link" ng-click="$state.go('base.dictionary')">
@@ -19,5 +20,5 @@
             </div>
         </li>
     </ul>
-</div>
+</header>
 <div ui-view></div>

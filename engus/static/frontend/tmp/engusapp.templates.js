@@ -224,7 +224,8 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('templates/base.html',
-    "<div class=\"topmenu\">\n" +
+    "<header class=\"topmenu\">\n" +
+    "    <h1 class=\"topmenu__title\">Engus</h1>\n" +
     "    <ul class=\"topmenu__items\">\n" +
     "        <li class=\"topmenu__item\" ng-class=\"{ active: $state.includes('base.dictionary') }\">\n" +
     "            <div class=\"topmenu__item-link\" ng-click=\"$state.go('base.dictionary')\">\n" +
@@ -245,7 +246,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "            </div>\n" +
     "        </li>\n" +
     "    </ul>\n" +
-    "</div>\n" +
+    "</header>\n" +
     "<div ui-view></div>\n"
   );
 
