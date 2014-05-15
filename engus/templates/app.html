@@ -14,7 +14,7 @@
         <div class="app__loading">Engus загружается <i class="fa fa-cog fa-spin app__loading-icon"></i></div>
     </div>
 
-    {% if not debug %}
+    {% if not debug and not request.user.is_superuser %}
         {% comment %} Analytics {% endcomment %}
         <!-- Yandex.Metrika counter -->
         <script type="text/javascript">

@@ -21,6 +21,7 @@ INSTALLED_APPS = (
     'south',
 
     # Application base, containing global templates.
+    'engus.apps.base',
     'engus.apps.dictionary',
     'engus.apps.cards',
     'engus.apps.accounts',

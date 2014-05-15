@@ -1,16 +1,16 @@
 from django.conf import settings
 from django.conf.urls import patterns, include, url
-from django.views.generic.base import TemplateView
 from django.contrib.auth.decorators import login_required
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from engus.apps.base.views import HomeView, AppView
 
 from django.contrib import admin
 admin.autodiscover()
 
 
 urlpatterns = patterns('',
-    url(r'^$', TemplateView.as_view(template_name="home.html"), name="home"),
-    url(r'^app/$', login_required(TemplateView.as_view(template_name="app.html")), name="app"),
+    url(r'^$', HomeView.as_view(), name="home"),
+    url(r'^app/$', AppView.as_view(), name="app"),
     (r'^accounts/', include('engus.apps.accounts.urls')),
     (r'^cards', include('engus.apps.cards.urls')),
     (r'^dictionary', include('engus.apps.dictionary.urls')),
