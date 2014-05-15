@@ -42,7 +42,7 @@
         window.onresize = splashMinHeight;
     </script>
 
-    {% if not debug and not request.user.is_superuser %}
+    {% if not debug and not user.is_superuser %}
         {% comment %} Analytics {% endcomment %}
         <!-- Yandex.Metrika counter -->
         <script type="text/javascript">
