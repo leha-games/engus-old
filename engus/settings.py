@@ -79,6 +79,16 @@ APPEND_SLASH = False
 LOGIN_REDIRECT_URL = "/app/"
 
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+
+
 # Third-party apps settings
 
 # easy-thumbnails
