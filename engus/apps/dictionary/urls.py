@@ -7,7 +7,7 @@ router = DefaultRouter(trailing_slash=False)
 router.register(r'/examples', ExampleViewSet)
 
 urlpatterns = patterns('',
-    url(r'^/words/flat/$', cache_page(60 * 15)(FlatWordListView.as_view())),
+    url(r'^/words/flat/$', cache_page(60 * 60 * 24 * 7)(FlatWordListView.as_view())),
     url(r'^/words/(?P<word>[^/]+)$', WordDetailView.as_view()),
     url(r'^', include(router.urls)),
 )
