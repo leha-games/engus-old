@@ -26,6 +26,6 @@
             </div>
         </li>
 
-        <li class="cards__list-item cards__list-item-show-more" ng-if="CardsCtrl.getToLearnLater(CardsCtrl.cards).length > CardsCtrl.newCardsLimitTo" ng-click="CardsCtrl.newCardsLimitTo = CardsCtrl.newCardsLimitTo + 20">Показать еще</li>
+        <li class="cards__list-item cards__list-item-show-more" ng-if="CardsCtrl.getToLearnLater(CardsCtrl.cards, CardsCtrl.profile).length > CardsCtrl.newCardsLimitTo" ng-click="CardsCtrl.newCardsLimitTo = CardsCtrl.newCardsLimitTo + 50">Показать еще</li>
     </ul>
 </div>

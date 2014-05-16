@@ -19,7 +19,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "                <span class=\"cards__list-item-button cards__list-item-button_type_remove\" ng-click=\"CardsCtrl.removeCard(card)\">Удалить</span>\n" +
     "            </span>\n" +
     "        </li>\n" +
-    "        <li class=\"cards__list-item cards__list-item-show-more\" ng-if=\"CardsCtrl.getLearned(CardsCtrl.cards).length > CardsCtrl.doneCardsLimitTo\" ng-click=\"CardsCtrl.doneCardsLimitTo = CardsCtrl.doneCardsLimitTo + 20\">Показать еще</li>\n" +
+    "        <li class=\"cards__list-item cards__list-item-show-more\" ng-if=\"CardsCtrl.getLearned(CardsCtrl.cards).length > CardsCtrl.doneCardsLimitTo\" ng-click=\"CardsCtrl.doneCardsLimitTo = CardsCtrl.doneCardsLimitTo + 50\">Показать еще</li>\n" +
     "    </ul>\n" +
     "</div>\n"
   );
@@ -112,7 +112,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "            </div>\n" +
     "        </li>\n" +
     "\n" +
-    "        <li class=\"cards__list-item cards__list-item-show-more\" ng-if=\"CardsCtrl.getToLearnLater(CardsCtrl.cards).length > CardsCtrl.newCardsLimitTo\" ng-click=\"CardsCtrl.newCardsLimitTo = CardsCtrl.newCardsLimitTo + 20\">Показать еще</li>\n" +
+    "        <li class=\"cards__list-item cards__list-item-show-more\" ng-if=\"CardsCtrl.getToLearnLater(CardsCtrl.cards, CardsCtrl.profile).length > CardsCtrl.newCardsLimitTo\" ng-click=\"CardsCtrl.newCardsLimitTo = CardsCtrl.newCardsLimitTo + 50\">Показать еще</li>\n" +
     "    </ul>\n" +
     "</div>"
   );
