@@ -1020,9 +1020,18 @@ button {
 .cards__list-item {
   border-bottom: 1px solid #eee;
   position: relative;
+  padding: 0.5rem 0;
 }
 .cards__list-item-word {
-  padding: 0.5rem 0;
+  display: block;
+}
+.cards__list-item-show-more {
+  text-align: center;
+  cursor: pointer;
+  background-color: #fffff5;
+}
+.cards__list-item-show-more:hover {
+  background-color: #ffffd2;
 }
 .cards__list-item:hover .cards__list-item-buttons {
   display: block;

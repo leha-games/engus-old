@@ -17,7 +17,7 @@
         <li class="cards__list-item-after" ng-if="(CardsCtrl.cards | filter: {learned: false}).length > CardsCtrl.profile.learn_by">Позже</li>
 
         <li class="cards__list-item"
-        ng-repeat="card in CardsCtrl.getToLearnLater(CardsCtrl.cards, CardsCtrl.profile)">
+        ng-repeat="card in CardsCtrl.getToLearnLater(CardsCtrl.cards, CardsCtrl.profile) | limitTo: CardsCtrl.newCardsLimitTo">
 
             <div class="cards__list-item-word"><a class="link" ui-sref="base.dictionary.word({ word: card.word })" ng-bind="card.word"></a></div>
             <div class="cards__list-item-buttons">
@@ -25,5 +25,7 @@
                 <div class="cards__list-item-button cards__list-item-button_type_remove" ng-click="CardsCtrl.removeCard(card)">Удалить</div>
             </div>
         </li>
+
+        <li class="cards__list-item cards__list-item-show-more" ng-if="CardsCtrl.getToLearnLater(CardsCtrl.cards).length > CardsCtrl.newCardsLimitTo" ng-click="CardsCtrl.newCardsLimitTo = CardsCtrl.newCardsLimitTo + 20">Показать еще</li>
     </ul>
 </div>

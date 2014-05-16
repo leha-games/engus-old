@@ -92,6 +92,8 @@ angular.module('engusApp').controller('CardsCtrl',
         this.loading = true;
         var cards = this.cards = Cards;
         this.profile = Profile;
+        this.newCardsLimitTo = 20;
+        this.doneCardsLimitTo = 20;
         this.isFilterLearned = false;
         Cards.$promise.then(function() {
             self.loading = false;

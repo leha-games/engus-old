@@ -5,13 +5,16 @@
 
     <ul class="cards__list">
         <li class="cards__list-item"
-        ng-repeat="card in CardsCtrl.getLearned(CardsCtrl.cards)">
+        ng-repeat="card in CardsCtrl.getLearned(CardsCtrl.cards) | limitTo: CardsCtrl.doneCardsLimitTo">
 
-            <div class="cards__list-item-word"><a class="link" ui-sref="base.dictionary.word({ word: card.word })" ng-bind="card.word"></a></div>
-            <div class="cards__list-item-buttons">
-                <div class="cards__list-item-button cards__list-item-button_type_move" ng-click="CardsCtrl.moveInNew(card)">В новые</div>
-                <div class="cards__list-item-button cards__list-item-button_type_remove" ng-click="CardsCtrl.removeCard(card)">Удалить</div>
-            </div>
+            <span class="cards__list-item-word">
+                <a class="link" ui-sref="base.dictionary.word({ word: card.word })" ng-bind="card.word"></a>
+            </span>
+            <span class="cards__list-item-buttons">
+                <span class="cards__list-item-button cards__list-item-button_type_move" ng-click="CardsCtrl.moveInNew(card)">В новые</span>
+                <span class="cards__list-item-button cards__list-item-button_type_remove" ng-click="CardsCtrl.removeCard(card)">Удалить</span>
+            </span>
         </li>
+        <li class="cards__list-item cards__list-item-show-more" ng-if="CardsCtrl.getLearned(CardsCtrl.cards).length > CardsCtrl.doneCardsLimitTo" ng-click="CardsCtrl.doneCardsLimitTo = CardsCtrl.doneCardsLimitTo + 20">Показать еще</li>
     </ul>
 </div>

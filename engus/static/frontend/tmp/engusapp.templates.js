@@ -9,14 +9,17 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "    <ul class=\"cards__list\">\n" +
     "        <li class=\"cards__list-item\"\n" +
-    "        ng-repeat=\"card in CardsCtrl.getLearned(CardsCtrl.cards)\">\n" +
+    "        ng-repeat=\"card in CardsCtrl.getLearned(CardsCtrl.cards) | limitTo: CardsCtrl.doneCardsLimitTo\">\n" +
     "\n" +
-    "            <div class=\"cards__list-item-word\"><a class=\"link\" ui-sref=\"base.dictionary.word({ word: card.word })\" ng-bind=\"card.word\"></a></div>\n" +
-    "            <div class=\"cards__list-item-buttons\">\n" +
-    "                <div class=\"cards__list-item-button cards__list-item-button_type_move\" ng-click=\"CardsCtrl.moveInNew(card)\">В новые</div>\n" +
-    "                <div class=\"cards__list-item-button cards__list-item-button_type_remove\" ng-click=\"CardsCtrl.removeCard(card)\">Удалить</div>\n" +
-    "            </div>\n" +
+    "            <span class=\"cards__list-item-word\">\n" +
+    "                <a class=\"link\" ui-sref=\"base.dictionary.word({ word: card.word })\" ng-bind=\"card.word\"></a>\n" +
+    "            </span>\n" +
+    "            <span class=\"cards__list-item-buttons\">\n" +
+    "                <span class=\"cards__list-item-button cards__list-item-button_type_move\" ng-click=\"CardsCtrl.moveInNew(card)\">В новые</span>\n" +
+    "                <span class=\"cards__list-item-button cards__list-item-button_type_remove\" ng-click=\"CardsCtrl.removeCard(card)\">Удалить</span>\n" +
+    "            </span>\n" +
     "        </li>\n" +
+    "        <li class=\"cards__list-item cards__list-item-show-more\" ng-if=\"CardsCtrl.getLearned(CardsCtrl.cards).length > CardsCtrl.doneCardsLimitTo\" ng-click=\"CardsCtrl.doneCardsLimitTo = CardsCtrl.doneCardsLimitTo + 20\">Показать еще</li>\n" +
     "    </ul>\n" +
     "</div>\n"
   );
@@ -100,7 +103,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "        <li class=\"cards__list-item-after\" ng-if=\"(CardsCtrl.cards | filter: {learned: false}).length > CardsCtrl.profile.learn_by\">Позже</li>\n" +
     "\n" +
     "        <li class=\"cards__list-item\"\n" +
-    "        ng-repeat=\"card in CardsCtrl.getToLearnLater(CardsCtrl.cards, CardsCtrl.profile)\">\n" +
+    "        ng-repeat=\"card in CardsCtrl.getToLearnLater(CardsCtrl.cards, CardsCtrl.profile) | limitTo: CardsCtrl.newCardsLimitTo\">\n" +
     "\n" +
     "            <div class=\"cards__list-item-word\"><a class=\"link\" ui-sref=\"base.dictionary.word({ word: card.word })\" ng-bind=\"card.word\"></a></div>\n" +
     "            <div class=\"cards__list-item-buttons\">\n" +
@@ -108,6 +111,8 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "                <div class=\"cards__list-item-button cards__list-item-button_type_remove\" ng-click=\"CardsCtrl.removeCard(card)\">Удалить</div>\n" +
     "            </div>\n" +
     "        </li>\n" +
+    "\n" +
+    "        <li class=\"cards__list-item cards__list-item-show-more\" ng-if=\"CardsCtrl.getToLearnLater(CardsCtrl.cards).length > CardsCtrl.newCardsLimitTo\" ng-click=\"CardsCtrl.newCardsLimitTo = CardsCtrl.newCardsLimitTo + 20\">Показать еще</li>\n" +
     "    </ul>\n" +
     "</div>"
   );
