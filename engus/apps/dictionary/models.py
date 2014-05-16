@@ -86,14 +86,14 @@ class Definition(models.Model):
     DEFINITEARTICLE = 21
     LINKINGVERB = 22
     INFINITIVEMARKER = 23
-    PART_OF_SPEACH_CHOICES = (
+    PART_OF_SPEECH_CHOICES = (
         (NOUN, 'noun'),
         (PRONOUN, 'pronoun'),
         (ADJECTIVE, 'adjective'),
         (VERB, 'verb'),
         (ADVERB, 'adverb'),
         (PREPOSITION, 'preposition'),
-        (CONJUNCTION, 'conjuction'),
+        (CONJUNCTION, 'conjunction'),
         (INTERJECTION, 'interjection'),
         (ABBREVIATION, 'abbreviation'),
         (EXCLAMATION, 'exclamation'),
@@ -101,7 +101,7 @@ class Definition(models.Model):
         (SYMBOL, 'symbol'),
         (DETERMINER, 'determiner'),
         (NUMBER, 'number'),
-        (AUXILIARYVERB,'auxiliary verb'),
+        (AUXILIARYVERB, 'auxiliary verb'),
         (COMBININGFORM, 'combining form'),
         (ADJECTIVES, 'adjectives'),
         (MODALVERB, 'modal verb'),
@@ -112,12 +112,11 @@ class Definition(models.Model):
         (INFINITIVEMARKER, 'infinitive marker'),
     )
 
-
     def make_upload_path(instance, filename):
         return u"definition/%s/%s" % (instance.word.pk, filename)
 
     word = models.ForeignKey(Word)
-    part_of_speach = models.SmallIntegerField(choices=PART_OF_SPEACH_CHOICES)
+    part_of_speach = models.SmallIntegerField(choices=PART_OF_SPEECH_CHOICES)
     weight = models.SmallIntegerField(default=0)
     label = models.CharField(max_length=255, blank=True)
     where_used = models.CharField(max_length=255, blank=True)
