@@ -1,26 +1,43 @@
 # -*- coding: utf-8 -*-
 import collections
-import mimetypes
-from django.core.exceptions import ValidationError
+import re
 from engus.apps.dictionary.models import Word
 from .models import MaterialWord
 
 
+def strip_suffixes(word):
+    return re.sub('(es|s|ies|ing|ed|er|est|ly)$', '', word)
+
+
+def strip_non_characters(word):
+    return re.sub("[^a-zA-Z]+", "", word)
+
+
 def find_words(text_file):
-    # acceptable_file_types = ['text/plain', ]
-    # if not mimetypes.guess_type(text_file) in acceptable_file_types:
     words = text_file.read().lower().split()
+    words = [strip_non_characters(word) for word in words]
     return collections.Counter(words)
-    # else:
-    #     raise ValidationError('Not an acceptable file type')
 
 
-def save_material_words(material, words):
+def save_material_word(material_obj, word, frequency):
+    word_obj = Word.objects.get(word=word)
+    try:
+        MaterialWord.objects.get(word=word_obj, material=material_obj)
+    except MaterialWord.DoesNotExist:
+        MaterialWord.objects.create(word=word_obj, material=material_obj, frequency=frequency)
+
+
+def save_material_words(material_obj, words):
     dictionary_words = Word.objects.values_list('word', flat=True)
+    print len(words)
     for (word, count) in words.most_common():
         if word in dictionary_words:
-            word_obj = Word.objects.get(word=word)
-            MaterialWord.objects.get_or_create(word=word_obj, material=material, frequency=count)
+            save_material_word(material_obj, word, count)
+        elif strip_suffixes(word) in dictionary_words:
+            save_material_word(material_obj, strip_suffixes(word), count)
+        # else:
+        #     if count > 1:
+        #     print word, count
 
 
 def not_found_words(material):
@@ -28,4 +45,4 @@ def not_found_words(material):
     dictionary_words = Word.objects.all()
     for word in dictionary_words:
         if word not in material_words:
-                pass
+            pass
