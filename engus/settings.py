@@ -25,6 +25,7 @@ INSTALLED_APPS = (
     'engus.apps.dictionary',
     'engus.apps.cards',
     'engus.apps.accounts',
+    'engus.apps.library',
 
     # Local apps, referenced via engus.appname
 
