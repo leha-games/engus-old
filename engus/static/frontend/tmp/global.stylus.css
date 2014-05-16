@@ -1021,6 +1021,7 @@ button {
   border-bottom: 1px solid #eee;
   position: relative;
   padding: 0.5rem 0;
+  line-height: 1.4rem;
 }
 .cards__list-item-word {
   display: block;
@@ -1032,6 +1033,13 @@ button {
 }
 .cards__list-item-show-more:hover {
   background-color: #ffffd2;
+}
+.cards__list-item-when-learned {
+  position: absolute;
+  right: 0;
+  top: 0.5rem;
+  font-size: 0.9rem;
+  color: #333;
 }
 .cards__list-item:hover .cards__list-item-buttons {
   display: block;

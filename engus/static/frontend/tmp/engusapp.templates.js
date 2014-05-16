@@ -14,6 +14,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "            <span class=\"cards__list-item-word\">\n" +
     "                <a class=\"link\" ui-sref=\"base.dictionary.word({ word: card.word })\" ng-bind=\"card.word\"></a>\n" +
     "            </span>\n" +
+    "            <span class=\"cards__list-item-when-learned\" ng-bind=\"card.when_learned | date:'dd.MM.yyyy'\"></span>\n" +
     "            <span class=\"cards__list-item-buttons\">\n" +
     "                <span class=\"cards__list-item-button cards__list-item-button_type_move\" ng-click=\"CardsCtrl.moveInNew(card)\">В новые</span>\n" +
     "                <span class=\"cards__list-item-button cards__list-item-button_type_remove\" ng-click=\"CardsCtrl.removeCard(card)\">Удалить</span>\n" +
