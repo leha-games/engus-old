@@ -4,7 +4,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
   $templateCache.put('templates/base.cards.done.html',
     "<div class=\"content\">\n" +
     "    <a ng-click=\"$state.go('base.cards.done.repeat')\" class=\"cards__begin-btn\">\n" +
-    "        <i class=\"fa fa-play cards__begin-btn-playbtn\"></i> Начать повторение\n" +
+    "        <i class=\"fa fa-play cards__begin-btn-playbtn\"></i> Повторить\n" +
     "    </a>\n" +
     "\n" +
     "    <ul class=\"cards__list\">\n" +
