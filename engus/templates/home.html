@@ -17,12 +17,12 @@
     <div class="page__splash-textblock">
         <div class="page__splash-container">
             <h1 class="homepage__title">
-                <div class="homepage__title-container">
-                    Изучение английских слов в контексте на&nbsp;Ингус
-                </div>
+                <span class="homepage__title-container">
+                    Ингус – изучение английских слов в контексте по карточкам
+                </span>
             </h1>
             <p class="homepage__clarification">
-                Сервисом Ингус пользуются все, кто хочет научиться свободно читать английские тексты, понимать английскую речь и&nbsp;начать разговаривать на&nbsp;английском. Изучение основано на&nbsp;повторении слов в&nbsp;контексте, за&nbsp;счет чего происходит быстрое запоминание слов и&nbsp;выражений, а&nbsp;так&nbsp;же погружение в&nbsp;мир языковых конструкций. Читайте интересную литературу, смотрите интересные фильмы, запоминайте слова в&nbsp;Ингус, и&nbsp;вы&nbsp;не&nbsp;заметите как свободно овладеете языком!
+                Сервис Ингус разработан для упрощения задачи пополнения словарного запаса английскими словами. В удобном словаре Ингус представлены более 50 000 слов с определением на русском и английском языке, транскрипцией, произношением и примерами употребления. Прямо из словаря добавьте незнакомое слово в карточки для изучения. При повторении карточек демонстрируются примеры употребления слова. Таким образом запоминание слов происходит в контексте их употребления. Сайт engus.ru адаптирован для мобильных устройств. Повторять карточки можно по дороге на работу, в пробке.
             </p>
         </div>
     </div>
@@ -30,38 +30,38 @@
 
 {% block content %}
     <section class="homepage__features">
-        <div class="page__container">
-            <div class="homepage__feature">
+        <ul class="page__container">
+            <li class="homepage__feature">
                 <img class="homepage__feature-img" src="{% static "img/repeat.jpg" %}">
-                <h1 class="homepage__feature-title">Повторения</h1>
+                <h2 class="homepage__feature-title">Повторения</h2>
                 <p class="homepage__feature-text">Повторения это естественный способ запомнить иностранные слова. В Engus при повторении вы сами определяете, насколько хорошо запомнили слово. Некоторые слова сложно поддаются изучению. Просто чаще повторяйте их и добейтесь своего! :)</p>
-            </div><!--
-            --><div class="homepage__feature">
+            </li><!--
+            --><li class="homepage__feature">
                 <img class="homepage__feature-img" src="{% static "img/context.jpg" %}">
-                <h1 class="homepage__feature-title">Контекст</h1>
+                <h2 class="homepage__feature-title">Контекст</h2>
                 <p class="homepage__feature-text">Намного проще запомнить слово в контексте фразы, предложения. В контексте вы можете прочувствовать смысл слова, у вас останется эмоциональный след. Engus специально для вас подобрал предложения с каждым словом, много предложений!</p>
-            </div><!--
-            --><div class="homepage__feature">
+            </li><!--
+            --><li class="homepage__feature">
                 <img class="homepage__feature-img" src="{% static "img/brain.jpg" %}">
-                <h1 class="homepage__feature-title">Возможности</h1>
+                <h2 class="homepage__feature-title">Возможности</h2>
                 <p class="homepage__feature-text">Используй возможности своего мозга на 100%. Как насчет визуальной памяти? Ведь лучше один раз увидеть, чем сто раз услышать. В Engus, для лучшего запоминания, к примерам употребления слов подобраны соответсвующие иллюстации.</p>
-            </div><!--
-            --><div class="homepage__feature">
+            </li><!--
+            --><li class="homepage__feature">
                 <img class="homepage__feature-img" src="{% static "img/dictionary.jpg" %}">
-                <h1 class="homepage__feature-title">Словарь</h1>
+                <h2 class="homepage__feature-title">Словарь</h2>
                 <p class="homepage__feature-text">Полное определение, транскрипция, произношение каждого слова. Определение на русском и английском языке. После того, как выучите необходимый минимум лексики, переключайтесь в английский режми, для более полного понимания смысла слов.</p>
-            </div><!--
-            --><div class="homepage__feature">
+            </li><!--
+            --><li class="homepage__feature">
                 <img class="homepage__feature-img" src="{% static "img/american-flag.jpg" %}">
-                <h1 class="homepage__feature-title">Американский</h1>
+                <h2 class="homepage__feature-title">Американский</h2>
                 <p class="homepage__feature-text">Американский английский более распространен, чем его британский аналог. На американском производится огромное количество контента: фильмы, телешоу, компьютерные игры, книги. Кроме того, британцы вас поймут :)</p>
-            </div><!--
-            --><div class="homepage__feature">
+            </li><!--
+            --><li class="homepage__feature">
                 <img class="homepage__feature-img" src="{% static "img/mobile.jpg" %}">
-                <h1 class="homepage__feature-title">Везде</h1>
+                <h2 class="homepage__feature-title">Адаптация</h2>
                 <p class="homepage__feature-text">Engus адаптирован для мобильных устройств. Повторяйте слова в пробках и поездках до работы. Смотрите перевод слова прямо с мобильного, когда читаете или смотрите фильм.</p>
-            </div>
-        </div>
+            </li>
+        </ul>
     </section>
     <section class="homepage__howto">
         <div class="page__container">

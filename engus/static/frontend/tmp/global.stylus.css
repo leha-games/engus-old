@@ -177,6 +177,7 @@ button {
   -moz-background-size: cover;
   background-size: cover;
   text-align: left;
+  position: relative;
 }
 @media (max-width: 1024px) {
   .page__splash {
@@ -493,7 +494,7 @@ button {
   border-color: #fff;
 }
 .homepage__title {
-  font-size: 2rem;
+  font-size: 1.7rem;
   letter-spacing: 0.1rem;
   line-height: 1.2;
   font-weight: bold;
