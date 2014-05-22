@@ -1026,6 +1026,12 @@ button {
 .cards__list-item-word {
   display: block;
 }
+.cards__list-item-shortdef {
+  display: none;
+}
+.cards__list-item:hover .cards__list-item-shortdef {
+  display: inline;
+}
 .cards__list-item-show-more {
   text-align: center;
   cursor: pointer;

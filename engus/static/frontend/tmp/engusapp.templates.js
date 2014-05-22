@@ -13,6 +13,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <span class=\"cards__list-item-word\">\n" +
     "                <a class=\"link\" ui-sref=\"base.dictionary.word({ word: card.word })\" ng-bind=\"card.word\"></a>\n" +
+    "                <span class=\"cards__list-item-shortdef\" ng-if=\"card.word_short_def\">– {{ card.word_short_def }}</span>\n" +
     "            </span>\n" +
     "            <span class=\"cards__list-item-when-learned\" ng-bind=\"card.when_learned | date:'dd.MM.yyyy'\"></span>\n" +
     "            <span class=\"cards__list-item-buttons\">\n" +
@@ -94,7 +95,10 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "        <li class=\"cards__list-item\"\n" +
     "        ng-repeat=\"card in CardsCtrl.getToLearnNow(CardsCtrl.cards, CardsCtrl.profile)\">\n" +
     "\n" +
-    "            <div class=\"cards__list-item-word\"><a class=\"link\" ui-sref=\"base.dictionary.word({ word: card.word })\" ng-bind=\"card.word\"></a></div>\n" +
+    "            <div class=\"cards__list-item-word\">\n" +
+    "                <a class=\"link\" ui-sref=\"base.dictionary.word({ word: card.word })\" ng-bind=\"card.word\"></a>\n" +
+    "                <span class=\"cards__list-item-shortdef\" ng-if=\"card.word_short_def\">– {{ card.word_short_def }}</span>\n" +
+    "            </div>\n" +
     "            <div class=\"cards__list-item-buttons\">\n" +
     "                <div class=\"cards__list-item-button cards__list-item-button_type_move\" ng-click=\"CardsCtrl.moveInLearned(card)\">В изученные</div>\n" +
     "                <div class=\"cards__list-item-button cards__list-item-button_type_remove\" ng-click=\"CardsCtrl.removeCard(card)\">Удалить</div>\n" +
@@ -106,7 +110,10 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "        <li class=\"cards__list-item\"\n" +
     "        ng-repeat=\"card in CardsCtrl.getToLearnLater(CardsCtrl.cards, CardsCtrl.profile) | limitTo: CardsCtrl.newCardsLimitTo\">\n" +
     "\n" +
-    "            <div class=\"cards__list-item-word\"><a class=\"link\" ui-sref=\"base.dictionary.word({ word: card.word })\" ng-bind=\"card.word\"></a></div>\n" +
+    "            <div class=\"cards__list-item-word\">\n" +
+    "                <a class=\"link\" ui-sref=\"base.dictionary.word({ word: card.word })\" ng-bind=\"card.word\"></a>\n" +
+    "                <span class=\"cards__list-item-shortdef\" ng-if=\"card.word_short_def\">– {{ card.word_short_def }}</span>\n" +
+    "            </div>\n" +
     "            <div class=\"cards__list-item-buttons\">\n" +
     "                <div class=\"cards__list-item-button cards__list-item-button_type_move\" ng-click=\"CardsCtrl.moveInLearned(card)\">В изученные</div>\n" +
     "                <div class=\"cards__list-item-button cards__list-item-button_type_remove\" ng-click=\"CardsCtrl.removeCard(card)\">Удалить</div>\n" +

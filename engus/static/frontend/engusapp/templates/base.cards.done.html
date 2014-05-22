@@ -9,6 +9,7 @@
 
             <span class="cards__list-item-word">
                 <a class="link" ui-sref="base.dictionary.word({ word: card.word })" ng-bind="card.word"></a>
+                <span class="cards__list-item-shortdef" ng-if="card.word_short_def">– {{ card.word_short_def }}</span>
             </span>
             <span class="cards__list-item-when-learned" ng-bind="card.when_learned | date:'dd.MM.yyyy'"></span>
             <span class="cards__list-item-buttons">

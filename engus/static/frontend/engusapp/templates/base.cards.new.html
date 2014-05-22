@@ -7,7 +7,10 @@
         <li class="cards__list-item"
         ng-repeat="card in CardsCtrl.getToLearnNow(CardsCtrl.cards, CardsCtrl.profile)">
 
-            <div class="cards__list-item-word"><a class="link" ui-sref="base.dictionary.word({ word: card.word })" ng-bind="card.word"></a></div>
+            <div class="cards__list-item-word">
+                <a class="link" ui-sref="base.dictionary.word({ word: card.word })" ng-bind="card.word"></a>
+                <span class="cards__list-item-shortdef" ng-if="card.word_short_def">– {{ card.word_short_def }}</span>
+            </div>
             <div class="cards__list-item-buttons">
                 <div class="cards__list-item-button cards__list-item-button_type_move" ng-click="CardsCtrl.moveInLearned(card)">В изученные</div>
                 <div class="cards__list-item-button cards__list-item-button_type_remove" ng-click="CardsCtrl.removeCard(card)">Удалить</div>
@@ -19,7 +22,10 @@
         <li class="cards__list-item"
         ng-repeat="card in CardsCtrl.getToLearnLater(CardsCtrl.cards, CardsCtrl.profile) | limitTo: CardsCtrl.newCardsLimitTo">
 
-            <div class="cards__list-item-word"><a class="link" ui-sref="base.dictionary.word({ word: card.word })" ng-bind="card.word"></a></div>
+            <div class="cards__list-item-word">
+                <a class="link" ui-sref="base.dictionary.word({ word: card.word })" ng-bind="card.word"></a>
+                <span class="cards__list-item-shortdef" ng-if="card.word_short_def">– {{ card.word_short_def }}</span>
+            </div>
             <div class="cards__list-item-buttons">
                 <div class="cards__list-item-button cards__list-item-button_type_move" ng-click="CardsCtrl.moveInLearned(card)">В изученные</div>
                 <div class="cards__list-item-button cards__list-item-button_type_remove" ng-click="CardsCtrl.removeCard(card)">Удалить</div>
