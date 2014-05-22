@@ -174,7 +174,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "                        <span ng-if=\"!WordCtrl.profile.is_english_mode\" ng-bind=\"definition.russian_definition\"></span>\n" +
     "                        <ul class=\"definition__examples-list\" ng-if=\"(WordCtrl.examples | filter: {definition: definition.id}).length\">\n" +
     "                            <li ng-repeat=\"example in WordCtrl.examples | filter: {definition: definition.id}\">\n" +
-    "                                <div class=\"definition__example\" \n" +
+    "                                <span class=\"definition__example\"\n" +
     "                                    ng-click=\"!!(example.illustration_url) && (example.showIllustration = true)\"  \n" +
     "                                    ng-hide=\"!!(example.showIllustration)\"\n" +
     "                                    ng-class=\"{ 'with-illustration': example.illustration_url }\" \n" +
@@ -184,11 +184,11 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "                                    <span ng-bind-html=\"example.text | markWord:WordCtrl.word.word\"></span>\n" +
     "                                    <i ng-if=\"example.illustration_url\" class=\"fa fa-picture-o definition__example-illustration-icon\" ng-class=\"{ 'hover': exampleHover }\"></i>\n" +
     "                                    <span ng-if=\"!WordCtrl.profile.is_english_mode && example.russian_translation\">— {{ example.russian_translation }}</span>\n" +
-    "                                </div>\n" +
-    "                                <div ng-if=\"example.illustration_url && example.showIllustration\" ng-click=\"example.showIllustration = false\" class=\"definition__example-with-illustration\">\n" +
+    "                                </span>\n" +
+    "                                <span ng-if=\"example.illustration_url && example.showIllustration\" ng-click=\"example.showIllustration = false\" class=\"definition__example-with-illustration\">\n" +
     "                                    <img class=\"definition__illustration\" ng-src=\"{{ example.illustration_url }}\">\n" +
-    "                                    <div class=\"definition__illustration-text\" ng-bind-html=\"example.text | markWord:WordCtrl.word.word\"></div>\n" +
-    "                                </div>\n" +
+    "                                    <span class=\"definition__illustration-text\" ng-bind-html=\"example.text | markWord:WordCtrl.word.word\"></span>\n" +
+    "                                </span>\n" +
     "                            </li>\n" +
     "                        </ul>\n" +
     "                    </li>\n" +
