@@ -5,8 +5,20 @@ from engus.apps.dictionary.models import Word
 from .models import MaterialWord
 
 
-def strip_suffixes(word):
-    return re.sub('(es|s|ies|ing|ed|er|est|ly)$', '', word)
+def strip_suffix(word):
+    return re.sub('(es|s|ies|ing|ed|er|est|ly|d)$', '', word)
+
+
+def strip_remove_the_e_rule(word):
+    return re.sub('(ed|ing)$', 'e', word)
+
+
+def strip_double_the_final_consonant_rule(word):
+    return re.sub(r'(\w)\1ing$', '\g<1>', word)
+
+
+def strip_change_the_ie_to_y_rule(word):
+    return re.sub('ying$', 'ie', word)
 
 
 def strip_non_characters(word):
@@ -28,16 +40,22 @@ def save_material_word(material_obj, word, frequency):
 
 
 def save_material_words(material_obj, words):
-    dictionary_words = Word.objects.values_list('word', flat=True)
+    all_dictionary_words = Word.objects.values_list('word', flat=True)
     print len(words)
     for (word, count) in words.most_common():
-        if word in dictionary_words:
+        if word in all_dictionary_words:
             save_material_word(material_obj, word, count)
-        elif strip_suffixes(word) in dictionary_words:
-            save_material_word(material_obj, strip_suffixes(word), count)
+        elif strip_suffix(word) in all_dictionary_words:
+            save_material_word(material_obj, strip_suffix(word), count)
+        elif strip_remove_the_e_rule(word) in all_dictionary_words:
+            save_material_word(material_obj, strip_remove_the_e_rule(word), count)
+        elif strip_double_the_final_consonant_rule(word) in all_dictionary_words:
+            save_material_word(material_obj, strip_double_the_final_consonant_rule(word), count)
+        elif strip_change_the_ie_to_y_rule(word) in all_dictionary_words:
+            save_material_word(material_obj, strip_change_the_ie_to_y_rule(word), count)
         # else:
-        #     if count > 1:
-        #     print word, count
+            # if count > 1:
+            # print word, count
 
 
 def not_found_words(material):
