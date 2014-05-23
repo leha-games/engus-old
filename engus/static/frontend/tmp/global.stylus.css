@@ -478,6 +478,8 @@ button {
   position: relative;
   bottom: 0.3rem;
   left: 0.3rem;
+  width: 0;
+  display: inline-block;
 }
 .submenu__item-icon {
   margin-right: 0.3rem;
