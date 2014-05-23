@@ -29,11 +29,6 @@ class Card(models.Model):
             orig = Card.objects.get(pk=self.pk)
             if orig.status != Card.LEARNED and self.status == Card.LEARNED:
                 self.when_learned = datetime.datetime.now()
-            if orig.status != Card.KNOW and self.status == Card.KNOW:
-                self.when_learned = datetime.datetime.now()
             elif orig.status != Card.NEW and self.status == Card.NEW:
                 self.when_learned = None
-        else:
-            if self.status == Card.KNOW:
-                self.when_learned = datetime.datetime.now()
         super(Card, self).save(*args, **kw)
