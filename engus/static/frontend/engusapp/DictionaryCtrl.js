@@ -28,6 +28,7 @@ angular.module('engusApp').controller('DictionaryWordCtrl',
         this.profile = Profile;
         this.wordNotFound = false;
         this.examples = WordExamples;
+        this.loading = true;
         var cards = Cards;
         var getWordCard = this.getWordCard = function () {
             var wordCard = undefined;
@@ -44,9 +45,11 @@ angular.module('engusApp').controller('DictionaryWordCtrl',
         Word.$promise.then(
             function(word) {
                 self.word.definitionGroups = _.groupBy(word.definition_set, 'part_of_speach');
+                self.loading = false;
             },
             function() {
                 self.wordNotFound = true;
+                self.loading = false;
             }
         );
         this.switchCard = function() {
