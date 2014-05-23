@@ -1127,6 +1127,10 @@ button {
   color: #326ea0;
   z-index: 1;
 }
+.topmenu__title-link {
+  text-decoration: none;
+  color: #326ea0;
+}
 .topmenu__items {
   max-width: 650px;
   margin: 0 auto;

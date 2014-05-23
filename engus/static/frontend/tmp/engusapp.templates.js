@@ -246,7 +246,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
 
   $templateCache.put('templates/base.html',
     "<header class=\"topmenu\">\n" +
-    "    <h1 class=\"topmenu__title\">Engus</h1>\n" +
+    "    <h1 class=\"topmenu__title\"><a class=\"topmenu__title-link\" href=\"/\">Engus</a></h1>\n" +
     "    <ul class=\"topmenu__items\">\n" +
     "        <li class=\"topmenu__item\" ng-class=\"{ active: $state.includes('base.dictionary') }\">\n" +
     "            <div class=\"topmenu__item-link\" ng-click=\"$state.go('base.dictionary')\">\n" +
