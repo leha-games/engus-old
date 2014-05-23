@@ -128,8 +128,8 @@ angular.module('engusApp').controller('CardsCtrl',
         this.loading = true;
         var cards = this.cards = Cards;
         this.profile = Profile;
-        this.newCardsLimitTo = 50;
-        this.doneCardsLimitTo = 50;
+        this.newCardsLimitTo = 5;
+        this.doneCardsLimitTo = 5;
         this.isFilterLearned = false;
 
         Cards.$promise.then(function() {
@@ -177,7 +177,19 @@ angular.module('engusApp').controller('CardsCtrl',
 
         this.getNewCardsCount = function() {
             return CardService.getNewCardsCount(Cards);
-        }
+        };
+
+        this.showMoreNewCards = function() {
+            if (this.getNewCardsCount() > this.newCardsLimitTo) {
+                this.newCardsLimitTo += 5;
+            }
+        };
+
+        this.showMoreLearnedCards = function() {
+            if (this.getLearnedCardsCount() > this.doneCardsLimitTo) {
+                this.doneCardsLimitTo += 5;
+            }
+        };
 
     }
 ]);
@@ -495,3 +507,20 @@ angular.module('engusApp').directive('submitOn', function() {
         });
     };
 });
+
+angular.module('engusApp').directive('infiniteScroll',
+    ['$window',
+    function ($window) {
+        return {
+            link:function (scope, element, attrs) {
+                var offset = parseInt(attrs.threshold) || 30;
+                var e = jQuery(element[0]);
+                var doc = jQuery(document);
+                angular.element(document).bind('scroll', function() {
+                    if (doc.scrollTop() + $window.innerHeight + offset > e.offset().top) {
+                        scope.$apply(attrs.infiniteScroll);
+                    }
+                });
+            }
+        };
+}]);

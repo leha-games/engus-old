@@ -5,7 +5,8 @@
 
     <ul class="cards__list">
         <li class="cards__list-item"
-        ng-repeat="card in CardsCtrl.getLearned(CardsCtrl.cards) | limitTo: CardsCtrl.doneCardsLimitTo">
+        ng-repeat="card in CardsCtrl.getLearned(CardsCtrl.cards) | limitTo: CardsCtrl.doneCardsLimitTo"
+        infinite-scroll="CardsCtrl.showMoreLearnedCards()">
 
             <span class="cards__list-item-word">
                 <a class="link" ui-sref="base.dictionary.word({ word: card.word })" ng-bind="card.word"></a>
@@ -17,6 +18,5 @@
                 <span class="cards__list-item-button cards__list-item-button_type_in-known" ng-click="CardsCtrl.moveInKnown(card)">В известные</span>
             </span>
         </li>
-        <li class="cards__list-item cards__list-item-show-more" ng-if="CardsCtrl.getLearned(CardsCtrl.cards).length > CardsCtrl.doneCardsLimitTo" ng-click="CardsCtrl.doneCardsLimitTo = CardsCtrl.doneCardsLimitTo + 50">Показать еще</li>
     </ul>
 </div>

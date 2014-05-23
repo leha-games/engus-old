@@ -10,6 +10,7 @@ module.exports = function(grunt) {
                 files: {
                     '../js/engusapp.min.js': [
                         'bower_components/lodash/dist/lodash.compat.min.js',
+                        'bower_components/jquery/dist/jquery.min.js',
                         'bower_components/angular/angular.min.js',
                         'bower_components/angular-resource/angular-resource.min.js',
                         'bower_components/angular-ui-router/release/angular-ui-router.min.js',
