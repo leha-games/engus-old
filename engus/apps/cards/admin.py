@@ -3,7 +3,7 @@ from .models import Card
 
 
 class CardAdmin(admin.ModelAdmin):
-    list_display = ('user', 'word', 'level', 'learned', 'created', )
+    list_display = ('user', 'word', 'level', 'status', 'learned', 'created', )
     readonly_fields = ('word', )
 
 
