@@ -678,7 +678,7 @@ button {
   color: #00f;
 }
 .dictionary__word-star.new {
-  color: #7cfc00;
+  color: #32cd32;
 }
 .dictionary__word-star.learned {
   color: #ffa500;
@@ -1089,11 +1089,11 @@ button {
   background-color: #ffa500;
 }
 .cards__list-item-button_type_in-new {
-  color: #7cfc00;
+  color: #32cd32;
 }
 .cards__list-item-button_type_in-new:hover {
   color: #fff;
-  background-color: #7cfc00;
+  background-color: #32cd32;
 }
 .cards__list-item-button_type_in-known {
   color: #00bfff;
