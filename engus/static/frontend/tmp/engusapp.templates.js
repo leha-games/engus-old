@@ -17,8 +17,8 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "            </span>\n" +
     "            <span class=\"cards__list-item-when-learned\" ng-bind=\"card.when_learned | date:'dd.MM.yyyy'\"></span>\n" +
     "            <span class=\"cards__list-item-buttons\">\n" +
-    "                <span class=\"cards__list-item-button cards__list-item-button_type_move\" ng-click=\"CardsCtrl.moveInNew(card)\">В новые</span>\n" +
-    "                <span class=\"cards__list-item-button cards__list-item-button_type_remove\" ng-click=\"CardsCtrl.removeCard(card)\">Удалить</span>\n" +
+    "                <span class=\"cards__list-item-button cards__list-item-button_type_in-new\" ng-click=\"CardsCtrl.moveInNew(card)\">В новые</span>\n" +
+    "                <span class=\"cards__list-item-button cards__list-item-button_type_in-known\" ng-click=\"CardsCtrl.moveInKnown(card)\">В известные</span>\n" +
     "            </span>\n" +
     "        </li>\n" +
     "        <li class=\"cards__list-item cards__list-item-show-more\" ng-if=\"CardsCtrl.getLearned(CardsCtrl.cards).length > CardsCtrl.doneCardsLimitTo\" ng-click=\"CardsCtrl.doneCardsLimitTo = CardsCtrl.doneCardsLimitTo + 50\">Показать еще</li>\n" +
@@ -100,7 +100,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "                <span class=\"cards__list-item-shortdef\" ng-if=\"card.word_short_def\">– {{ card.word_short_def }}</span>\n" +
     "            </div>\n" +
     "            <div class=\"cards__list-item-buttons\">\n" +
-    "                <div class=\"cards__list-item-button cards__list-item-button_type_move\" ng-click=\"CardsCtrl.moveInLearned(card)\">В изученные</div>\n" +
+    "                <div class=\"cards__list-item-button cards__list-item-button_type_in-learned\" ng-click=\"CardsCtrl.moveInLearned(card)\">В изученные</div>\n" +
     "                <div class=\"cards__list-item-button cards__list-item-button_type_remove\" ng-click=\"CardsCtrl.removeCard(card)\">Удалить</div>\n" +
     "            </div>\n" +
     "        </li>\n" +
@@ -115,7 +115,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "                <span class=\"cards__list-item-shortdef\" ng-if=\"card.word_short_def\">– {{ card.word_short_def }}</span>\n" +
     "            </div>\n" +
     "            <div class=\"cards__list-item-buttons\">\n" +
-    "                <div class=\"cards__list-item-button cards__list-item-button_type_move\" ng-click=\"CardsCtrl.moveInLearned(card)\">В изученные</div>\n" +
+    "                <div class=\"cards__list-item-button cards__list-item-button_type_in-learned\" ng-click=\"CardsCtrl.moveInLearned(card)\">В изученные</div>\n" +
     "                <div class=\"cards__list-item-button cards__list-item-button_type_remove\" ng-click=\"CardsCtrl.removeCard(card)\">Удалить</div>\n" +
     "            </div>\n" +
     "        </li>\n" +

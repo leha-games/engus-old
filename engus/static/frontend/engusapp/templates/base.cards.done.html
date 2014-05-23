@@ -13,8 +13,8 @@
             </span>
             <span class="cards__list-item-when-learned" ng-bind="card.when_learned | date:'dd.MM.yyyy'"></span>
             <span class="cards__list-item-buttons">
-                <span class="cards__list-item-button cards__list-item-button_type_move" ng-click="CardsCtrl.moveInNew(card)">В новые</span>
-                <span class="cards__list-item-button cards__list-item-button_type_remove" ng-click="CardsCtrl.removeCard(card)">Удалить</span>
+                <span class="cards__list-item-button cards__list-item-button_type_in-new" ng-click="CardsCtrl.moveInNew(card)">В новые</span>
+                <span class="cards__list-item-button cards__list-item-button_type_in-known" ng-click="CardsCtrl.moveInKnown(card)">В известные</span>
             </span>
         </li>
         <li class="cards__list-item cards__list-item-show-more" ng-if="CardsCtrl.getLearned(CardsCtrl.cards).length > CardsCtrl.doneCardsLimitTo" ng-click="CardsCtrl.doneCardsLimitTo = CardsCtrl.doneCardsLimitTo + 50">Показать еще</li>

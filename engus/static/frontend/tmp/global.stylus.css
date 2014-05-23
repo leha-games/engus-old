@@ -1063,18 +1063,29 @@ button {
   float: left;
   background-color: #fff;
 }
-.cards__list-item-button_type_move {
+.cards__list-item-button_type_in-learned {
   color: #ffa500;
-  border-left: 1px solid #ffa500;
 }
-.cards__list-item-button_type_move:hover {
+.cards__list-item-button_type_in-learned:hover {
   color: #fff;
   background-color: #ffa500;
 }
+.cards__list-item-button_type_in-new {
+  color: #32cd32;
+}
+.cards__list-item-button_type_in-new:hover {
+  color: #fff;
+  background-color: #32cd32;
+}
+.cards__list-item-button_type_in-known {
+  color: #00bfff;
+}
+.cards__list-item-button_type_in-known:hover {
+  color: #fff;
+  background-color: #00bfff;
+}
 .cards__list-item-button_type_remove {
   color: #f00;
-  border-left: 1px solid #f00;
-  border-right: 1px solid #f00;
 }
 .cards__list-item-button_type_remove:hover {
   color: #fff;

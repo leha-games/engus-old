@@ -29,7 +29,7 @@ angular.module('engusApp').controller('DictionaryWordCtrl',
         this.wordNotFound = false;
         this.examples = WordExamples;
         var cards = Cards;
-        var getWordCard = function () {
+        var getWordCard = this.getWordCard = function () {
             var wordCard = undefined;
             for (var i = 0; i < cards.length; i++) {
                 if (cards[i].word === word.word) {
@@ -110,6 +110,10 @@ angular.module('engusApp').controller('CardsCtrl',
         };
         this.moveInNew = function(card) {
             card.status = 'new';
+            card.$update();
+        };
+        this.moveInKnown = function(card) {
+            card.status = 'know';
             card.$update();
         };
         this.getToLearnLater = CardService.getToLearnLater;
@@ -244,15 +248,16 @@ angular.module('engusApp').factory('CardService',
         };
 
         Card.removeCard = function(cards, card) {
-            card.$remove(function() {
-                cards.splice(cards.indexOf(card), 1);
-            })
+            cards.splice(cards.indexOf(card), 1);
+            card.$remove()
         };
 
         Card.addCard = function(cards, word) {
             var newCard = new Card.resource({ word: word });
+            cards.push(newCard);
             newCard.$save(function(savedCard) {
-                cards.push(savedCard);
+//                cards.push(savedCard);
+                newCard = savedCard;
             });
         };
 
