@@ -105,11 +105,11 @@ angular.module('engusApp').controller('CardsCtrl',
             CardService.removeCard(cards, card)
         };
         this.moveInLearned = function(card) {
-            card.learned = true;
+            card.status = 'learned';
             card.$update();
         };
         this.moveInNew = function(card) {
-            card.learned = false;
+            card.status = 'new';
             card.$update();
         };
         this.getToLearnLater = CardService.getToLearnLater;
@@ -233,11 +233,11 @@ angular.module('engusApp').factory('CardService',
                     card.$update();
                     break;
                 case 'get':
-                    card.learned = true;
+                    card.status = 'learned';
                     card.$update();
                     break;
                 case 'forget':
-                    card.learned = false;
+                    card.status = 'new';
                     card.$update();
                     break;
             }
@@ -276,13 +276,13 @@ angular.module('engusApp').factory('CardService',
         };
 
         Card.getLearned = function(cards) {
-            var learnedCards = $filter('filter')(cards, {learned: true});
+            var learnedCards = $filter('filter')(cards, {status: 'learned'});
             learnedCards = $filter('orderBy')(learnedCards, '-when_learned');
             return learnedCards;
         };
 
         Card.getToLearn = function(cards) {
-            var cardsToLearn = $filter('filter')(cards, {learned: false});
+            var cardsToLearn = $filter('filter')(cards, {status: 'new'});
             cardsToLearn = $filter('orderBy')(cardsToLearn, 'created');
             return cardsToLearn;
         };

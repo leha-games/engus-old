@@ -71,10 +71,10 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "    </section>\n" +
     "\n" +
     "    <ul class=\"learning__answer-list\" ng-show=\"!!(CardsLearningCtrl.current().showDefinitions)\">\n" +
-    "        <li ng-if=\"!CardsLearningCtrl.current().card.learned\" ng-click=\"CardsLearningCtrl.updateCard(CardsLearningCtrl.current().card, 'get'); CardsLearningCtrl.switchCard();\" class=\"learning__answer-list-item learning__btn learning__btn_type_get\">\n" +
+    "        <li ng-if=\"CardsLearningCtrl.current().card.status !== 'learned'\" ng-click=\"CardsLearningCtrl.updateCard(CardsLearningCtrl.current().card, 'get'); CardsLearningCtrl.switchCard();\" class=\"learning__answer-list-item learning__btn learning__btn_type_get\">\n" +
     "            Выучил\n" +
     "        </li>\n" +
-    "        <li ng-if=\"CardsLearningCtrl.current().card.learned\" ng-click=\"CardsLearningCtrl.updateCard(CardsLearningCtrl.current().card, 'forget'); CardsLearningCtrl.switchCard();\" class=\"learning__answer-list-item learning__btn learning__btn_type_get\">\n" +
+    "        <li ng-if=\"CardsLearningCtrl.current().card.status === 'learned'\" ng-click=\"CardsLearningCtrl.updateCard(CardsLearningCtrl.current().card, 'forget'); CardsLearningCtrl.switchCard();\" class=\"learning__answer-list-item learning__btn learning__btn_type_get\">\n" +
     "            Забыл\n" +
     "        </li>\n" +
     "        <li ng-click=\"CardsLearningCtrl.updateCard(CardsLearningCtrl.current().card, 'good'); CardsLearningCtrl.switchCard();\" class=\"learning__answer-list-item learning__btn learning__btn_type_good\">\n" +
@@ -105,7 +105,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "            </div>\n" +
     "        </li>\n" +
     "\n" +
-    "        <li class=\"cards__list-item-after\" ng-if=\"(CardsCtrl.cards | filter: {learned: false}).length > CardsCtrl.profile.learn_by\">Позже</li>\n" +
+    "        <li class=\"cards__list-item-after\" ng-if=\"(CardsCtrl.cards | filter: {status: 'new'}).length > CardsCtrl.profile.learn_by\">Позже</li>\n" +
     "\n" +
     "        <li class=\"cards__list-item\"\n" +
     "        ng-repeat=\"card in CardsCtrl.getToLearnLater(CardsCtrl.cards, CardsCtrl.profile) | limitTo: CardsCtrl.newCardsLimitTo\">\n" +

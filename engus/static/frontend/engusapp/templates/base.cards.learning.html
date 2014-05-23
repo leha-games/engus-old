@@ -29,10 +29,10 @@
     </section>
 
     <ul class="learning__answer-list" ng-show="!!(CardsLearningCtrl.current().showDefinitions)">
-        <li ng-if="!CardsLearningCtrl.current().card.learned" ng-click="CardsLearningCtrl.updateCard(CardsLearningCtrl.current().card, 'get'); CardsLearningCtrl.switchCard();" class="learning__answer-list-item learning__btn learning__btn_type_get">
+        <li ng-if="CardsLearningCtrl.current().card.status !== 'learned'" ng-click="CardsLearningCtrl.updateCard(CardsLearningCtrl.current().card, 'get'); CardsLearningCtrl.switchCard();" class="learning__answer-list-item learning__btn learning__btn_type_get">
             Выучил
         </li>
-        <li ng-if="CardsLearningCtrl.current().card.learned" ng-click="CardsLearningCtrl.updateCard(CardsLearningCtrl.current().card, 'forget'); CardsLearningCtrl.switchCard();" class="learning__answer-list-item learning__btn learning__btn_type_get">
+        <li ng-if="CardsLearningCtrl.current().card.status === 'learned'" ng-click="CardsLearningCtrl.updateCard(CardsLearningCtrl.current().card, 'forget'); CardsLearningCtrl.switchCard();" class="learning__answer-list-item learning__btn learning__btn_type_get">
             Забыл
         </li>
         <li ng-click="CardsLearningCtrl.updateCard(CardsLearningCtrl.current().card, 'good'); CardsLearningCtrl.switchCard();" class="learning__answer-list-item learning__btn learning__btn_type_good">
