@@ -1,7 +1,17 @@
 <div class="submenu__wrapper">
     <ul class="submenu">
-        <li class="submenu__item" ng-class="{ active: $state.includes('base.cards.new') }" ng-click="$state.go('base.cards.new')"><i class="fa fa-fw submenu__item-icon" ng-class="{ 'fa-square': $state.includes('base.cards.new'), 'fa-square-o': !$state.includes('base.cards.new') }"></i> Новые</li>
-        <li class="submenu__item" ng-class="{ active: $state.includes('base.cards.done') }" ng-click="$state.go('base.cards.done')"><i class="fa fa-fw submenu__item-icon" ng-class="{ 'fa-check-square': $state.includes('base.cards.done'), 'fa-check-square-o': !$state.includes('base.cards.done') }"></i> Изученные</li>
+        <li class="submenu__item" ng-class="{ active: $state.includes('base.cards.new') }" ng-click="$state.go('base.cards.new')">
+            <i class="fa fa-fw submenu__item-icon" ng-class="{ 'fa-square': $state.includes('base.cards.new'), 'fa-square-o': !$state.includes('base.cards.new') }"></i>
+            <span class="submenu__item-title">Новые
+                <span class="submenu__item-note" ng-bind="CardsCtrl.getNewCardsCount()"></span>
+            </span>
+        </li>
+        <li class="submenu__item" ng-class="{ active: $state.includes('base.cards.done') }" ng-click="$state.go('base.cards.done')">
+            <i class="fa fa-fw submenu__item-icon" ng-class="{ 'fa-check-square': $state.includes('base.cards.done'), 'fa-check-square-o': !$state.includes('base.cards.done') }"></i>
+            <span class="submenu__item-title">Изученные
+                <span class="submenu__item-note" ng-bind="CardsCtrl.getLearnedCardsCount()"></span>
+            </span>
+        </li>
     </ul>
 </div>
 <div ui-view>

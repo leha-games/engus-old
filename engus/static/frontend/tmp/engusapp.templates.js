@@ -30,8 +30,18 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
   $templateCache.put('templates/base.cards.html',
     "<div class=\"submenu__wrapper\">\n" +
     "    <ul class=\"submenu\">\n" +
-    "        <li class=\"submenu__item\" ng-class=\"{ active: $state.includes('base.cards.new') }\" ng-click=\"$state.go('base.cards.new')\"><i class=\"fa fa-fw submenu__item-icon\" ng-class=\"{ 'fa-square': $state.includes('base.cards.new'), 'fa-square-o': !$state.includes('base.cards.new') }\"></i> Новые</li>\n" +
-    "        <li class=\"submenu__item\" ng-class=\"{ active: $state.includes('base.cards.done') }\" ng-click=\"$state.go('base.cards.done')\"><i class=\"fa fa-fw submenu__item-icon\" ng-class=\"{ 'fa-check-square': $state.includes('base.cards.done'), 'fa-check-square-o': !$state.includes('base.cards.done') }\"></i> Изученные</li>\n" +
+    "        <li class=\"submenu__item\" ng-class=\"{ active: $state.includes('base.cards.new') }\" ng-click=\"$state.go('base.cards.new')\">\n" +
+    "            <i class=\"fa fa-fw submenu__item-icon\" ng-class=\"{ 'fa-square': $state.includes('base.cards.new'), 'fa-square-o': !$state.includes('base.cards.new') }\"></i>\n" +
+    "            <span class=\"submenu__item-title\">Новые\n" +
+    "                <span class=\"submenu__item-note\" ng-bind=\"CardsCtrl.getNewCardsCount()\"></span>\n" +
+    "            </span>\n" +
+    "        </li>\n" +
+    "        <li class=\"submenu__item\" ng-class=\"{ active: $state.includes('base.cards.done') }\" ng-click=\"$state.go('base.cards.done')\">\n" +
+    "            <i class=\"fa fa-fw submenu__item-icon\" ng-class=\"{ 'fa-check-square': $state.includes('base.cards.done'), 'fa-check-square-o': !$state.includes('base.cards.done') }\"></i>\n" +
+    "            <span class=\"submenu__item-title\">Изученные\n" +
+    "                <span class=\"submenu__item-note\" ng-bind=\"CardsCtrl.getLearnedCardsCount()\"></span>\n" +
+    "            </span>\n" +
+    "        </li>\n" +
     "    </ul>\n" +
     "</div>\n" +
     "<div ui-view>\n" +

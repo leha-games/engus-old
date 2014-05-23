@@ -76,11 +76,13 @@ angular.module('engusApp').controller('ProfileStatisticsCtrl',
     function(Cards, CardService) {
         var self = this;
         this.profile = Cards;
+
         this.getLearnedCardsCount = function() {
-            return CardService.getLearned(Cards).length
+            return CardService.getLearnedCardsCount(Cards);
         };
+
         this.getNewCardsCount = function() {
-            return CardService.getToLearn(Cards).length
+            return CardService.getNewCardsCount(Cards);
         }
     }
 ]);
@@ -95,27 +97,34 @@ angular.module('engusApp').controller('CardsCtrl',
         this.newCardsLimitTo = 50;
         this.doneCardsLimitTo = 50;
         this.isFilterLearned = false;
+
         Cards.$promise.then(function() {
             self.loading = false;
         });
+
         this.saveCard = function(card) {
             card.$update();
         };
+
         this.removeCard = function(card) {
             CardService.removeCard(cards, card)
         };
+
         this.moveInLearned = function(card) {
             card.status = 'learned';
             card.$update();
         };
+
         this.moveInNew = function(card) {
             card.status = 'new';
             card.$update();
         };
+
         this.moveInKnown = function(card) {
             card.status = 'know';
             card.$update();
         };
+
         this.getToLearnLater = CardService.getToLearnLater;
         this.getToLearnNow = CardService.getToLearnNow;
         this.getLearned = CardService.getLearned;
@@ -127,6 +136,14 @@ angular.module('engusApp').controller('CardsCtrl',
         this.cardsToLearnLater = function() {
             CardService.getToLearnLater(Cards, Profile);
         };
+
+        this.getLearnedCardsCount = function() {
+            return CardService.getLearnedCardsCount(Cards);
+        };
+
+        this.getNewCardsCount = function() {
+            return CardService.getNewCardsCount(Cards);
+        }
 
     }
 ]);
@@ -304,6 +321,14 @@ angular.module('engusApp').factory('CardService',
             cardsToLearnLater = $filter('startFrom')(cardsToLearnLater, profile.learn_by);
             cardsToLearnLater = $filter('orderBy')(cardsToLearnLater, '-level');
             return cardsToLearnLater;
+        };
+
+        Card.getLearnedCardsCount = function(cards) {
+            return Card.getLearned(cards).length
+        };
+
+        Card.getNewCardsCount = function(cards) {
+            return Card.getToLearn(cards).length
         };
 
         return Card;

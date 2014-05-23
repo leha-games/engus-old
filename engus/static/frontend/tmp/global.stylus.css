@@ -469,6 +469,16 @@ button {
 .submenu__item.active {
   color: #326ea0;
 }
+.submenu__item-title {
+  position: relative;
+}
+.submenu__item-note {
+  font-size: 0.7rem;
+  color: #ccc;
+  position: absolute;
+  bottom: 0.3rem;
+  right: -0.9rem;
+}
 .submenu__item-icon {
   margin-right: 0.3rem;
 }
