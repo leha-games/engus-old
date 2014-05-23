@@ -507,21 +507,3 @@ angular.module('engusApp').directive('submitOn', function() {
         });
     };
 });
-
-angular.module('engusApp').directive('infiniteScroll',
-    ['$window',
-    function ($window) {
-        return {
-            link:function (scope, element, attrs) {
-                var $document = jQuery(document);
-                var $window = jQuery(window);
-                var $el = jQuery(element[0]);
-                angular.element(document).bind('scroll', function() {
-                    if ($document.scrollTop() + $window.height() > $el.offset().top + $el.height()) {
-                        console.log('check');
-                        scope.$apply(attrs.infiniteScroll);
-                    }
-                });
-            }
-        };
-}]);

@@ -1,4 +1,4 @@
-angular.module('engusApp', ['ngResource', 'ui.router', 'ngTouch'])
+angular.module('engusApp', ['ngResource', 'ui.router', 'ngTouch', 'infinite-scroll'])
 .config(['$resourceProvider', '$httpProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider',
     function($resourceProvider, $httpProvider, $locationProvider, $stateProvider, $urlRouterProvider) {
         $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
