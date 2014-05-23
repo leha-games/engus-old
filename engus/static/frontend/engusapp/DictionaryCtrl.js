@@ -128,8 +128,8 @@ angular.module('engusApp').controller('CardsCtrl',
         this.loading = true;
         var cards = this.cards = Cards;
         this.profile = Profile;
-        this.newCardsLimitTo = 5;
-        this.doneCardsLimitTo = 5;
+        this.newCardsLimitTo = 50;
+        this.doneCardsLimitTo = 50;
         this.isFilterLearned = false;
 
         Cards.$promise.then(function() {
@@ -181,13 +181,13 @@ angular.module('engusApp').controller('CardsCtrl',
 
         this.showMoreNewCards = function() {
             if (this.getNewCardsCount() > this.newCardsLimitTo) {
-                this.newCardsLimitTo += 5;
+                this.newCardsLimitTo += 50;
             }
         };
 
         this.showMoreLearnedCards = function() {
             if (this.getLearnedCardsCount() > this.doneCardsLimitTo) {
-                this.doneCardsLimitTo += 5;
+                this.doneCardsLimitTo += 50;
             }
         };
 
