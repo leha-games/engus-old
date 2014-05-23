@@ -30,7 +30,8 @@ angular.module('engusApp').controller('DictionaryWordCtrl',
         this.examples = WordExamples;
         this.loading = true;
         var cards = Cards;
-        var getWordCard = this.getWordCard = function () {
+
+        var getWordCard = function () {
             var wordCard = undefined;
             for (var i = 0; i < cards.length; i++) {
                 if (cards[i].word === word.word) {
@@ -39,9 +40,11 @@ angular.module('engusApp').controller('DictionaryWordCtrl',
             }
             return wordCard;
         };
+
         this.isWordInCards = function() {
             return !!(getWordCard());
         };
+
         Word.$promise.then(
             function(word) {
                 self.word.definitionGroups = _.groupBy(word.definition_set, 'part_of_speach');
@@ -52,11 +55,39 @@ angular.module('engusApp').controller('DictionaryWordCtrl',
                 self.loading = false;
             }
         );
+
         this.switchCard = function() {
             if (this.isWordInCards()) {
                 CardService.removeCard(cards, getWordCard());
             } else {
-                CardService.addCard(cards, self.word.word );
+                CardService.addCard(cards, self.word.word, 'new');
+            }
+        };
+
+        this.isCardNew = function() {
+            var card = getWordCard();
+            if (card) {
+                return CardService.isCardNew(card);
+            } else {
+                return false;
+            }
+        };
+
+        this.isCardLearned = function() {
+            var card = getWordCard();
+            if (card) {
+                return CardService.isCardLearned(card);
+            } else {
+                return false;
+            }
+        };
+
+        this.isCardKnown = function() {
+            var card = getWordCard();
+            if (card) {
+                return CardService.isCardKnown(card);
+            } else {
+                return false;
             }
         };
                 
@@ -272,8 +303,8 @@ angular.module('engusApp').factory('CardService',
             card.$remove()
         };
 
-        Card.addCard = function(cards, word) {
-            var newCard = new Card.resource({ word: word });
+        Card.addCard = function(cards, word, status) {
+            var newCard = new Card.resource({ word: word, status: status });
             cards.push(newCard);
             newCard.$save(function(savedCard) {
 //                cards.push(savedCard);
@@ -332,6 +363,18 @@ angular.module('engusApp').factory('CardService',
 
         Card.getNewCardsCount = function(cards) {
             return Card.getToLearn(cards).length
+        };
+
+        Card.isCardNew = function(card) {
+            return card.status === 'new';
+        };
+
+        Card.isCardLearned = function(card) {
+            return card.status === 'learned';
+        };
+
+        Card.isCardKnown = function(card) {
+            return card.status === 'know';
         };
 
         return Card;

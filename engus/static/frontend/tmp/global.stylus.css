@@ -677,8 +677,14 @@ button {
 .dictionary__word-star:hover {
   color: #00f;
 }
-.dictionary__word-star.active {
+.dictionary__word-star.new {
+  color: #7cfc00;
+}
+.dictionary__word-star.learned {
   color: #ffa500;
+}
+.dictionary__word-star.known {
+  color: #00bfff;
 }
 .dictionary__headword-transcription {
   font-size: 1.3rem;
@@ -1083,11 +1089,11 @@ button {
   background-color: #ffa500;
 }
 .cards__list-item-button_type_in-new {
-  color: #32cd32;
+  color: #7cfc00;
 }
 .cards__list-item-button_type_in-new:hover {
   color: #fff;
-  background-color: #32cd32;
+  background-color: #7cfc00;
 }
 .cards__list-item-button_type_in-known {
   color: #00bfff;

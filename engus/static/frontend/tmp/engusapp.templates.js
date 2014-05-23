@@ -177,7 +177,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "<div class=\"dictionary__word\">\n" +
     "    <header class=\"dictionary__word-header\">\n" +
     "        <h1 class=\"dictionary__headword\" ng-bind=\"WordCtrl.rawWord\"></h1>\n" +
-    "        <i ng-if=\"!WordCtrl.loading && WordCtrl.word.word\" ng-click=\"WordCtrl.switchCard()\" class=\"fa dictionary__word-star\" ng-class=\"{ 'fa-star-o': !(WordCtrl.isWordInCards()), 'fa-star active': WordCtrl.isWordInCards() }\"></i>\n" +
+    "        <i ng-if=\"!WordCtrl.loading && WordCtrl.word.word\" ng-click=\"WordCtrl.switchCard()\" class=\"fa dictionary__word-star\" ng-class=\"{ 'fa-star-o': !(WordCtrl.isWordInCards()), 'fa-star active': WordCtrl.isWordInCards(), 'new': WordCtrl.isCardNew(), 'learned': WordCtrl.isCardLearned(), 'known': WordCtrl.isCardKnown() }\"></i>\n" +
     "        <i ng-if=\"WordCtrl.loading\" class=\"fa fa-cog fa-spin dictionary__word-loading-icon\"></i>\n" +
     "    </header>\n" +
     "    <transcription ng-if=\"WordCtrl.word.transcription\" transcription=\"WordCtrl.word.transcription\" audio-src=\"WordCtrl.word.audio_url\"></transcription>\n" +
