@@ -513,11 +513,11 @@ angular.module('engusApp').directive('infiniteScroll',
     function ($window) {
         return {
             link:function (scope, element, attrs) {
-                var offset = parseInt(attrs.threshold) || 30;
-                var e = jQuery(element[0]);
-                var doc = jQuery(document);
                 angular.element(document).bind('scroll', function() {
-                    if (doc.scrollTop() + $window.innerHeight + offset > e.offset().top) {
+                    var $document = jQuery(document);
+                    var $window = jQuery(window);
+                    var $el = jQuery(element[0]);
+                    if ($document.scrollTop() + $window.height() > $el.offset().top + $el.height()) {
                         scope.$apply(attrs.infiniteScroll);
                     }
                 });

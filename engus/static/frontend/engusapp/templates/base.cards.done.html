@@ -3,10 +3,9 @@
         <i class="fa fa-play cards__begin-btn-playbtn"></i> Повторить
     </a>
 
-    <ul class="cards__list">
+    <ul class="cards__list" infinite-scroll="CardsCtrl.showMoreLearnedCards()">
         <li class="cards__list-item"
-        ng-repeat="card in CardsCtrl.getLearned(CardsCtrl.cards) | limitTo: CardsCtrl.doneCardsLimitTo"
-        infinite-scroll="CardsCtrl.showMoreLearnedCards()">
+        ng-repeat="card in CardsCtrl.getLearned(CardsCtrl.cards) | limitTo: CardsCtrl.doneCardsLimitTo">
 
             <span class="cards__list-item-word">
                 <a class="link" ui-sref="base.dictionary.word({ word: card.word })" ng-bind="card.word"></a>

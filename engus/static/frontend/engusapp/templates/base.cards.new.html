@@ -3,7 +3,7 @@
         <i class="fa fa-play cards__begin-btn-playbtn"></i> Начать изучение
     </a>
 
-    <ul class="cards__list">
+    <ul class="cards__list" infinite-scroll="CardsCtrl.showMoreNewCards()">
         <li class="cards__list-item"
         ng-repeat="card in CardsCtrl.getToLearnNow(CardsCtrl.cards, CardsCtrl.profile)">
 
@@ -20,8 +20,7 @@
         <li class="cards__list-item-after" ng-if="(CardsCtrl.cards | filter: {status: 'new'}).length > CardsCtrl.profile.learn_by">Позже</li>
 
         <li class="cards__list-item"
-        ng-repeat="card in CardsCtrl.getToLearnLater(CardsCtrl.cards, CardsCtrl.profile) | limitTo: CardsCtrl.newCardsLimitTo"
-        infinite-scroll="CardsCtrl.showMoreNewCards()">
+        ng-repeat="card in CardsCtrl.getToLearnLater(CardsCtrl.cards, CardsCtrl.profile) | limitTo: CardsCtrl.newCardsLimitTo">
 
             <div class="cards__list-item-word">
                 <a class="link" ui-sref="base.dictionary.word({ word: card.word })" ng-bind="card.word"></a>

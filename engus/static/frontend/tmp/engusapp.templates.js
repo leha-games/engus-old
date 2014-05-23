@@ -7,10 +7,9 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "        <i class=\"fa fa-play cards__begin-btn-playbtn\"></i> Повторить\n" +
     "    </a>\n" +
     "\n" +
-    "    <ul class=\"cards__list\">\n" +
+    "    <ul class=\"cards__list\" infinite-scroll=\"CardsCtrl.showMoreLearnedCards()\">\n" +
     "        <li class=\"cards__list-item\"\n" +
-    "        ng-repeat=\"card in CardsCtrl.getLearned(CardsCtrl.cards) | limitTo: CardsCtrl.doneCardsLimitTo\"\n" +
-    "        infinite-scroll=\"CardsCtrl.showMoreLearnedCards()\">\n" +
+    "        ng-repeat=\"card in CardsCtrl.getLearned(CardsCtrl.cards) | limitTo: CardsCtrl.doneCardsLimitTo\">\n" +
     "\n" +
     "            <span class=\"cards__list-item-word\">\n" +
     "                <a class=\"link\" ui-sref=\"base.dictionary.word({ word: card.word })\" ng-bind=\"card.word\"></a>\n" +
@@ -101,7 +100,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "        <i class=\"fa fa-play cards__begin-btn-playbtn\"></i> Начать изучение\n" +
     "    </a>\n" +
     "\n" +
-    "    <ul class=\"cards__list\">\n" +
+    "    <ul class=\"cards__list\" infinite-scroll=\"CardsCtrl.showMoreNewCards()\">\n" +
     "        <li class=\"cards__list-item\"\n" +
     "        ng-repeat=\"card in CardsCtrl.getToLearnNow(CardsCtrl.cards, CardsCtrl.profile)\">\n" +
     "\n" +
@@ -118,8 +117,7 @@ angular.module('engusApp').run(['$templateCache', function($templateCache) {
     "        <li class=\"cards__list-item-after\" ng-if=\"(CardsCtrl.cards | filter: {status: 'new'}).length > CardsCtrl.profile.learn_by\">Позже</li>\n" +
     "\n" +
     "        <li class=\"cards__list-item\"\n" +
-    "        ng-repeat=\"card in CardsCtrl.getToLearnLater(CardsCtrl.cards, CardsCtrl.profile) | limitTo: CardsCtrl.newCardsLimitTo\"\n" +
-    "        infinite-scroll=\"CardsCtrl.showMoreNewCards()\">\n" +
+    "        ng-repeat=\"card in CardsCtrl.getToLearnLater(CardsCtrl.cards, CardsCtrl.profile) | limitTo: CardsCtrl.newCardsLimitTo\">\n" +
     "\n" +
     "            <div class=\"cards__list-item-word\">\n" +
     "                <a class=\"link\" ui-sref=\"base.dictionary.word({ word: card.word })\" ng-bind=\"card.word\"></a>\n" +
