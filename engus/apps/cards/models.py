@@ -10,7 +10,7 @@ class Card(models.Model):
     KNOW = 'know'
     STATUS_CHOICES = (
         (NEW, 'New'),
-        (LEARNED, 'Leaned'),
+        (LEARNED, 'Learned'),
         (KNOW, 'Know'),
     )
     user = models.ForeignKey(User)
@@ -28,8 +28,8 @@ class Card(models.Model):
     def save(self, *args, **kw):
         if self.pk is not None:
             orig = Card.objects.get(pk=self.pk)
-            if orig.learned == False and self.learned == True:
+            if orig.status != Card.LEARNED and self.status == Card.LEARNED:
                 self.when_learned = datetime.datetime.now()
-            elif orig.learned == True and self.learned == False:
+            elif orig.status != Card.NEW and self.status == Card.NEW:
                 self.when_learned = None
         super(Card, self).save(*args, **kw)

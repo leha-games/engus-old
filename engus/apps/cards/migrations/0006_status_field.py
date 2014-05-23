@@ -9,9 +9,9 @@ class Migration(DataMigration):
     def forwards(self, orm):
         for card in orm.Card.objects.all():
             if card.learned:
-                card.status = 'new'
-            else:
                 card.status = 'learned'
+            else:
+                card.status = 'new'
             card.save()
 
     def backwards(self, orm):
