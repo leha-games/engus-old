@@ -16,7 +16,6 @@ class Card(models.Model):
     user = models.ForeignKey(User)
     word = models.ForeignKey(Word)
     created = models.DateTimeField(auto_now_add=True)
-    learned = models.BooleanField(default=False)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=NEW)
     when_learned = models.DateTimeField(null=True, blank=True)
     level = models.PositiveIntegerField(default=0)
