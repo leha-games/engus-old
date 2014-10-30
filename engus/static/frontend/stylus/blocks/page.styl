@@ -1,0 +1,79 @@
+$color(n)
+    rgba(50,110,160,n)
+
+.page {
+    line-height: 1.4;
+
+    &__form {
+        max-width: 400px;
+        margin: 2rem auto;
+        color: #000;
+
+        @media (max-width: 450px) {
+            padding: 1rem 1rem 0.3rem;
+        }
+
+        &-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        p {
+            margin: 0.3rem 0 1rem;
+
+            &.centered {
+                text-align: center;
+            }
+        }
+
+        a {
+            /*color: #000 !important;*/
+
+            &:hover {
+                border-bottom: 1px solid #fff;
+            }
+        }
+
+        .errorlist {
+            border-left: 3px solid red;
+            padding-left: 0.7rem;
+            font-size: 0.85rem;
+        }
+
+        label {
+            font-size: 0.8rem;
+            margin-bottom: 0.35rem;
+            display: block;
+        }
+
+        input {
+            display: block;
+            box-sizing: border-box;
+            width: 100%;
+            border: 1px solid #ccc;
+            padding: 0.5rem 0.5rem;
+            color: #000;
+            background-color: #fff;
+            border-radius: 0;
+        }
+
+        input[type="submit"] {
+            margin: 1.7rem 0;
+            padding: 0.5rem 0;
+            font-size: 1.1rem;
+            text-align: center;
+            color: blue;
+            font-weight: bold;
+            border: none;
+            outline: none;
+            background: rgba(255,255,255,0);
+            cursor: pointer;
+            text-decoration: none;
+
+            &:hover {
+                color: red;
+            }
+        }
+    }
+}

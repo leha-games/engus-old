@@ -65,7 +65,7 @@ angular.module('engusApp', ['ngResource', 'ui.router', 'ngTouch', 'infinite-scro
             })
             .state('base.cards.new', {
                 url: 'new/',
-                templateUrl: 'templates/base.cards.new.html',
+                templateUrl: 'templates/base.cards.new.html'
             })
             .state('base.cards.done', {
                 url: 'done/',

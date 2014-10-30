@@ -2,11 +2,12 @@
 
 global-reset()
 
-@import 'hacks.styl';
+@import 'hacks';
 
 .html {
     font-size: 20px;
-    font-family: "PT Sans", "Helvetica Neue",Helvetica,Arial,sans-serif
+    font-family: Helvetica ,sans-serif;
+    font-weight: 100;
 
     @media (max-width: 1200px) {
         font-size: 19px;
@@ -21,20 +22,17 @@ global-reset()
     }
 }
 
-* {
-    -webkit-tap-highlight-color: transparent;
-}
+container()
+    display block
+    max-width 1100px
+    margin 0 auto
+    padding 0 15px
+
+column(x)
+    display inline-block
+    width (100% / 12) * x
+    vertical-align top
+    box-sizing border-box
 
 // blocks:
-@import 'link.styl';
-@import 'page.styl';
-@import 'submenu.styl';
-@import 'homepage.styl';
-@import 'content.styl';
-@import 'app.styl';
-@import 'dictionary.styl';
-@import 'definition.styl';
-@import 'cards.styl';
-@import 'topmenu.styl';
-@import 'learning.styl';
-@import 'settings.styl';
+@import 'blocks/*'

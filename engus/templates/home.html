@@ -2,109 +2,21 @@
 
 {% load staticfiles %}
 
-{% block headercontent %}
-    {% if user.is_authenticated %}
-        <a class="homepage__regbutton" href="{% url "app" %}">Войти</a>
-    {% else %}
-        <a class="homepage__regbutton" href="{% url "django.contrib.auth.views.login" %}">Войти</a>
-        <a class="homepage__regbutton" href="{% url "registration_register" %}">Регистрация</a>
-    {% endif %}
-{% endblock %}
-
-{% block splashclass %}page__splash_type_flexbox{% endblock %}
-
-{% block splashcontent %}
-    <div class="page__splash-textblock">
-        <div class="page__splash-container">
-            <h1 class="homepage__title">
-                <span class="homepage__title-container">
-                    Ингус – изучение английских слов в контексте по карточкам
-                </span>
-            </h1>
-            <p class="homepage__clarification">
-                Сервис Ингус разработан для упрощения задачи пополнения словарного запаса английскими словами. В удобном словаре Ингус представлены более 30 000 слов с определением на русском и английском языке, транскрипцией, произношением и примерами употребления. Прямо из словаря добавьте незнакомое слово в карточки для изучения. При повторении карточек демонстрируются примеры употребления слова. Таким образом запоминание слов происходит в контексте их употребления. Сайт engus.ru адаптирован для мобильных устройств. Повторять карточки можно по дороге на работу, в пробке.
-            </p>
-        </div>
-    </div>
-{% endblock %}
-
 {% block content %}
-    <section class="homepage__features">
-        <ul class="page__container">
-            <li class="homepage__feature">
-                <img class="homepage__feature-img" src="{% static "img/repeat.jpg" %}">
-                <h2 class="homepage__feature-title">Повторения</h2>
-                <p class="homepage__feature-text">Повторения это естественный способ запомнить иностранные слова. В Engus при повторении вы сами определяете, насколько хорошо запомнили слово. Некоторые слова сложно поддаются изучению. Просто чаще повторяйте их и добейтесь своего! :)</p>
-            </li><!--
-            --><li class="homepage__feature">
-                <img class="homepage__feature-img" src="{% static "img/context.jpg" %}">
-                <h2 class="homepage__feature-title">Контекст</h2>
-                <p class="homepage__feature-text">Намного проще запомнить слово в контексте фразы, предложения. В контексте вы можете прочувствовать смысл слова, у вас останется эмоциональный след. Engus специально для вас подобрал предложения с каждым словом, много предложений!</p>
-            </li><!--
-            --><li class="homepage__feature">
-                <img class="homepage__feature-img" src="{% static "img/brain.jpg" %}">
-                <h2 class="homepage__feature-title">Возможности</h2>
-                <p class="homepage__feature-text">Используй возможности своего мозга на 100%. Как насчет визуальной памяти? Ведь лучше один раз увидеть, чем сто раз услышать. В Engus, для лучшего запоминания, к примерам употребления слов подобраны соответсвующие иллюстации.</p>
-            </li><!--
-            --><li class="homepage__feature">
-                <img class="homepage__feature-img" src="{% static "img/dictionary.jpg" %}">
-                <h2 class="homepage__feature-title">Словарь</h2>
-                <p class="homepage__feature-text">Полное определение, транскрипция, произношение каждого слова. Определение на русском и английском языке. После того, как выучите необходимый минимум лексики, переключайтесь в английский режми, для более полного понимания смысла слов.</p>
-            </li><!--
-            --><li class="homepage__feature">
-                <img class="homepage__feature-img" src="{% static "img/american-flag.jpg" %}">
-                <h2 class="homepage__feature-title">Американский</h2>
-                <p class="homepage__feature-text">Американский английский более распространен, чем его британский аналог. На американском производится огромное количество контента: фильмы, телешоу, компьютерные игры, книги. Кроме того, британцы вас поймут :)</p>
-            </li><!--
-            --><li class="homepage__feature">
-                <img class="homepage__feature-img" src="{% static "img/mobile.jpg" %}">
-                <h2 class="homepage__feature-title">Адаптация</h2>
-                <p class="homepage__feature-text">Engus адаптирован для мобильных устройств. Повторяйте слова в пробках и поездках до работы. Смотрите перевод слова прямо с мобильного, когда читаете или смотрите фильм.</p>
-            </li>
-        </ul>
-    </section>
-    <section class="homepage__howto">
-        <div class="page__container">
-            <h2 class="homepage__howto-title">
-                Изучение английского вместе с&nbsp;Engus.<br> 
-                <b class="homepage__howto-title-bold">Быстро и&nbsp;интересно.</b>
-            </h2>
-            <ol class="homepage__howto-list">
-                <li class="homepage__howto-list-item">
-                    Начните читать интересную вам книгу, или смотреть интересный фильм с субтитрами.
-                </li>
-                <li class="homepage__howto-list-item">
-                    Если вам встретилось незнакомое слово, посмотрите его перевод в словаре Ингус.
-                    <img class="homepage__howto-screen" src="{% static "img/screen1.png" %}">
-                </li>
-                <li class="homepage__howto-list-item">
-                    Можете добавить слово в карточки. Для этого нажмите на звезду рядом со словом. Она станет оранжевой.
-                    <img class="homepage__howto-screen" src="{% static "img/screen2.png" %}">
-                </li>
-                <li class="homepage__howto-list-item">
-                    В любое время начните повторять слова, которые вы добавили в карточки.
-                    <img class="homepage__howto-screen" src="{% static "img/screen3.png" %}">
-                </li>
-                <li class="homepage__howto-list-item">
-                    Просмотрите слово, прослушайте его перевод, прочитайте пример употребления. Попытайтесь вспомнить, что означает данное слово. После этого нажмите "Показать определение".
-                    <img class="homepage__howto-screen" src="{% static "img/screen4.png" %}">
-                </li>
-                <li class="homepage__howto-list-item">
-                    Просмотрите определение. Если вы правильно вспомнили значение слова, отлично! Нажмите "Вспомнил". Если же вспомнить не удалось, нажмите "Забыл". Это значит, что в следующий раз вы в первую очередь повторите это слово.
-                    <img class="homepage__howto-screen" src="{% static "img/screen5.png" %}">
-                </li>
-                <li class="homepage__howto-list-item">
-                    Повторяйте слова в любое удобное вам время. На мобильном телефоне, на планшете, на компьютере.
-                </li>
-                <li class="homepage__howto-list-item">
-                    Таким образом вы будете запоминать до 3000 слов за месяц и вскоре начнете свободно читать и понимать английскую речь. А при небольшой практике, даже разговаривать на английском! 
-                </li>
-            </ol>
-            {% if user.is_authenticated %}
-                <a class="homepage__registration-big-button" href="{% url "app" %}">Войти</a>
-            {% else %}
-                <a class="homepage__registration-big-button" href="{% url "registration_register" %}">Регистрация</a>
-            {% endif %}
-        </div>
-    </section>
+    <h1 style="margin: 1rem 0; text-align: center; font-size: 1.2rem;">Лучший способ запоминания английских слов</h1>
+    <p style="text-align: justify;">
+        <b style="font-weight: 400">Хотите выучить английский – учите слова.</b> Слова это фундамент, на котором можно построить умение читать, слушать, писать и разговаривать.
+        На Ингус.ру Вы можете создать свой набор карточек с английскими словами.
+        <strong style="font-weight: 400;">Карточки</strong> – это проверенный временем способ пополнить словарный запас.
+        Да, изучение по карточкам это непросто, Вам придется <strong style="font-weight: 400;">потрудиться</strong>.
+        Автор Ингус.ру не создал пилюли, которая позволит Вам изучить английский за неделю.
+        Несколько месяцев упорного труда, и Вы сможете свободно читать английские тексты.
+        Задумайтесь: всего <strong style="font-weight: 400;">3000 слов</strong> Вам будет <strong style="font-weight: 400;">достаточно</strong> для понимания английской разговорной речи <strong style="font-weight: 400;">на 90%</strong>.
+        Беритесь за дело!
+        Приложенные Вами усилия многократно окупятся.
+        Ингус.ру абсолютно бесплатный для использования.<br>
+        Email для отзывов и предложений <a class="link" href="mailto:alexey@engus.ru">alexey@engus.ru</a>
+    </p>
+    <p style="text-align: center; margin: 1rem 0;"><a class="link" href="{% url "registration_register" %}">Регистрация</a></p>
+    <p style="text-align: center; margin: 1rem 0;"><a class="link" href="{% url "django.contrib.auth.views.login" %}">Войти</a></p>
 {% endblock %}

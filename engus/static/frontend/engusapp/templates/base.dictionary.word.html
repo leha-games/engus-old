@@ -44,7 +44,7 @@
         <div class="dictionary__mueller" ng-bind-html="WordCtrl.word.mueller_definition | mueller"></div>
         <ul class="definition__examples-list" ng-if="WordCtrl.examples.length">
             <li ng-repeat="example in WordCtrl.examples">
-                <div class="definition__example" 
+                <span class="definition__example"
                     ng-click="!!(example.illustration_url) && (example.showIllustration = true)"  
                     ng-hide="!!(example.showIllustration)"
                     ng-class="{ 'with-illustration': example.illustration_url }" 
@@ -54,11 +54,11 @@
                     <span ng-bind-html="example.text | markWord:WordCtrl.word.word"></span>
                     <i ng-if="example.illustration_url" class="fa fa-picture-o definition__example-illustration-icon" ng-class="{ 'hover': exampleHover }"></i>
                     <span ng-if="example.russian_translation">— {{ example.russian_translation }}</span>
-                </div>
-                <div ng-if="example.illustration_url && example.showIllustration" ng-click="example.showIllustration = false" class="definition__example-with-illustration">
+                </span>
+                <span ng-if="example.illustration_url && example.showIllustration" ng-click="example.showIllustration = false" class="definition__example-with-illustration">
                     <img class="definition__illustration" ng-src="{{ example.illustration_url }}">
                     <div class="definition__illustration-text" ng-bind-html="example.text | markWord:WordCtrl.word.word"></div>
-                </div>
+                </span>
             </li>
         </ul>
     </section>

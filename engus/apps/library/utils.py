@@ -21,13 +21,8 @@ def strip_change_the_ie_to_y_rule(word):
     return re.sub('ying$', 'ie', word)
 
 
-def strip_non_characters(word):
-    return re.sub("[^a-zA-Z]+", "", word)
-
-
 def find_words(text_file):
-    words = text_file.read().lower().split()
-    words = [strip_non_characters(word) for word in words]
+    words = re.findall(r'[A-Za-z]{2,}', text_file.read().lower())
     return collections.Counter(words)
 
 
@@ -56,11 +51,3 @@ def save_material_words(material_obj, words):
         # else:
             # if count > 1:
             # print word, count
-
-
-def not_found_words(material):
-    material_words = material.materialword_set.all()
-    dictionary_words = Word.objects.all()
-    for word in dictionary_words:
-        if word not in material_words:
-            pass

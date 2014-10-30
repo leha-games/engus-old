@@ -16,9 +16,9 @@ module.exports = function(grunt) {
                         'bower_components/angular-ui-router/release/angular-ui-router.min.js',
                         'bower_components/angular-touch/angular-touch.min.js',
                         'bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js',
-                        'engusapp/app.js', 
-                        'engusapp/DictionaryCtrl.js', 
-                        '<%= ngtemplates.engusApp.dest %>' 
+                        'engusapp/app.js',
+                        'engusapp/DictionaryCtrl.js',
+                        '<%= ngtemplates.engusApp.dest %>'
                     ]
                 }
             }
@@ -37,7 +37,7 @@ module.exports = function(grunt) {
             dist: {
                 files: {
                     '../css/global.min.css': [
-                        'bower_components/font-awesome/css/font-awesome.min.css', 
+                        'bower_components/font-awesome/css/font-awesome.min.css',
                         'tmp/global.stylus.css'
                     ]
                 }
@@ -51,7 +51,7 @@ module.exports = function(grunt) {
             }
         },
         watch: {
-            files: ['stylus/*', 'engusapp/**/*'],
+            files: ['stylus/**', 'engusapp/**/*'],
             tasks: ['stylus', 'csso', 'ngtemplates', 'uglify']
         }
     });

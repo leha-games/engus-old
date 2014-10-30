@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">      
     <title>{% block pagetitle %}{% if page_title %}{{ page_title }}. {% endif %}{% endblock %}Engus. Запоминание английских слов. Карточки с примерами употребления</title>
     {% load staticfiles %}
-    <link rel="shortcut icon" href="{% static "img/favicon.ico" %}" type="image/x-icon">
-    <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico">
     <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{% static "css/global.min.css" %}"/>
     {% block extrastyles %}{% endblock %}
@@ -16,31 +15,35 @@
 </head>
 <body class="page">
 
-    {% block splash %}
-    <section class="page__splash {% block splashclass %}{% endblock %}">
-        <header class="page__splash-container">
-            <h1 class="page__title"><a class="page__title-link" href="{% url "home" %}">Engus</a></h1>
-            {% block headercontent %}
-            {% endblock %}
-        </header>
-        {% block splashcontent %}
-        {% endblock %}
-    </section>
-    {% endblock %}
 
+    <header class="topmenu">
+        <div class="topmenu__title"><a class="topmenu__title-link" href="/">Engus</a></div>
+        <ul class="topmenu__items">
+            <li class="topmenu__item">
+                <a href="{% url "app" %}#/dictionary/" class="topmenu__item-link">
+                    <i class="fa fa-book topmenu__item-icon"></i>
+                    <span class="topmenu__item-text">Словарь</span>
+                </a>
+            </li>
+            <li class="topmenu__item">
+                <a href="{% url "app" %}#/cards/new/" class="topmenu__item-link">
+                    <i class="fa topmenu__item-icon fa-star-o"></i>
+                    <span class="topmenu__item-text">Карточки</span>
+                </a>
+            </li>
+            <li class="topmenu__item">
+                <a href="{% url "app" %}#/profile/" class="topmenu__item-link">
+                    <i class="fa fa-user topmenu__item-icon"></i>
+                    <span class="topmenu__item-text">Профиль</span>
+                </a>
+            </li>
+        </ul>
+    </header>
+
+    <div class="content">
     {% block content %}
     {% endblock %}
-    
-    <script>
-        function splashMinHeight() {
-            var splashes = document.getElementsByClassName('page__splash');
-            for (var i = 0; i < splashes.length; ++i) {
-                splashes[i].style.minHeight = window.innerHeight + 'px';
-            }
-        }
-        splashMinHeight();
-        window.onresize = splashMinHeight;
-    </script>
+    </div>
 
     {% if not debug and not user.is_superuser %}
         {% comment %} Analytics {% endcomment %}

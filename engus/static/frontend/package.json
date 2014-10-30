@@ -4,8 +4,8 @@
   "private": true,
   "dependencies": {},
   "devDependencies": {
-    "grunt-contrib-stylus": "~0.8.0",
-    "grunt": "~0.4.1",
+    "grunt-contrib-stylus": "0.20.0",
+    "grunt": "*",
     "nib": "~1.0.1",
     "grunt-contrib-watch": "~0.5.3",
     "grunt-reload": "~0.2.0",
